@@ -11,7 +11,6 @@
         body {
             font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
-            position: relative;
             margin: 0;
             padding: 0;
         }
@@ -27,10 +26,24 @@
 
         .content {
             position: relative;
-            padding-top: 50mm;
+            padding-top: 40mm;
             padding-left: 20mm;
             padding-right: 20mm;
             z-index: 1;
+            word-wrap: break-word;
+        }
+
+        .top-ref {
+            text-align: left;
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 10px 0 15px;
         }
 
         table {
@@ -39,17 +52,35 @@
             margin-top: 10px;
         }
 
-        th, td {
-            padding: 8px;
+        td, th {
+            padding: 5px;
             border: 1px solid black;
             text-align: center;
+            word-wrap: break-word;
         }
 
-        .title {
-            text-align: center;
-            font-size: 16px;
+        .info-table td {
+            border: none;
+            padding: 3px 0;
+            word-wrap: break-word;
+        }
+
+        .section-title {
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .reason {
+            border: 1px solid black;
+            padding: 5px;
+            min-height: 50px;
+            margin-top: 5px;
+            word-wrap: break-word;
+        }
+
+        .avis-table th, .avis-table td {
+            height: 80px;
         }
     </style>
 </head>
@@ -58,16 +89,24 @@
     <img src="{{ public_path('images/background.png') }}" class="background">
 
     <div class="content">
+
+        <div class="top-ref">Ref : Form-Apogee1</div>
+
         <div class="title">Demande d’inscription administrative à une année antérieure</div>
 
-        <p><strong>Etablissement:</strong> {{ $data['etbl'] }}</p>
-        <p><strong>Date de la demande:</strong> {{ $data['dateDM'] }}</p>
-        <p><strong>Cycle:</strong> {{ $data['typ'] }}</p>
-        <p><strong>Filière:</strong> {{ $data['flr'] }}</p>
-        <p><strong>Nature de la demande:</strong> {{ $data['nrtDM'] }}</p>
-        <p><strong>Année d’inscription concernée:</strong> {{ $data['aneINS'] }}</p>
+        <table class="info-table">
+            <tr>
+                <td><strong>Etablissement :</strong> {{ $data['etbl'] }}</td>
+                <td style="text-align: right;"><strong>Date de la demande :</strong> {{ $data['dateDM'] }}</td>
+            </tr>
+        </table>
 
-        <h3>Liste des Étudiants :</h3>
+        <p><strong>Cycle :</strong> {{ $data['typ'] }}</p>
+        <p><strong>Filière :</strong> {{ $data['flr'] }}</p>
+        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
+        <p><strong>Année d’inscription concernée :</strong> {{ $data['aneINS'] }}</p>
+
+        <div class="section-title">Liste des Étudiants :</div>
         <table>
             <thead>
                 <tr>
@@ -85,24 +124,23 @@
             </tbody>
         </table>
 
-        <h4>La raison du retard :</h4>
-        <p>{{ $data['mtf'] }}</p>
+        <div class="section-title">La raison du retard :</div>
+        <div class="reason">
+            {{ $data['mtf'] }}
+        </div>
 
-        <br><br>
-
-        <!-- Approval Table with 4 Columns -->
-        <table>
+        <table class="avis-table" style="margin-top: 30px;">
             <thead>
                 <tr>
                     <th>Avis du Coordinateur de la filière</th>
                     <th>Avis du responsable administratif</th>
                     <th>Avis du Chef d'établissement</th>
-                    <th>Avis du Président de l'Université</th>
+                    <th>Avis du Président de l’Université</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td style="height: 100px;"></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

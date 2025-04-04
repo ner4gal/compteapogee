@@ -44,7 +44,7 @@ class CompteFonctionnelApogeeGoogleDocsController extends Controller
                 '{{nomPrenomUser}}' => $request->input('nomPrenomUser'),
                 '{{userName}}' => $request->input('userName'),
                 '{{fonction}}' => $request->input('fonction'),
-                '{{strg1}}' => $request->input('strg1'),
+                '{{strg1}}' => implode(', ', $request->input('centre_gestion', [])),
                 '{{strg2}}' => $request->input('strg2'),
                 '{{strg3}}' => $request->input('strg3'),
                 '{{strg4}}' => $request->input('strg4'),

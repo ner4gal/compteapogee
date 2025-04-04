@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('title', 'Accueil - Portail des Demandes Administratives')
-
 @section('content')
+
+
      <!-- Page Content -->
      <div class="bg-body-extra-light">
         <div class="content content-full">
@@ -19,7 +20,7 @@
 
           <!-- Quick Menu -->
           <div class="row">
-            <div class="col-6 col-md-4 col-xl-4">
+            <div class="col-12 col-md-6 col-xl-6">
               <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
                 <div class="block-content">
                   <p class="my-2">
@@ -29,19 +30,8 @@
                 </div>
               </a>
             </div>
-            <div class="col-8 col-md-6 col-xl-4">
-              <a class="block block-rounded block-bordered block-link-shadow ribbon ribbon-modern ribbon-primary text-center"
-                href="{{  route('Profile') }}">
-                <div class="block-content">
-                  <p class="my-2">
-                    <i class="fa fa-user-tie fa-2x text-muted"></i>
-                  </p>
-                  <p class="fw-semibold">Profile</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-6 col-md-4 col-xl-4">
-              <a class="block block-rounded block-bordered block-link-shadow text-center" href="javascript:void(0)">
+            <div class="col-12 col-md-6 col-xl-6">
+              <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('Demands') }}">
                 <div class="block-content">
                   <p class="my-2">
                     <i class="fa fa-file-word fa-2x text-muted"></i>
@@ -97,7 +87,7 @@
               </a>
             </div>
             <div class="col-md-6 col-xl-3">
-              <a class="block block-rounded block-bordered" href="{{ route('inscription-annee-anterieure') }}">
+              <a class="block block-rounded block-bordered" href="{{ route('calcul.notes.show') }}">
                 <div class="block-content p-2">
                   <div class="py-5 text-center bg-body-light rounded">
                   <p class="my-2">
@@ -115,26 +105,14 @@
             <i class="fa fa-angle-right text-muted me-1"></i> Doctorat
           </h2>
           <div class="row">
-            <div class="col-md-6 col-xl-6">
-              <a class="block block-rounded block-bordered" href="javascript:void(0)">
+            <div class="col-md-6 col-xl-12">
+              <a class="block block-rounded block-bordered" href="{{ route('doctorat.inscription.show')  }}">
                 <div class="block-content p-2">
                   <div class="py-5 text-center bg-body-light rounded">
                   <p class="my-2">
                     <i class="fa fa-graduation-cap fa-2x text-muted"></i>
                     </p>
                     <div class="fs-sm fw-semibold text-uppercase">Inscription Doctorat</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="col-md-6 col-xl-6">
-              <a class="block block-rounded block-bordered" href="javascript:void(0)">
-                <div class="block-content p-2">
-                  <div class="py-5 text-center bg-body-light rounded">
-                    <p class="my-2">
-                    <i class="fa fa-book fa-2x text-muted"></i>
-                    </p>
-                    <div class="fs-sm fw-semibold text-uppercase">Nouvelle Spécialité Doctorat</div>
                   </div>
                 </div>
               </a>

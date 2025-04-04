@@ -1,28 +1,16 @@
 /*
- * Set Theme (dark mode + color theme)
- *
+ * Force Light Mode Always
  */
-
 let lHtml = document.documentElement;
-let rememberDarkMode = !lHtml.classList.contains("dark-custom-defined");
+
+// Always remove dark class
+lHtml.classList.remove("dark");
+
+// Clear any dark mode preference
+localStorage.setItem("dashmixDarkMode", "off");
+
+// Optional: block theme from running if needed
 let rememberTheme = lHtml.classList.contains("remember-theme");
-
-if (rememberDarkMode) {
-  // Set Dark mode
-  let darkModePreference = localStorage.getItem("dashmixDarkMode");
-
-  if (darkModePreference === "on") {
-    lHtml.classList.add("dark");
-  } else if (darkModePreference === "off") {
-    lHtml.classList.remove("dark");
-  } else if (darkModePreference === "system") {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      lHtml.classList.add("dark");
-    } else {
-      lHtml.classList.remove("dark");
-    }
-  }
-}
 
 if (rememberTheme) {
   let colorTheme = localStorage.getItem("dashmixColorTheme");

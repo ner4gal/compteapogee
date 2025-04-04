@@ -4,112 +4,98 @@
 
 @section('content')
   <!-- Page Content -->
-  <main id="main-container">
-    <!-- Page Content -->
-     
-    <div class="content content-full content-boxed">
-      <!-- Quick Menu -->
-      <div class="row">
-            <div class="col-6 col-md-4 col-xl-4">
-              <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
-                <div class="block-content">
-                  <p class="my-2">
-                    <i class="fa fa-compass fa-2x text-muted"></i>
-                  </p>
-                  <p class="fw-semibold">Home</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-8 col-md-6 col-xl-4">
-              <a class="block block-rounded block-bordered block-link-shadow ribbon ribbon-modern ribbon-primary text-center"
-                href="{{  route('Profile') }}">
-                <div class="block-content">
-                  <p class="my-2">
-                    <i class="fa fa-user-tie fa-2x text-muted"></i>
-                  </p>
-                  <p class="fw-semibold">Profile</p>
-                </div>
-              </a>
-            </div>
-            <div class="col-6 col-md-4 col-xl-4">
-              <a class="block block-rounded block-bordered block-link-shadow text-center" href="javascript:void(0)">
-                <div class="block-content">
-                  <p class="my-2">
-                    <i class="fa fa-file-word fa-2x text-muted"></i>
-                  </p>
-                  <p class="fw-semibold">Les Demandes Administratives</p>
-                </div>
-              </a>
-            </div>
-          </div>
-          <!-- END Quick Menu -->
+  <div class="bg-body-extra-light">
+    <div class="content content-full">
+    <!-- Breadcrumb -->
 
+    <!-- END Breadcrumb -->
 
-    <!-- Edit Account -->
-    <div class="block block-bordered block-rounded">
+    <!-- Quick Menu -->
+    <div class="row">
 
-      <!-- Voter APOGEE Profile Form (All-in-One) -->
-      <form action="{{ route('apogee-user.store') }}" method="POST">
+    </div>
+    <!-- END Quick Menu -->
+
+    <!-- Quick Stats -->
+    <div class="row">
+  <div class="col-12">
+    <a class="block block-rounded block-link-shadow" href="javascript:void(0)">
+      <div class="py-4 text-center">
+        <div class="mb-3">
+          <i class="fa fa-user fa-3x text-xpro"></i>
+        </div>
+        <div class="col-12 fs-sm-4 fs-5 fw-semibold">
+          <span class="badge rounded-pill bg-danger d-inline-block text-wrap">
+            <i class="fa fa-fw fa-times-circle"></i> 
+            Bienvenue ! Merci de compléter votre compte APOGEE et de définir vos privilèges pour accéder au portail.
+          </span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+    <!-- END Quick Stats -->
+    <form action="{{ route('apogee-user.store') }}" method="POST">
       @csrf
       <div class="block block-bordered block-rounded">
-        <div class="block-header block-header-default">
+      <div class="block-header block-header-default">
         <h3 class="block-title">Voter APOGEE Profile</h3>
-        </div>
-        <div class="block-content">
+      </div>
+      <div class="block-content">
         <div class="row">
-          <div class="col-md-6">
+        <div class="col-md-6">
           <div class="mb-4">
-            <label class="form-label" for="etablissement">Etablissement</label>
-            <select class="form-select" id="etablissement" name="etablissement">
+          <label class="form-label" for="etablissement">Etablissement</label>
+          <select class="form-select" id="etablissement" name="etablissement">
             <option value="Faculté des Langues des Lettres et des Arts">Faculté des Langues des Lettres et des
-              Arts</option>
+            Arts</option>
             <option value="Faculté des Sciences Humaines et Sociales">Faculté des Sciences Humaines et
-              Sociales</option>
+            Sociales</option>
             <option value="Faculté des Sciences">Faculté des Sciences</option>
             <option value="Faculté d'Economie et de Gestion">Faculté d'Economie et de Gestion</option>
             <option value="Faculté des Sciences Juridiques et Politiques">Faculté des Sciences Juridiques et
-              Politiques</option>
+            Politiques</option>
             <option value="Ecole Nationale de Commerce et de Gestion">Ecole Nationale de Commerce et de
-              Gestion</option>
+            Gestion</option>
             <option value="Ecole Nationale des Sciences Appliquées">Ecole Nationale des Sciences Appliquées
             </option>
             <option value="Ecole Supérieure de Technologie">Ecole Supérieure de Technologie</option>
             <option value="Ecole Nationale Supérieure de Chimie">Ecole Nationale Supérieure de Chimie</option>
             <option value="Ecole Supérieure d'Education et de Formation">Ecole Supérieure d'Education et de
-              Formation</option>
+            Formation</option>
             <option value="Institut des Métiers de Sport">Institut des Métiers de Sport</option>
-            </select>
+          </select>
           </div>
           <div class="mb-4">
-            <label class="form-label">Nom et Prénom</label>
-            <input type="text" class="form-control" name="nom_prenom" value="{{ auth()->user()->name }}" readonly>
+          <label class="form-label">Nom et Prénom</label>
+          <input type="text" class="form-control" name="nom_prenom" value="{{ auth()->user()->name }}" readonly>
           </div>
           <div class="mb-4">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" value="{{ auth()->user()->email }}" readonly>
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" value="{{ auth()->user()->email }}" readonly>
           </div>
           <div class="mb-4">
-            <label class="form-label">Fonction</label>
-            <input type="text" class="form-control" name="fonction">
+          <label class="form-label">Fonction</label>
+          <input type="text" class="form-control" name="fonction">
           </div>
           <div class="mb-4">
-            <label class="form-label">Téléphone</label>
-            <input type="text" class="form-control" name="telephone">
+          <label class="form-label">Téléphone</label>
+          <input type="text" class="form-control" name="telephone">
           </div>
           <div class="mb-4">
-            <label class="form-label">Nom d’utilisateur APOGEE</label>
-            <input type="text" class="form-control" name="nom_utilisateur_apogee">
+          <label class="form-label">Nom d’utilisateur APOGEE</label>
+          <input type="text" class="form-control" name="nom_utilisateur_apogee">
           </div>
           <div class="mb-4">
-            <label class="form-label">Adresse MAC de l'ordinateur</label>
-            <input type="text" class="form-control" name="mac_address">
+          <label class="form-label">Adresse MAC de l'ordinateur</label>
+          <input type="text" class="form-control" name="mac_address">
           </div>
-          </div>
+        </div>
 
-          <div class="col-md-6">
+        <div class="col-md-6">
           <div class="mb-4">
-            <label class="form-label">Centre de Gestion</label>
-            <select class="form-select" name="centre_gestion[]" multiple>
+          <label class="form-label">Centre de Gestion</label>
+          <select class="selectcls" name="centre_gestion[]" multiple="multiple" style="width: 100%">
             <option value="GLA">Cent Gestion Lic fac Langue, litt,art / GLA</option>
             <option value="FCC">Centre Gestion FC ENCG / FCC</option>
             <option value="MGA">Centre Gestion Master F Lang Lettre Arts / MGA</option>
@@ -135,11 +121,11 @@
             <option value="CGJ">Centre gestion FacSc Juridique Politique / CGJ</option>
             <option value="CDE">Centre étude doctorale ENSA / CDE</option>
             <option value="CDL">Centre de gestion CED Lettres et sc.Huma / CDL</option>
-            </select>
+          </select>
           </div>
           <div class="mb-4">
-            <label class="form-label">Centre Traitement</label>
-            <select class="form-select" name="centre_traitement[]" multiple>
+          <label class="form-label">Centre Traitement</label>
+          <select class="selectcls" name="centre_traitement[]" multiple="multiple" style="width: 100%">
             <option value="CTL">CT ScHumS / CTL</option>
             <option value="CTK">CT DOC ENCG / CTK</option>
             <option value="CTG">CTGéstion / CTG</option>
@@ -167,11 +153,12 @@
             <option value="CEC">CTN_ENSC / CEC</option>
             <option value="CTS">CTSciences / CTS</option>
             <option value="CTE">CT_NSA_DOC / CTE</option>
-            </select>
+          </select>
           </div>
           <div class="mb-4">
-            <label class="form-label">Centre d'inscription pédagogique</label>
-            <select class="form-select" name="centre_inscription_pedagogique[]" multiple>
+          <label class="form-label">Centre d'inscription pédagogique</label>
+          <select class="selectcls" name="centre_inscription_pedagogique[]" multiple="multiple"
+            style="width: 100%">
             <option value="MPD">Centre Inscrip pédag Mast FSJES / MPD</option>
             <option value="PMS">Centre Inscrip pédagog Mét Sport / PMS</option>
             <option value="PFC">Centre Inscript pédag ForConti ENCG / PFC</option>
@@ -191,11 +178,11 @@
             <option value="CPK">Centre Inscription pédagogique Kénitra / CPK</option>
             <option value="PEC">Centre inscrip pédag Ecole Nat Sup Chimi / PEC</option>
             <option value="PEE">Centre inscrip pédag Ecole Sup Edu Form / PEE</option>
-            </select>
+          </select>
           </div>
           <div class="mb-4">
-            <label class="form-label">Centre d'Incompatibilité</label>
-            <select class="form-select" name="centre_incompatibilite[]" multiple>
+          <label class="form-label">Centre d'Incompatibilité</label>
+          <select class="selectcls" name="centre_incompatibilite[]" multiple="multiple" style="width: 100%">
             <option value="CIE_FLLA">Centre d'Incompatibilié FLLA / CIE_FLLA</option>
             <option value="CIE_ENCG">Centre d'Incompatibilié d'Epreuves ENCG / CIE_ENCG</option>
             <option value="CIE_ENSC">Centre d'Incompatibilié d'Epreuves ENSC / CIE_ENSC</option>
@@ -206,78 +193,105 @@
             <option value="CIE_ENSA">Centre d'incompatibilité d'Epreuves ENSA / CIE_ENSA</option>
             <option value="CIE_ECONOM">Centre d'incompatibilité d'Epreuves Econ / CIE_ECONOM</option>
             <option value="CIE_LETTRE">Centre d'incompatibilité d'Epreuves Lett / CIE_LETTRE</option>
-            </select>
+          </select>
           </div>
-          </div>
+        </div>
         </div>
 
         <hr class="my-4">
         <div class="row">
-          <div class="col-md-12">
+        <div class="col-md-12">
           <label class="form-label mb-2">Privilèges du Compte Utilisateur d’APOGEE par domaine</label>
           <div class="row">
-            <div class="col-md-4">
+          <div class="col-md-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
               value="Inscription Administrative">
-              <label class="form-check-label">Inscription Administrative</label>
+            <label class="form-check-label">Inscription Administrative</label>
             </div>
-            </div>
-            <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
               value="Inscription Pédagogique">
-              <label class="form-check-label">Inscription Pédagogique</label>
+            <label class="form-check-label">Inscription Pédagogique</label>
             </div>
-            </div>
-            <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]" value="Résultat">
-              <label class="form-check-label">Résultat</label>
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]" value="Résultat">
+            <label class="form-check-label">Résultat</label>
             </div>
-            </div>
-            <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
               value="Structure des enseignements">
-              <label class="form-check-label">Structure des enseignements</label>
+            <label class="form-check-label">Structure des enseignements</label>
             </div>
-            </div>
-            <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
-              value="Dossier Etudiant">
-              <label class="form-check-label">Dossier Etudiant</label>
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]" value="Dossier Etudiant">
+            <label class="form-check-label">Dossier Etudiant</label>
             </div>
-            </div>
-            <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]"
               value="Modalités de contrôle des connaissances">
-              <label class="form-check-label">Modalités de contrôle des connaissances</label>
+            <label class="form-check-label">Modalités de contrôle des connaissances</label>
             </div>
-            </div>
-            <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="privileges_apogee[]" value="Epreuves">
-              <label class="form-check-label">Epreuves</label>
-            </div>
+            <input class="form-check-input" type="checkbox" name="privileges_apogee[]" value="Epreuves">
+            <label class="form-check-label">Epreuves</label>
             </div>
           </div>
           </div>
+        </div>
+        </div>
+        <hr class="my-4">
+        <div class="mb-4">
+        <label class="form-label">Accès aux fonctionnalités réservées au responsable APOGÉE (Ouverture et Fermeture
+          de la session ) </label>
+        <input class="form-check-input" type="checkbox" name="responsable_apogee_access[]" value="T">
+        <label class="form-check-label">T</label>
+
+        <input class="form-check-input" type="checkbox" name="responsable_apogee_access[]" value="A">
+        <label class="form-check-label">A </label>
         </div>
 
         <div class="mt-4 text-center">
-          <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
           <i class="fa fa-check me-1"></i> Enregistrer le profil APOGEE
-          </button>
-        </div>
+        </button>
         </div>
       </div>
-      </form>
-      <!-- End Voter APOGEE Profile Form -->
-      
+
+      </div>
+    </form>
+
+    <!-- END People and Tickets -->
     </div>
-    <!-- END Page Content -->
-  </main>
+  </div>
+  <!-- END Page Content -->
+
+  <script>
+    $(document).ready(function () {
+    // Initialize Select2 with any options you need
+    $('.selectcls').select2({
+      placeholder: "Select options",
+      allowClear: true,
+      width: 'resolve' // This helps with theme conflicts
+    });
+
+    // If theme JS is trying to modify selects after page load, you might need
+    $(document).on('theme-js-loaded', function () { // hypothetical event
+      $('.selectcls').select2('destroy').select2();
+    });
+    });
+  </script>
+
 @endsection

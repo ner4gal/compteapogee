@@ -12,5 +12,6 @@ class ApogeeUser extends Model
         'centre_inscription_pedagogique' => 'array',
         'centre_incompatibilite' => 'array',
         'privileges_apogee' => 'array',
+        'responsable_apogee_access' => 'array'
     ];
 }

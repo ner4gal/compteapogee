@@ -23,9 +23,9 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="assets/media/favicons/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/media/favicons/favicon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/media/favicons/apple-touch-icon-180x180.png">
+    <link rel="shortcut icon" href="assets/media/favicons/logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/media/favicons/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/media/favicons/logo.png">
     <!-- END Icons -->
 
     <!-- Stylesheets -->
@@ -34,11 +34,16 @@
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
-    <link rel="stylesheet" id="css-theme" href="assets/css/themes/xpro.min.css">
+    <link rel="stylesheet" id="css-theme" href="assets/css/themes/xpro.css">
+    <link rel="stylesheet" href="assets/select2/css/select2.css" />
+    <link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
     <!-- END Stylesheets -->
 
     <!-- Load and set color theme + dark mode preference (blocking script to prevent flashing) -->
     <script src="assets/js/setTheme.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -97,21 +102,9 @@
                 <div class="content-side content-side-full">
                     <ul class="nav-main">
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="db_corporate_slim.html">
+                            <a class="nav-main-link active" href="{{ route('home') }}">
                                 <i class="nav-main-link-icon fa fa-compass"></i>
                                 <span class="nav-main-link-name">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="">
-                                <i class="nav-main-link-icon fa fa-user-circle"></i>
-                                <span class="nav-main-link-name">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="">
-                                <i class="nav-main-link-icon fa fa-envelope-open"></i>
-                                <span class="nav-main-link-name">Messages</span>
                             </a>
                         </li>
                         <li class="nav-main-heading">More</li>
@@ -122,24 +115,46 @@
                                 <span class="nav-main-link-name">Projects</span>
                             </a>
                             <ul class="nav-main-submenu">
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
-                                        <i class="nav-main-link-icon fa fa-check"></i>
-                                        <span class="nav-main-link-name">Active</span>
-                                        <span class="nav-main-link-badge badge rounded-pill bg-success">3</span>
+                            <li class="nav-main-item">
+                                    <a class="nav-main-link" href="{{ route('inscription-annee-anterieure') }} ">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Inscription Administrative</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
-                                        <i class="nav-main-link-icon fa fa-users"></i>
-                                        <span class="nav-main-link-name">Colleagues</span>
-                                        <span class="nav-main-link-badge badge rounded-pill bg-primary">24</span>
+                                    <a class="nav-main-link" href="{{ route('compte-fonctionnel-apogee.show') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Compte Fonctionnel Apogée</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
-                                        <i class="nav-main-link-icon fa fa-cog"></i>
-                                        <span class="nav-main-link-name">Manage</span>
+                                    <a class="nav-main-link" href="{{ route('insertion.resultat.etudiant') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Résultat Étudian</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link" href="{{ route('insertion.module.form') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Résultat Étudians Par Module</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link" href="{{ route('doctorat.inscription.show') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Inscription Doctorat</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link" href="{{ route('calcul.notes.show') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Calcul des Notes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-main-link" href="{{ route('compte-fonctionnel-apogee.show') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Nouvelle Spécialité Doctorat</span>
                                     </a>
                                 </li>
                             </ul>
@@ -153,9 +168,13 @@
         <!-- END Sidebar -->
 
         <!-- Header -->
-        <header id="page-header">
+        <header id="page-header" class="container-fluid">
+
+
             <!-- Header Content -->
+
             <div class="content-header">
+
                 <!-- Left Section -->
                 <div class="d-flex align-items-center">
                     <!-- Logo -->
@@ -164,25 +183,26 @@
                         <span class="fw-normal">University</span>
                     </a>
                     <!-- END Logo -->
-
                     <!-- Menu -->
-                    <ul class="nav-main nav-main-horizontal nav-main-hover d-none d-lg-block ms-9">
+                    <ul
+                        class="nav-main nav-main-horizontal nav-main-hover  nav-main-horizontal-justify d-none d-lg-block ms-5">
                         <li class="nav-main-item">
-                            <a class="nav-main-link active" href="db_corporate_slim.html">
+                            <span>
+                                <a class="img-link d-inline-block" href="javascript:void(0)">
+                                    <img class="img-avatar img-avatar20 img-avatar-thumb"
+                                        src="{{ session('user_avatar') ?? auth()->user()->avatar }}" alt="">
+                                </a>
+                                <span class="fw-medium fs-base text-white-75 d-block d-md-inline-block">
+                                    {{ session('user_name') ?? auth()->user()->name }}
+                                </span>
+                            </span>
+                        </li>
+                    </ul>
+                    <ul class="nav-main nav-main-horizontal nav-main-hover d-none d-lg-block ms-6">
+                        <li class="nav-main-item">
+                            <a class="nav-main-link " href="{{ route('home') }}">
                                 <i class="nav-main-link-icon fa fa-compass"></i>
                                 <span class="nav-main-link-name">Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="">
-                                <i class="nav-main-link-icon fa fa-user-circle"></i>
-                                <span class="nav-main-link-name">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="">
-                                <i class="nav-main-link-icon fa fa-envelope-open"></i>
-                                <span class="nav-main-link-name">Messages</span>
                             </a>
                         </li>
                         <li class="nav-main-heading">More</li>
@@ -194,48 +214,57 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('inscription-annee-anterieure') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Inscription Administrative</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('compte-fonctionnel-apogee.show') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Compte Fonctionnel Apogée</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('insertion.resultat.etudiant') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Résultat Étudian</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('insertion.module.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Résultat Étudians Par Module</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('doctorat.inscription.show') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Inscription Doctorat</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('calcul.notes.show') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Calcul des Notes</span>
                                     </a>
                                 </li>
-                                <li class="nav-main-item">
+                                <li>
                                     <a class="nav-main-link" href="">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Nouvelle Spécialité Doctorat</span>
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+
+                    </ul>
+                    <ul class="nav-main nav-main-horizontal nav-main-hover d-none d-lg-block ms-9">
+                        <li class="nav-main-item">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class=" btn  btn-sm  btn-light ">Logout</button>
+                            </form>
                         </li>
                     </ul>
                     <!-- END Menu -->
@@ -254,32 +283,10 @@
             </div>
             <!-- END Header Content -->
 
-            <!-- Header Search -->
-            <div id="page-header-search" class="overlay-header bg-primary">
-                <div class="content-header">
-                    <form class="w-100" action="be_pages_generic_search.html" method="POST">
-                        <div class="input-group">
-                            <button type="button" class="btn btn-primary" data-toggle="layout"
-                                data-action="header_search_off">
-                                <i class="fa fa-fw fa-times-circle"></i>
-                            </button>
-                            <input type="text" class="form-control border-0" placeholder="Search your company.."
-                                id="page-header-search-input" name="page-header-search-input">
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- END Header Search -->
 
             <!-- Header Loader -->
             <!-- Please check out the Loaders page under Components category to see examples of showing/hiding it -->
-            <div id="page-header-loader" class="overlay-header bg-primary-darker">
-                <div class="content-header">
-                    <div class="w-100 text-center">
-                        <i class="fa fa-fw fa-2x fa-sun fa-spin text-white"></i>
-                    </div>
-                </div>
-            </div>
+
             <!-- END Header Loader -->
         </header>
         <!-- END Header -->
@@ -290,36 +297,11 @@
             <div class="bg-header-dark">
                 <div class="content content-full">
                     <div class="row pt-0 justify-content-center text-center">
-                        <div class="mt-0">
-                            <img src="{{ asset('images/logo50.png') }}" alt="Header Image" class="img-fluid"
-                                style="max-height: 100px;">
-                        </div>
+
                         <div class="col-12 py-3 d-flex flex-column align-items-center">
                             <h2 class="fw-bold text-white mb-1">Apogée UIT | Portail Administratif</h2>
                         </div>
                     </div>
-                    <h1 class="text-white mb-0 d-flex justify-content-between align-items-center">
-                        <span>
-                            <a class="img-link d-inline-block" href="javascript:void(0)">
-                                <img class="img-avatar img-avatar48 img-avatar-thumb"
-                                    src="{{ session('user_avatar') ?? auth()->user()->avatar }}" alt="">
-                            </a>
-                            <span class="fw-medium fs-base text-white-75 d-block d-md-inline-block">
-                                {{ session('user_name') ?? auth()->user()->name }}
-                            </span>
-                        </span>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Form on the left -->
-                                <form action="{{ route('logout') }}" method="POST" class="me-lg-3">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Logout</button>
-                                </form>
-
-                                
-                            </div>
-                        </div>
-                    </h1>
 
                 </div>
                 <div class="ms-3">
@@ -338,11 +320,7 @@
         <footer id="page-footer" class="bg-body-light">
             <div class="content py-0">
                 <div class="row fs-sm">
-                    <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-end">
-                        Crafted with <i class="fa fa-heart text-danger"></i> by
-                        <a class="fw-semibold" href="https://github.com/ner4gal" target="_blank">Nergal</a>
-                    </div>
-                    <div class="col-sm-6 order-sm-1 text-center text-sm-start">
+                    <div class="col-sm-12 order-sm-1 text-center ">
                         <a class="fw-semibold" href="https://www.uit.ac.ma/" target="_blank">Ibn Tofail University</a>
                         &copy; <span data-toggle="year-copy"></span>
                     </div>

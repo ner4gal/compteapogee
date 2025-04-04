@@ -1,28 +1,53 @@
+
 @extends('layouts.app')
 
-@section('title', 'Demande d\'insertion ou modification d\'un résultat (Par Module)')
+@section('title', 'Accueil - Portail des Demandes Administratives')
 
 @section('content')
-    <div class="container mt-4">
-        <h2 class="text-center mb-4">Demande d'insertion ou modification d'un résultat des années antérieures (Par Module)</h2>
+      <!-- Page Content -->
+      <div class="bg-body-extra-light">
+        <div class="content content-full">
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
+              <li class="breadcrumb-item">
+                <a href="{{ route('home') }}">Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('Demands') }}">Demands</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Inscription Administrative </li>
+            </ol>
+          </nav>
+          <!-- END Breadcrumb -->
 
-        <!-- Back to Home Button -->
-        <div class="text-center mb-3">
-            <a href="{{ route('home') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Retour à l'accueil
-            </a>
-        </div>
-
-        <!-- Loading Screen (Hidden by Default) -->
-        <div id="loadingScreen" class="loading-overlay" style="display: none;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Génération en cours...</span>
+          <!-- Quick Menu -->
+          <div class="row">
+            <div class="col-12 col-md-6 col-xl-6">
+              <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
+                <div class="block-content">
+                  <p class="my-2">
+                    <i class="fa fa-compass fa-2x text-muted"></i>
+                  </p>
+                  <p class="fw-semibold">Home</p>
+                </div>
+              </a>
             </div>
-            <p class="loading-text">Génération du PDF en cours, veuillez patienter...</p>
-        </div>
-
-        <div class="card shadow p-4">
-            <form action="{{ route('insertion.module.pdf') }}" method="POST" onsubmit="showLoading()">
+            <div class="col-12 col-md-6 col-xl-6">
+              <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('Demands') }}">
+                <div class="block-content">
+                  <p class="my-2">
+                    <i class="fa fa-file-word fa-2x text-muted"></i>
+                  </p>
+                  <p class="fw-semibold">Les Demandes Administratives</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- END Quick Menu -->
+          <h2 class="text-center mb-4">Demande d'insertion ou modification d'un résultat des années antérieures (Par Module)</h2>
+          
+          <!-- Quick Stats -->
+          <div class="row">
+          <form action="{{ route('insertion.module.pdf') }}" method="POST" onsubmit="showLoading()">
                 @csrf
 
                 <div class="mb-3">
@@ -100,10 +125,11 @@
 
                 <button type="submit" class="btn btn-primary w-100">Générer le PDF</button>
             </form>
+          </div>
+          <!-- END Quick Stats -->
         </div>
-    </div>
-
-    <script>
+      </div>
+      <script>
         function showLoading() {
             document.getElementById('loadingScreen').style.display = 'flex';
 
@@ -141,4 +167,5 @@
             });
         });
     </script>
-@endsection
+      <!-- END Page Content -->
+      @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\ApogeeUser;
 use Illuminate\Http\Request;
+use PDF;
 
 class ApogeeUserController extends Controller
 {
@@ -22,6 +23,7 @@ class ApogeeUserController extends Controller
             'centre_inscription_pedagogique' => 'nullable|array',
             'centre_incompatibilite' => 'nullable|array',
             'privileges_apogee' => 'nullable|array',
+            'responsable_apogee_access' => 'nullable|array'
         ]);
 
         $user = new ApogeeUser();
@@ -39,8 +41,18 @@ class ApogeeUserController extends Controller
         $user->centre_incompatibilite = $validated['centre_incompatibilite'] ?? [];
         $user->privileges_apogee = $validated['privileges_apogee'] ?? [];
 
+        $user->responsable_apogee_access = $validated['responsable_apogee_access'] ?? [];
+
         $user->save();
 
-        return redirect()->back()->with('success', 'Profil APOGEE enregistré avec succès.');
+        return redirect()->route('home')->with('success', 'Votre profil APOGEE a été enregistré avec succès.');
     }
+    public function downloadPDF()
+{
+    $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->firstOrFail();
+
+    $pdf = PDF::loadView('apogee.profile-pdf', compact('apogeeUser'));
+
+    return $pdf->download('profil_apogee.pdf');
+}
 }
