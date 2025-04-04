@@ -51,11 +51,11 @@
 
             <!-- Quick Stats -->
             <div class="row">
-                <form action="{{ route('generate.doc') }}" method="POST" onsubmit="showLoading()">
+                <form id = "pdfForm" action="{{ route('generate.doc') }}" method="POST" onsubmit="showLoading()">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" for="etablissement">Etablissement</label>
-                        <select class="form-select" name="etbl"  >
+                        <select class="form-select" name="etbl">
                             <option value="Faculté des Langues des Lettres et des Arts">Faculté des Langues des Lettres et
                                 des
                                 Arts</option>
@@ -137,18 +137,77 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Centre de traitement</label>
-                        <input type="text" name="strg2" class="form-control" required>
+                        <label class="form-label">Centre Traitement</label>
+                        <select class="selectcls" name="centre_traitement[]" multiple="multiple" style="width: 100%">
+                            <option value="CTL">CT ScHumS / CTL</option>
+                            <option value="CTK">CT DOC ENCG / CTK</option>
+                            <option value="CTG">CTGéstion / CTG</option>
+                            <option value="NDD">CTN Doc FD / NDD</option>
+                            <option value="NDL">CTN Doc Lt / NDL</option>
+                            <option value="NDS">CTN Doc Sc / NDS</option>
+                            <option value="TDE">CTN DocESE / TDE</option>
+                            <option value="TDL">CTN DocLan / TDL</option>
+                            <option value="NDR">CTN Droit / NDR</option>
+                            <option value="NSE">CTN ESEFK / NSE</option>
+                            <option value="NST">CTN EST K / NST</option>
+                            <option value="NFC">CTN FC ENC / NFC</option>
+                            <option value="NFS">CTN FC Sci / NFS</option>
+                            <option value="TSP">CTN IMSpor / TSP</option>
+                            <option value="CTH">CTN Lang / CTH</option>
+                            <option value="TLA">CTN LicLan / TLA</option>
+                            <option value="NMH">CTN M Lang / NMH</option>
+                            <option value="NML">CTN M Lett / NML</option>
+                            <option value="MDR">CTN MS Dro / MDR</option>
+                            <option value="MTD">CTN Mas FD / MTD</option>
+                            <option value="TMA">CTN MasLan / TMA</option>
+                            <option value="CTN">CTN Univ / CTN</option>
+                            <option value="CTC">CTN_ENCG / CTC</option>
+                            <option value="CTA">CTN_ENSA / CTA</option>
+                            <option value="CEC">CTN_ENSC / CEC</option>
+                            <option value="CTS">CTSciences / CTS</option>
+                            <option value="CTE">CT_NSA_DOC / CTE</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Centre d'inscription pédagogique</label>
-                        <input type="text" name="strg3" class="form-control" required>
+                        <select class="selectcls" name="centre_inscription_pedagogique[]" multiple="multiple"
+                            style="width: 100%">
+                            <option value="MPD">Centre Inscrip pédag Mast FSJES / MPD</option>
+                            <option value="PMS">Centre Inscrip pédagog Mét Sport / PMS</option>
+                            <option value="PFC">Centre Inscript pédag ForConti ENCG / PFC</option>
+                            <option value="PFS">Centre Inscript pédag ForConti Fac. Scien / PFS</option>
+                            <option value="PLJ">Centre Inscript pédag Lic Jurd / PLJ</option>
+                            <option value="PLA">Centre Inscript pédag Lic fac lang art / PLA</option>
+                            <option value="PMA">Centre Inscript pédag Mas LLA / PMA</option>
+                            <option value="PML">Centre Inscript pédag Mast F SHS / PML</option>
+                            <option value="PMJ">Centre Inscript pédag Mast Jurd / PMJ</option>
+                            <option value="PDF">Centre Inscription pédagogique Droit Fra / PDF</option>
+                            <option value="CPC">Centre Inscription pédagogique ENCG / CPC</option>
+                            <option value="CPA">Centre Inscription pédagogique ENSAK / CPA</option>
+                            <option value="PET">Centre Inscription pédagogique EST / PET</option>
+                            <option value="CPL">Centre Inscription pédagogique Fac. SHS / CPL</option>
+                            <option value="CPD">Centre Inscription pédagogique Fac.SJE / CPD</option>
+                            <option value="CP">Centre Inscription pédagogique Fac. Scien / CP</option>
+                            <option value="CPK">Centre Inscription pédagogique Kénitra / CPK</option>
+                            <option value="PEC">Centre inscrip pédag Ecole Nat Sup Chimi / PEC</option>
+                            <option value="PEE">Centre inscrip pédag Ecole Sup Edu Form / PEE</option>
+                        </select>
                     </div>
-
                     <div class="mb-3">
-                        <label class="form-label">Centre d'incompatibilité</label>
-                        <input type="text" name="strg4" class="form-control" required>
+                        <label class="form-label">Centre d'Incompatibilité</label>
+                        <select class="selectcls" name="centre_incompatibilite[]" multiple="multiple" style="width: 100%">
+                            <option value="CIE_FLLA">Centre d'Incompatibilié FLLA / CIE_FLLA</option>
+                            <option value="CIE_ENCG">Centre d'Incompatibilié d'Epreuves ENCG / CIE_ENCG</option>
+                            <option value="CIE_ENSC">Centre d'Incompatibilié d'Epreuves ENSC / CIE_ENSC</option>
+                            <option value="CIE_ESFE">Centre d'Incompatibilié d'Epreuves ESEF / CIE_ESFE</option>
+                            <option value="CIE_ESTK">Centre d'Incompatibilié d'Epreuves ESTK / CIE_ESTK</option>
+                            <option value="CIE_SCIENC">Centre d'Incompatibilié d'Epreuves Scien / CIE_SCIENC</option>
+                            <option value="CIE_DROIT">Centre d'incompatibilité Fac Sciences Ju / CIE_DROIT</option>
+                            <option value="CIE_ENSA">Centre d'incompatibilité d'Epreuves ENSA / CIE_ENSA</option>
+                            <option value="CIE_ECONOM">Centre d'incompatibilité d'Epreuves Econ / CIE_ECONOM</option>
+                            <option value="CIE_LETTRE">Centre d'incompatibilité d'Epreuves Lett / CIE_LETTRE</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
@@ -238,18 +297,21 @@
 
                     // ✅ Show success icon and message
                     countdownText.innerHTML = `
-                                            <div class="text-success mb-2">
-                                                <i class="fa fa-check-circle fa-2x"></i>
-                                            </div>
-                                            <p><strong>Votre PDF est prêt !</strong></p>
-                                        `;
+                                                <div class="text-success mb-2">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <p><strong>Votre PDF est prêt !</strong></p>
+                                            `;
 
                     // ✅ Auto-close after 3 seconds
                     setTimeout(() => {
                         modal.hide();
+                        pdfForm.reset();
                     }, 3000);
+                    pdfForm.reset();
                 }
             }, 1000);
+            
         }
 
         $(document).ready(function () {

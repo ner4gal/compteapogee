@@ -1,58 +1,72 @@
-
 @extends('layouts.app')
 
-@section('title', 'Accueil - Portail des Demandes Administratives')
+@section('title', "Demande d'insertion ou modification d'un résultat des années antérieures (Par Module)")
 
 @section('content')
-      <!-- Page Content -->
-      <div class="bg-body-extra-light">
-        <div class="content content-full">
-          <!-- Breadcrumb -->
-          <nav aria-label="breadcrumb">
+<div class="bg-body-extra-light">
+    <div class="content content-full">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
-              <li class="breadcrumb-item">
-                <a href="{{ route('home') }}">Home</a>
-              </li>
-              <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('Demands') }}">Demands</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Inscription Administrative </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="{{ route('Demands') }}">Demands</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Inscription Administrative</li>
             </ol>
-          </nav>
-          <!-- END Breadcrumb -->
+        </nav>
+        <!-- END Breadcrumb -->
 
-          <!-- Quick Menu -->
-          <div class="row">
+        <!-- Quick Menu -->
+        <div class="row mb-4">
             <div class="col-12 col-md-6 col-xl-6">
-              <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
-                <div class="block-content">
-                  <p class="my-2">
-                    <i class="fa fa-compass fa-2x text-muted"></i>
-                  </p>
-                  <p class="fw-semibold">Home</p>
-                </div>
-              </a>
+                <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
+                    <div class="block-content">
+                        <p class="my-2">
+                            <i class="fa fa-compass fa-2x text-muted"></i>
+                        </p>
+                        <p class="fw-semibold">Home</p>
+                    </div>
+                </a>
             </div>
             <div class="col-12 col-md-6 col-xl-6">
-              <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('Demands') }}">
-                <div class="block-content">
-                  <p class="my-2">
-                    <i class="fa fa-file-word fa-2x text-muted"></i>
-                  </p>
-                  <p class="fw-semibold">Les Demandes Administratives</p>
-                </div>
-              </a>
+                <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('Demands') }}">
+                    <div class="block-content">
+                        <p class="my-2">
+                            <i class="fa fa-file-word fa-2x text-muted"></i>
+                        </p>
+                        <p class="fw-semibold">Les Demandes Administratives</p>
+                    </div>
+                </a>
             </div>
-          </div>
-          <!-- END Quick Menu -->
-          <h2 class="text-center mb-4">Demande d'insertion ou modification d'un résultat des années antérieures (Par Module)</h2>
-          
-          <!-- Quick Stats -->
-          <div class="row">
-          <form action="{{ route('insertion.module.pdf') }}" method="POST" onsubmit="showLoading()">
+        </div>
+        <!-- END Quick Menu -->
+
+        <h2 class="text-center mb-4">Demande d'insertion ou modification d'un résultat des années antérieures (Par Module)</h2>
+        
+        <!-- Form for PDF generation -->
+        <div class="row">
+            <form id="pdfForm" method="POST" action="{{ route('insertion.module.pdf') }}">
                 @csrf
 
+                <!-- Etablissement as a select -->
                 <div class="mb-3">
                     <label class="form-label">Etablissement</label>
-                    <input type="text" name="etbl" class="form-control" required>
+                    <select class="form-select" name="etbl" required>
+                        <option value="Faculté des Langues des Lettres et des Arts">Faculté des Langues des Lettres et des Arts</option>
+                        <option value="Faculté des Sciences Humaines et Sociales">Faculté des Sciences Humaines et Sociales</option>
+                        <option value="Faculté des Sciences">Faculté des Sciences</option>
+                        <option value="Faculté d'Economie et de Gestion">Faculté d'Economie et de Gestion</option>
+                        <option value="Faculté des Sciences Juridiques et Politiques">Faculté des Sciences Juridiques et Politiques</option>
+                        <option value="Ecole Nationale de Commerce et de Gestion">Ecole Nationale de Commerce et de Gestion</option>
+                        <option value="Ecole Nationale des Sciences Appliquées">Ecole Nationale des Sciences Appliquées</option>
+                        <option value="Ecole Supérieure de Technologie">Ecole Supérieure de Technologie</option>
+                        <option value="Ecole Nationale Supérieure de Chimie">Ecole Nationale Supérieure de Chimie</option>
+                        <option value="Ecole Supérieure d'Education et de Formation">Ecole Supérieure d'Education et de Formation</option>
+                        <option value="Institut des Métiers de Sport">Institut des Métiers de Sport</option>
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -60,34 +74,82 @@
                     <input type="date" name="dateDM" class="form-control" required>
                 </div>
 
+                <!-- Cycle as select -->
                 <div class="mb-3">
                     <label class="form-label">Cycle</label>
-                    <input type="text" name="typ" class="form-control" required>
+                    <select name="typ" id="typ" class="form-control" required>
+                        <option value="Licence">Licence</option>
+                        <option value="Master">Master</option>
+                        <option value="Lus">Lus</option>
+                        <option value="Mus">Mus</option>
+                        <option value="DUT">DUT</option>
+                        <option value="Classe préparatoire ENCG">Classe préparatoire ENCG</option>
+                        <option value="Classe préparatoire Cycle Ingénieur">Classe préparatoire Cycle Ingénieur</option>
+                        <option value="Cycle Ingénieur">Cycle Ingénieur</option>
+                        <option value="Diplome ENCG">Diplome ENCG</option>
+                    </select>
                 </div>
 
+                <!-- Filière -->
                 <div class="mb-3">
                     <label class="form-label">Filière</label>
                     <input type="text" name="flr" class="form-control" required>
                 </div>
 
+                <!-- Module Name -->
                 <div class="mb-3">
                     <label class="form-label">Nom du Module</label>
                     <input type="text" name="module" class="form-control" required>
                 </div>
 
+                <!-- Nature de la demande -->
                 <div class="mb-3">
-                    <label class="form-label">Nature de la demande</label>
-                    <input type="text" name="nrtDM" class="form-control" required>
+                        <label class="form-label">Nature de la demande :</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="nrtDM" id="nouvelleInscription"
+                                value="Nouvelle inscription">
+                            <label class="form-check-label" for="nouvelleInscription">Nouvelle inscription</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="nrtDM" id="modificationInscription"
+                                value="Modification d'une inscription">
+                            <label class="form-check-label" for="modificationInscription">Modification d'une
+                                inscription</label>
+                        </div>
                 </div>
 
+                <!-- Semestre as radio buttons -->
                 <div class="mb-3">
                     <label class="form-label">Semestre</label>
-                    <input type="text" name="Semestre" class="form-control" required>
+                    <div>
+                        @for($i = 1; $i <= 6; $i++)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="Semestre" id="semestre{{ $i }}" value="{{ $i }}" required>
+                            <label class="form-check-label" for="semestre{{ $i }}">Semestre {{ $i }}</label>
+                        </div>
+                        @endfor
+                    </div>
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label">Responsable du Module</label>
+                    <input type="text" name="ResP" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Coordinateur de la Filière</label>
+                    <input type="text" name="Cordi" class="form-control" required>
+                </div>
+
+
+                <!-- Année universitaire concernée as select -->
+                <div class="mb-3">
                     <label class="form-label">Année universitaire concernée</label>
-                    <input type="text" name="AnneeCon" class="form-control" required>
+                    <select class="form-select" name="AnneeCon" required>
+                        @for($year = 2015; $year <= 2023; $year++)
+                            <option value="{{ $year }}-{{ $year+1 }}">{{ $year }}-{{ $year+1 }}</option>
+                        @endfor
+                    </select>
                 </div>
 
                 <h4 class="mt-4">Liste des Étudiants</h4>
@@ -113,59 +175,74 @@
                     <textarea name="raso" rows="4" class="form-control" required></textarea>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Responsable du Module</label>
-                    <input type="text" name="ResP" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Coordinateur de la Filière</label>
-                    <input type="text" name="Cordi" class="form-control" required>
-                </div>
-
                 <button type="submit" class="btn btn-primary w-100">Générer le PDF</button>
             </form>
-          </div>
-          <!-- END Quick Stats -->
         </div>
-      </div>
-      <script>
-        function showLoading() {
-            document.getElementById('loadingScreen').style.display = 'flex';
+        <!-- END Quick Stats -->
+    </div>
+</div>
 
-            // Hide loader after 5s (adjust this if needed)
-            setTimeout(function () {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 5000);
-        }
+<!-- Loading Modal with Countdown -->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4">
+            <h5 class="modal-title mb-3" id="pdfModalLabel">Génération du PDF</h5>
+            <p id="countdownText">Votre PDF sera téléchargé dans <strong id="counter">5</strong> secondes...</p>
+            <button id="downloadBtn" class="btn btn-success">Télécharger le PDF</button>
+        </div>
+    </div>
+</div>
 
-        document.addEventListener("DOMContentLoaded", function () {
-            let studentIndex = 1; // Start index for new students
-
-            document.getElementById("add-student-btn").addEventListener("click", function () {
-                let container = document.getElementById("students-container");
-
-                let newStudentRow = document.createElement("div");
-                newStudentRow.classList.add("student-row", "d-flex", "align-items-center", "gap-2", "mt-2");
-                newStudentRow.innerHTML = `
-                    <input type="text" name="students[${studentIndex}][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
-                    <input type="text" name="students[${studentIndex}][name]" class="form-control" placeholder="Nom & Prénom" required>
-                    <input type="text" name="students[${studentIndex}][session]" class="form-control" placeholder="Session" required>
-                    <input type="text" name="students[${studentIndex}][note_initiale]" class="form-control" placeholder="Note Initiale" required>
-                    <input type="text" name="students[${studentIndex}][note_corrigee]" class="form-control" placeholder="Note Corrigée" required>
-                    <button type="button" class="btn btn-danger remove-student-btn">❌</button>
-                `;
-
-                container.appendChild(newStudentRow);
-
-                // Remove student row when clicking ❌ button
-                newStudentRow.querySelector(".remove-student-btn").addEventListener("click", function () {
-                    newStudentRow.remove();
-                });
-
-                studentIndex++;
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Logic for adding new student rows
+        let studentIndex = 1;
+        document.getElementById("add-student-btn").addEventListener("click", function () {
+            let container = document.getElementById("students-container");
+            let newStudentRow = document.createElement("div");
+            newStudentRow.classList.add("student-row", "d-flex", "align-items-center", "gap-2", "mt-2");
+            newStudentRow.innerHTML = `
+                <input type="text" name="students[${studentIndex}][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
+                <input type="text" name="students[${studentIndex}][name]" class="form-control" placeholder="Nom & Prénom" required>
+                <input type="text" name="students[${studentIndex}][session]" class="form-control" placeholder="Session" required>
+                <input type="text" name="students[${studentIndex}][note_initiale]" class="form-control" placeholder="Note Initiale" required>
+                <input type="text" name="students[${studentIndex}][note_corrigee]" class="form-control" placeholder="Note Corrigée" required>
+                <button type="button" class="btn btn-danger remove-student-btn">❌</button>
+            `;
+            container.appendChild(newStudentRow);
+            newStudentRow.querySelector(".remove-student-btn").addEventListener("click", function () {
+                newStudentRow.remove();
             });
+            studentIndex++;
         });
-    </script>
-      <!-- END Page Content -->
-      @endsection
+
+        // Intercept form submission to show the modal
+        const pdfForm = document.getElementById('pdfForm');
+        pdfForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent immediate submission
+            let modalElement = document.getElementById('pdfModal');
+            let modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        });
+
+        // When the download button is clicked, start the countdown
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            this.disabled = true;
+            let counterElement = document.getElementById('counter');
+            let count = 5;
+            counterElement.textContent = count;
+            let interval = setInterval(function() {
+                count--;
+                counterElement.textContent = count;
+                if (count <= 0) {
+                  clearInterval(interval);
+                        let modalInstance = bootstrap.Modal.getInstance(document.getElementById('pdfModal'));
+                        modalInstance.hide();
+                        pdfForm.submit();
+                        pdfForm.reset(); // Clear the form fields
+                }
+            }, 1000);
+        });
+    });
+</script>
+@endsection

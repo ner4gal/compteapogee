@@ -39,6 +39,5 @@ class DoctoratInscription extends Model
     // Cast date fields to Carbon instances
     protected $casts = [
         'dateDM' => 'date',
-        'date1Ins' => 'date',
     ];
 }

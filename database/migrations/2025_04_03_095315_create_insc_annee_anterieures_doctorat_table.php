@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('ced');            // CED
             $table->date('dateDM');           // Date de la demande
             $table->string('nomPrenom');      // Nom & Prénom (Doctorant)
-            $table->date('date1Ins');         // Date de la 1ère inscription
+            $table->string('date1Ins');         // Date de la 1ère inscription
             $table->string('CIN');            // CIN
             $table->string('CNE');            // CNE
             $table->string('tel');            // Numéro Telephone

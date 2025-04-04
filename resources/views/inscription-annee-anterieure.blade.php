@@ -84,15 +84,13 @@
                     <div class="mb-3">
                         <label class="form-label" for="typ">Cycle</label>
                         <select name="typ" id="typ" class="form-control" required>
-                            <option value="" disabled selected>Select Cycle</option>
-                            <option value="Cycle">Cycle</option>
-                            <option value="Question type">Question type</option>
                             <option value="Licence">Licence</option>
                             <option value="Master">Master</option>
                             <option value="Lus">Lus</option>
                             <option value="Mus">Mus</option>
                             <option value="DUT">DUT</option>
                             <option value="Classe préparatoire ENCG">Classe préparatoire ENCG</option>
+                            <option value="Classe préparatoire Cycle Ingénieur">Classe préparatoire Cycle Ingénieur</option>
                             <option value="Cycle Ingénieur">Cycle Ingénieur</option>
                             <option value="Diplome ENCG">Diplome ENCG</option>
                         </select>
@@ -105,11 +103,6 @@
 
                     <div class="mb-3">
                         <label class="form-label">Nature de la demande :</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="nrtDM" id="questionType"
-                                value="Question type" required>
-                            <label class="form-check-label" for="questionType">Question type</label>
-                        </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="nrtDM" id="nouvelleInscription"
                                 value="Nouvelle inscription">
@@ -125,8 +118,12 @@
 
 
                     <div class="mb-3">
-                        <label class="form-label">Année d’inscription concernée</label>
-                        <input type="text" name="aneINS" class="form-control" required>
+                        <label class="form-label">Année universitaire concernée</label>
+                        <select class="form-select" name="aneINS" required>
+                            @for($year = 2015; $year <= 2023; $year++)
+                                <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
+                            @endfor
+                        </select>
                     </div>
 
                     <h4 class="mt-4">Liste des Étudiants</h4>
@@ -217,6 +214,8 @@
                             modal.hide();
                             console.log("Submitting form after countdown.");
                             document.getElementById('pdfForm').submit();
+                            clearInterval(interval);
+                            pdfForm.reset(); // Clear the form fields
                         }
                     }, 1000);
 

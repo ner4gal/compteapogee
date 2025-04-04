@@ -23,7 +23,7 @@
 
     <!-- Form -->
     <div class="row">
-      <form action="{{ route('demande.calcul.store') }}" method="POST" onsubmit="showLoading()">
+      <form id='pdfForm' action="{{ route('demande.calcul.store') }}" method="POST" onsubmit="showLoading()">
       @csrf
 
       <!-- Institution -->
@@ -65,10 +65,20 @@
         <input type="text" name="NumETD" class="form-control" required>
       </div>
 
-      <!-- Cycle -->
+
       <div class="mb-3">
-        <label class="form-label">Cycle</label>
-        <input type="text" name="cycle" class="form-control" required>
+        <label class="form-label" for="typ">Cycle</label>
+        <select name="cycle" id="typ" class="form-control" required>
+        <option value="Licence">Licence</option>
+        <option value="Master">Master</option>
+        <option value="Lus">Lus</option>
+        <option value="Mus">Mus</option>
+        <option value="DUT">DUT</option>
+        <option value="Classe préparatoire ENCG">Classe préparatoire ENCG</option>
+        <option value="Classe préparatoire Cycle Ingénieur">Classe préparatoire Cycle Ingénieur</option>
+        <option value="Cycle Ingénieur">Cycle Ingénieur</option>
+        <option value="Diplome ENCG">Diplome ENCG</option>
+        </select>
       </div>
 
       <!-- Filière -->
@@ -79,8 +89,12 @@
 
       <!-- Academic Year -->
       <div class="mb-3">
-        <label class="form-label">Année concernée</label>
-        <input type="text" name="AnneeCon" class="form-control" required>
+        <label class="form-label">Année universitaire concernée</label>
+        <select class="form-select" name="AnneeCon" required>
+        @for($year = 2015; $year <= 2023; $year++)
+      <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
+    @endfor
+        </select>
       </div>
 
       <!-- Semesters -->
@@ -131,43 +145,43 @@
     </div>
     </div>
 
-    <!-- Modal Popup for PDF Generation Loading -->
     <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content text-center p-4">
       <h5 class="modal-title mb-3" id="pdfModalLabel">Génération du PDF</h5>
-      <p id="countdownText">Votre PDF sera prêt dans <strong><span id="counter">7</span></strong> secondes...</p>
+      <p id="countdownText">Votre PDF sera téléchargé dans <strong id="counter">5</strong> secondes...</p>
+      <button id="downloadBtn" class="btn btn-success">Télécharger le PDF</button>
       </div>
     </div>
     </div>
 
     <script>
-    // Function to show the loading modal with a countdown
-    function showLoading() {
-      const modal = new bootstrap.Modal(document.getElementById('pdfModal'));
+    // Intercept form submission to show modal (but don't start countdown automatically)
+    const pdfForm = document.getElementById('pdfForm');
+    pdfForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent immediate submission
+      let modalElement = document.getElementById('pdfModal');
+      let modal = new bootstrap.Modal(modalElement);
       modal.show();
+    });
 
-      let count = 7;
-      const counterSpan = document.getElementById('counter');
-      const countdownText = document.getElementById('countdownText');
-
-      const interval = setInterval(() => {
+    // When the download button is clicked, start the countdown
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      this.disabled = true;
+      let counterElement = document.getElementById('counter');
+      let count = 5;
+      counterElement.textContent = count;
+      let interval = setInterval(function () {
       count--;
-      counterSpan.textContent = count;
-
+      counterElement.textContent = count;
       if (count <= 0) {
         clearInterval(interval);
-        countdownText.innerHTML = `
-        <div class="text-success mb-2">
-          <i class="fa fa-check-circle fa-2x"></i>
-        </div>
-        <p><strong>Votre PDF est prêt !</strong></p>
-        `;
-        setTimeout(() => {
-        modal.hide();
-        }, 3000);
+        let modalInstance = bootstrap.Modal.getInstance(document.getElementById('pdfModal'));
+        modalInstance.hide();
+        pdfForm.submit();
+        pdfForm.reset(); // Clear the form fields
       }
       }, 1000);
-    }
+    });
     </script>
   @endsection
