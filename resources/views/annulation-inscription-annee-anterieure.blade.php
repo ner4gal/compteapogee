@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Demande d'inscription administrative à une annèe antèrieure")
+@section('title', "Demande d'annulation d'inscription administrative à une année antérieure")
 
 @section('content')
     <div class="bg-body-extra-light">
@@ -45,7 +45,7 @@
             </div>
             <!-- END Quick Menu -->
 
-            <h2 class="text-center mb-4">Demande d’inscription administrative à une annèe antèrieure</h2>
+            <h2 class="text-center mb-4">Demande d'annulation d'inscription administrative à une année antérieure</h2>
 
             <!-- Quick Stats -->
             <div class="row">
@@ -55,23 +55,16 @@
                     <div class="mb-3">
                         <label class="form-label" for="etablissement">Etablissement</label>
                         <select class="form-select" name="etbl" id="etbl" required>
-                            <option value="Faculté des Langues des Lettres et des Arts">Faculté des Langues des Lettres et
-                                des Arts</option>
-                            <option value="Faculté des Sciences Humaines et Sociales">Faculté des Sciences Humaines et
-                                Sociales</option>
+                            <option value="Faculté des Langues des Lettres et des Arts">Faculté des Langues des Lettres et des Arts</option>
+                            <option value="Faculté des Sciences Humaines et Sociales">Faculté des Sciences Humaines et Sociales</option>
                             <option value="Faculté des Sciences">Faculté des Sciences</option>
                             <option value="Faculté d'Economie et de Gestion">Faculté d'Economie et de Gestion</option>
-                            <option value="Faculté des Sciences Juridiques et Politiques">Faculté des Sciences Juridiques et
-                                Politiques</option>
-                            <option value="Ecole Nationale de Commerce et de Gestion">Ecole Nationale de Commerce et de
-                                Gestion</option>
-                            <option value="Ecole Nationale des Sciences Appliquées">Ecole Nationale des Sciences Appliquées
-                            </option>
+                            <option value="Faculté des Sciences Juridiques et Politiques">Faculté des Sciences Juridiques et Politiques</option>
+                            <option value="Ecole Nationale de Commerce et de Gestion">Ecole Nationale de Commerce et de Gestion</option>
+                            <option value="Ecole Nationale des Sciences Appliquées">Ecole Nationale des Sciences Appliquées</option>
                             <option value="Ecole Supérieure de Technologie">Ecole Supérieure de Technologie</option>
-                            <option value="Ecole Nationale Supérieure de Chimie">Ecole Nationale Supérieure de Chimie
-                            </option>
-                            <option value="Ecole Supérieure d'Education et de Formation">Ecole Supérieure d'Education et de
-                                Formation</option>
+                            <option value="Ecole Nationale Supérieure de Chimie">Ecole Nationale Supérieure de Chimie</option>
+                            <option value="Ecole Supérieure d'Education et de Formation">Ecole Supérieure d'Education et de Formation</option>
                             <option value="Institut des Métiers de Sport">Institut des Métiers de Sport</option>
                         </select>
                     </div>
@@ -101,21 +94,7 @@
                         <input type="text" name="flr" class="form-control" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Nature de la demande :</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="nrtDM" id="nouvelleInscription"
-                                value="Nouvelle inscription">
-                            <label class="form-check-label" for="nouvelleInscription">Nouvelle inscription</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="nrtDM" id="modificationInscription"
-                                value="Modification d'une inscription">
-                            <label class="form-check-label" for="modificationInscription">Modification d'une
-                                inscription</label>
-                        </div>
-                    </div>
-
+                    <!-- Removed Nature de la demande radio buttons for annulation demand -->
 
                     <div class="mb-3">
                         <label class="form-label">Année universitaire concernée</label>
@@ -131,10 +110,8 @@
                     <div id="students-container" class="mb-3">
                         <!-- Default Student Input -->
                         <div class="student-row d-flex align-items-center gap-2">
-                            <input type="text" name="students[0][apogee]" class="form-control" placeholder="Numéro APOGEE"
-                                required>
-                            <input type="text" name="students[0][name]" class="form-control" placeholder="Nom & Prénom"
-                                required>
+                            <input type="text" name="students[0][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
+                            <input type="text" name="students[0][name]" class="form-control" placeholder="Nom & Prénom" required>
                             <button type="button" class="btn btn-danger remove-student-btn">❌</button>
                         </div>
                     </div>
@@ -143,11 +120,11 @@
                     <button type="button" id="add-student-btn" class="btn btn-success mb-3">+ Ajouter un étudiant</button>
 
                     <div class="mb-3">
-                        <label class="form-label">La raison du retard</label>
+                        <label class="form-label">La raison de l'annulation</label>
                         <textarea name="mtf" rows="4" class="form-control" required></textarea>
                     </div>
 
-                    <button type="button"  id="openModalButton" class="btn btn-primary w-100">Générer le PDF</button>
+                    <button type="button" id="openModalButton" class="btn btn-primary w-100">Générer le PDF</button>
                 </form>
             </div>
             <!-- END Quick Stats -->
@@ -189,8 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Use a dedicated button (not type="submit") to open the modal.
-    // Ensure your form's button is changed accordingly:
-    // <button type="button" id="openModalButton" class="btn btn-primary w-100">Générer le PDF</button>
     document.getElementById('openModalButton').addEventListener('click', function () {
         let modalElement = document.getElementById('pdfModal');
         let modal = new bootstrap.Modal(modalElement);

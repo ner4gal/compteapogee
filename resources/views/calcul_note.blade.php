@@ -156,32 +156,44 @@
     </div>
 
     <script>
-    // Intercept form submission to show modal (but don't start countdown automatically)
+document.addEventListener("DOMContentLoaded", function () {
+    // Intercept form submission to show the modal
     const pdfForm = document.getElementById('pdfForm');
     pdfForm.addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent immediate submission
-      let modalElement = document.getElementById('pdfModal');
-      let modal = new bootstrap.Modal(modalElement);
-      modal.show();
+        e.preventDefault(); // Prevent immediate submission
+        let modalElement = document.getElementById('pdfModal');
+        let modal = new bootstrap.Modal(modalElement);
+        modal.show();
     });
 
     // When the download button is clicked, start the countdown
     document.getElementById('downloadBtn').addEventListener('click', function () {
-      this.disabled = true;
-      let counterElement = document.getElementById('counter');
-      let count = 5;
-      counterElement.textContent = count;
-      let interval = setInterval(function () {
-      count--;
-      counterElement.textContent = count;
-      if (count <= 0) {
-        clearInterval(interval);
-        let modalInstance = bootstrap.Modal.getInstance(document.getElementById('pdfModal'));
-        modalInstance.hide();
-        pdfForm.submit();
-        pdfForm.reset(); // Clear the form fields
-      }
-      }, 1000);
+        // Disable the button to prevent multiple clicks during countdown
+        this.disabled = true;
+        let counterElement = document.getElementById('counter');
+        let count = 5;
+        counterElement.textContent = count;
+        let interval = setInterval(function () {
+            count--;
+            counterElement.textContent = count;
+            if (count <= 0) {
+                clearInterval(interval);
+                // Hide the modal
+                let modalInstance = bootstrap.Modal.getInstance(document.getElementById('pdfModal'));
+                modalInstance.hide();
+                // Submit the form
+                pdfForm.submit();
+                // After a short delay, reset the form so that fields are cleared
+                setTimeout(function () {
+                    pdfForm.reset();
+                    // Reset download button and counter for future submissions
+                    document.getElementById('downloadBtn').disabled = false;
+                    counterElement.textContent = "5";
+                }, 100);
+            }
+        }, 1000);
     });
-    </script>
+});
+</script>
+
   @endsection

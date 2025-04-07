@@ -27,6 +27,7 @@ class DemandeCalculNotesAnterieure extends Model
         'annee_universitaire',
         'semesters',      // new field for semesters
         'nom_demande',
+         'statut'
     ];
 
     // Cast the date and semesters fields to proper types.

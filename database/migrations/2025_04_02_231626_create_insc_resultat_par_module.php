@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('raison_retard');
             // Single module data (one module name).
             $table->string('module_nom');
+            $table->string('statut')->default('En attente');
             // List of students (JSON format).
             $table->json('students');
             // Request name with a default value.

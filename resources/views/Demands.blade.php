@@ -45,6 +45,27 @@
           <h2 class="text-center mb-4">le Portail des Demandes Administratives</h2>
           <p class="text-center">Choisissez une demande parmi les options ci-dessous :</p>
 
+            <!-- Quick Stats -->
+            <h2 class="content-heading">
+            <i class="fa fa-angle-right text-muted me-1"></i> Compte Fonctionnel
+          </h2>
+          <div class="row">
+            <div class="col-md-6 col-xl-12">
+              <a class="block block-rounded block-bordered" href="{{ route('compte-fonctionnel-apogee.show') }}">
+                <div class="block-content p-2">
+                  <div class="py-5 text-center bg-body-light rounded">
+                  <p class="my-2">
+                    <i class="fa fa-user-cog fa-2x text-muted"></i>
+                  </p>
+                    <div class="fs-sm fw-semibold text-uppercase">Compte Fonctionnel Apogée</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- END Quick Stats -->
+
+
           <!-- Quick Stats -->
           <h2 class="content-heading">
             <i class="fa fa-angle-right text-muted me-1"></i> Licence / Master 
@@ -98,6 +119,31 @@
                 </div>
               </a>
             </div>
+            <div class="col-md-6 col-xl-6">
+              <a class="block block-rounded block-bordered" href="{{ route('annulation.inscription.form') }}">
+                <div class="block-content p-2">
+                  <div class="py-5 text-center bg-body-light rounded">
+                  <p class="my-2">
+                    <i class="fa fa-user-minus fa-2x text-muted"></i>
+                  </p>
+                    <div class="fs-sm fw-semibold text-uppercase">Annulation d'Inscription</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-6">
+              <a class="block block-rounded block-bordered" href="{{ route('suppression.note.etudiant.form') }}">
+                <div class="block-content p-2">
+                  <div class="py-5 text-center bg-body-light rounded">
+                  <p class="my-2">
+                    <i class="fa fa-calculator fa-2x text-muted"></i>
+                  </p>
+                    <div class="fs-sm fw-semibold text-uppercase">suppression des notes</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+           
           </div>
           <!-- END Quick Stats -->
            <!-- Quick Stats -->
@@ -119,26 +165,7 @@
             </div>
           </div>
           <!-- END Quick Stats -->
-           <!-- Quick Stats -->
-          <h2 class="content-heading">
-            <i class="fa fa-angle-right text-muted me-1"></i> Compte Fonctionnel
-          </h2>
-          <div class="row">
-            <div class="col-md-6 col-xl-12">
-              <a class="block block-rounded block-bordered" href="{{ route('compte-fonctionnel-apogee.show') }}">
-                <div class="block-content p-2">
-                  <div class="py-5 text-center bg-body-light rounded">
-                  <p class="my-2">
-                    <i class="fa fa-user-cog fa-2x text-muted"></i>
-                  </p>
-                    <div class="fs-sm fw-semibold text-uppercase">Compte Fonctionnel Apogée</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-          <!-- END Quick Stats -->
-
+         
 
           <!-- END People and Tickets -->
         </div>

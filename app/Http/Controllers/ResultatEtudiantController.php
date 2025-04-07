@@ -29,6 +29,7 @@ class ResultatEtudiantController extends Controller
             'modules.*.S' => 'required|string', // Session
             'modules.*.NI' => 'required|string', // Note Initiale (can be numeric if preferred)
             'modules.*.NC' => 'required|string', // Note Corrigée
+            'statut'    => 'sometimes|string',
         ]);
 
         // Retrieve all data from the request
@@ -51,6 +52,7 @@ class ResultatEtudiantController extends Controller
         'raison_retard'   => $request->raison,
         'modules'        => $request->modules,
         'nom_demande'     => $nomDemande,  // Override the default with the dynamic value.
+        'statut'            => $request->input('statut', 'En attente')
     ]);
 
         // Generate the PDF using a Blade view located at resources/views/pdfs/resultat_etudiant.blade.php

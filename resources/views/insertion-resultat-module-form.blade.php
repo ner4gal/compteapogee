@@ -107,14 +107,13 @@
                         <label class="form-label">Nature de la demande :</label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="nrtDM" id="nouvelleInscription"
-                                value="Nouvelle inscription">
-                            <label class="form-check-label" for="nouvelleInscription">Nouvelle inscription</label>
+                                value="Modification de notes">
+                            <label class="form-check-label" for="nouvelleInscription">Modification de notes</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="nrtDM" id="modificationInscription"
-                                value="Modification d'une inscription">
-                            <label class="form-check-label" for="modificationInscription">Modification d'une
-                                inscription</label>
+                                value="Insertion de notes">
+                            <label class="form-check-label" for="modificationInscription">Insertion de notes</label>
                         </div>
                 </div>
 
@@ -175,7 +174,7 @@
                     <textarea name="raso" rows="4" class="form-control" required></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Générer le PDF</button>
+                <button type="button" id="openModalButton" class="btn btn-primary w-100">Générer le PDF</button>
             </form>
         </div>
         <!-- END Quick Stats -->
@@ -194,55 +193,71 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Logic for adding new student rows
-        let studentIndex = 1;
-        document.getElementById("add-student-btn").addEventListener("click", function () {
-            let container = document.getElementById("students-container");
-            let newStudentRow = document.createElement("div");
-            newStudentRow.classList.add("student-row", "d-flex", "align-items-center", "gap-2", "mt-2");
-            newStudentRow.innerHTML = `
-                <input type="text" name="students[${studentIndex}][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
-                <input type="text" name="students[${studentIndex}][name]" class="form-control" placeholder="Nom & Prénom" required>
-                <input type="text" name="students[${studentIndex}][session]" class="form-control" placeholder="Session" required>
-                <input type="text" name="students[${studentIndex}][note_initiale]" class="form-control" placeholder="Note Initiale" required>
-                <input type="text" name="students[${studentIndex}][note_corrigee]" class="form-control" placeholder="Note Corrigée" required>
-                <button type="button" class="btn btn-danger remove-student-btn">❌</button>
-            `;
-            container.appendChild(newStudentRow);
-            newStudentRow.querySelector(".remove-student-btn").addEventListener("click", function () {
-                newStudentRow.remove();
-            });
-            studentIndex++;
+document.addEventListener("DOMContentLoaded", function () {
+    // Logic for adding new student rows
+    let studentIndex = 1;
+    document.getElementById("add-student-btn").addEventListener("click", function () {
+        let container = document.getElementById("students-container");
+        let newStudentRow = document.createElement("div");
+        newStudentRow.classList.add("student-row", "d-flex", "align-items-center", "gap-2", "mt-2");
+        newStudentRow.innerHTML = `
+            <input type="text" name="students[${studentIndex}][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
+            <input type="text" name="students[${studentIndex}][name]" class="form-control" placeholder="Nom & Prénom" required>
+            <input type="text" name="students[${studentIndex}][session]" class="form-control" placeholder="Session" required>
+            <input type="text" name="students[${studentIndex}][note_initiale]" class="form-control" placeholder="Note Initiale" required>
+            <input type="text" name="students[${studentIndex}][note_corrigee]" class="form-control" placeholder="Note Corrigée" required>
+            <button type="button" class="btn btn-danger remove-student-btn">❌</button>
+        `;
+        container.appendChild(newStudentRow);
+        newStudentRow.querySelector(".remove-student-btn").addEventListener("click", function () {
+            newStudentRow.remove();
         });
-
-        // Intercept form submission to show the modal
-        const pdfForm = document.getElementById('pdfForm');
-        pdfForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent immediate submission
-            let modalElement = document.getElementById('pdfModal');
-            let modal = new bootstrap.Modal(modalElement);
-            modal.show();
-        });
-
-        // When the download button is clicked, start the countdown
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            this.disabled = true;
-            let counterElement = document.getElementById('counter');
-            let count = 5;
-            counterElement.textContent = count;
-            let interval = setInterval(function() {
-                count--;
-                counterElement.textContent = count;
-                if (count <= 0) {
-                  clearInterval(interval);
-                        let modalInstance = bootstrap.Modal.getInstance(document.getElementById('pdfModal'));
-                        modalInstance.hide();
-                        pdfForm.submit();
-                        pdfForm.reset(); // Clear the form fields
-                }
-            }, 1000);
-        });
+        studentIndex++;
     });
+
+    // Use a dedicated button to open the modal instead of intercepting form submit.
+    document.getElementById('openModalButton').addEventListener('click', function () {
+        let modalElement = document.getElementById('pdfModal');
+        let modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    });
+
+    // Handle the download button click inside the modal.
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        let downloadBtn = this;
+        downloadBtn.disabled = true; // Prevent multiple clicks
+        let counterElement = document.getElementById('counter');
+        let count = 5;
+        counterElement.textContent = count;
+        let interval = setInterval(function() {
+            count--;
+            counterElement.textContent = count;
+            if (count <= 0) {
+                clearInterval(interval);
+                let modalElement = document.getElementById('pdfModal');
+                let modalInstance = bootstrap.Modal.getInstance(modalElement);
+                modalInstance.hide();
+
+                // Submit the form
+                const pdfForm = document.getElementById('pdfForm');
+                pdfForm.submit();
+
+                // Reset the form and modal state after a short delay
+                setTimeout(function() {
+                    pdfForm.reset();
+                    downloadBtn.disabled = false;
+                    counterElement.textContent = "5";
+                }, 100);
+            }
+        }, 1000);
+    });
+
+    // Optional: Reset modal state when it is hidden to ensure it’s ready for next use.
+    document.getElementById('pdfModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('counter').textContent = "5";
+        document.getElementById('downloadBtn').disabled = false;
+    });
+});
 </script>
+
 @endsection

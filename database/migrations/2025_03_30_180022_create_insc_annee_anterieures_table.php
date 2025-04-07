@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('nature_demande');
             $table->string('annee_inscription');
             $table->text('raison_retard');
+            $table->string('statut')->default('En attente');
             $table->json('students'); // store students list
             $table->string('nom_demande')->nullable(); // Add this line if needed
             $table->timestamps();

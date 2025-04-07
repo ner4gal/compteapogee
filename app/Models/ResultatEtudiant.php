@@ -22,6 +22,7 @@ class ResultatEtudiant extends Model
         'modules',
         'raison_retard',      // Changed from 'raison'
         'nom_demande',
+         'statut'
     ];
 
     // Automatically cast modules to and from JSON

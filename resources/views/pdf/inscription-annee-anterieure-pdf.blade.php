@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        @page {
+          @page {
             size: A4;
             margin: 0;
         }
@@ -13,6 +13,7 @@
             font-size: 12px;
             margin: 0;
             padding: 0;
+            word-wrap: break-word;
         }
 
         .background {
@@ -26,62 +27,112 @@
 
         .content {
             position: relative;
-            padding-top: 40mm;
-            padding-left: 20mm;
-            padding-right: 20mm;
+            padding: 35mm 20mm 20mm;
             z-index: 1;
-            word-wrap: break-word;
-        }
-
-        .top-ref {
-            text-align: left;
-            font-size: 10px;
-            margin-bottom: 5px;
         }
 
         .title {
             text-align: center;
             font-size: 14px;
             font-weight: bold;
-            margin: 10px 0 15px;
+            margin-bottom: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        td, th {
-            padding: 5px;
-            border: 1px solid black;
-            text-align: center;
-            word-wrap: break-word;
         }
 
         .info-table td {
-            border: none;
-            padding: 3px 0;
-            word-wrap: break-word;
+            padding: 2px 0;
         }
 
-        .section-title {
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 5px;
+        p {
+            margin: 3px 0;
         }
 
-        .reason {
+        .module-table th,
+        .module-table td {
             border: 1px solid black;
             padding: 5px;
-            min-height: 50px;
-            margin-top: 5px;
+            text-align: center;
+        }
+
+        .reason-box {
+            border: 1px solid black;
+            padding: 5px;
+            margin-top: 10px;
+            min-height: 40px;
+        }
+        .reason-box {
+            border: 1px solid black;
+            padding: 5px;
+            margin-top: 10px;
+            min-height: 40px;
+        }
+
+        .signature-table {
+            
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0px;
+        }
+
+        .signature-table th{
+            padding: 0px;
+            border: 1px solid black;
+        }
+        .signature-table1 th{
+            padding: 0px;
+            border: 1px solid black;
+        }
+        .signature-table td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px;
+            height: 80px;
             word-wrap: break-word;
         }
 
-        .avis-table th, .avis-table td {
-            height: 80px;
+        .signature-small {
+            font-size: 11px;
+            font-weight: normal;
         }
+
+        .signature-table thead th {
+            padding: 0px 0px;
+            margin: 0%;
+            /* réduit l’espace vertical dans les en-têtes */
+            font-weight: bold;
+        }
+
+        .signature-table1 {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        .signature-table1 td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 12px;
+            height: 80px;
+            word-wrap: break-word;
+        }
+
+        .signature-small1 {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .signature-table1 thead th {
+            padding: 0px 0px;
+            margin: 0%;
+            /* réduit l’espace vertical dans les en-têtes */
+            font-weight: bold;
+        }
+
+
     </style>
 </head>
 <body>
@@ -90,24 +141,28 @@
 
     <div class="content">
 
-        <div class="top-ref">Ref : Form-Apogee1</div>
+        <div class=""> &nbsp; &nbsp; </div>
+        <div class=""> &nbsp; &nbsp; </div>
+        <div class="top-ref"> &nbsp; &nbsp; </div>
 
         <div class="title">Demande d’inscription administrative à une année antérieure</div>
+        
 
         <table class="info-table">
             <tr>
-                <td><strong>Etablissement :</strong> {{ $data['etbl'] }}</td>
-                <td style="text-align: right;"><strong>Date de la demande :</strong> {{ $data['dateDM'] }}</td>
+                <td><strong>Etablissement : {{ $data['etbl'] }} </strong></td>
+                <td style="text-align: right;"><strong>Date de la demande :{{ $data['dateDM'] }} </strong>  </td>
             </tr>
         </table>
 
         <p><strong>Cycle :</strong> {{ $data['typ'] }}</p>
         <p><strong>Filière :</strong> {{ $data['flr'] }}</p>
-        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
         <p><strong>Année d’inscription concernée :</strong> {{ $data['aneINS'] }}</p>
+        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
+        
 
         <div class="section-title">Liste des Étudiants :</div>
-        <table>
+        <table class="module-table ">
             <thead>
                 <tr>
                     <th>Numéro APOGEE</th>
@@ -124,12 +179,12 @@
             </tbody>
         </table>
 
-        <div class="section-title">La raison du retard :</div>
-        <div class="reason">
+        <p style="margin-top: 10px;"><strong>Raison du retard :</strong></p>
+        <div class="reason-box">
             {{ $data['mtf'] }}
         </div>
 
-        <table class="avis-table" style="margin-top: 30px;">
+        <table class="signature-table1" style="margin-top: 30px;">
             <thead>
                 <tr>
                     <th>Avis du Coordinateur de la filière</th>

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <style>
-        @page {
+          @page {
             size: A4;
             margin: 0;
         }
@@ -32,16 +31,10 @@
             z-index: 1;
         }
 
-        .top-ref {
-            font-size: 10px;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-
         .title {
+            text-align: center;
             font-size: 14px;
             font-weight: bold;
-            text-align: center;
             margin-bottom: 10px;
         }
 
@@ -52,51 +45,40 @@
 
         .info-table td {
             padding: 2px 0;
-            word-wrap: break-word;
         }
 
         p {
             margin: 3px 0;
-            word-wrap: break-word;
         }
 
-        .main-table th,
-        .main-table td {
+        .module-table th,
+        .module-table td {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
-            word-wrap: break-word;
-        }
-
-        .main-table {
-            margin-top: 10px;
         }
 
         .reason-box {
             border: 1px solid black;
             padding: 5px;
             margin-top: 10px;
-            word-wrap: break-word;
             min-height: 40px;
         }
 
         .signature-table {
-
             width: 100%;
             border-collapse: collapse;
             margin-top: 0px;
         }
 
-        .signature-table th {
+        .signature-table th{
             padding: 0px;
             border: 1px solid black;
         }
-
-        .signature-table1 th {
+        .signature-table1 th{
             padding: 0px;
             border: 1px solid black;
         }
-
         .signature-table td {
             border: 1px solid black;
             text-align: center;
@@ -113,7 +95,6 @@
         .signature-table thead th {
             padding: 0px 0px;
             margin: 0%;
-            /* réduit l’espace vertical dans les en-têtes */
             font-weight: bold;
         }
 
@@ -126,7 +107,7 @@
         .signature-table1 td {
             border: 1px solid black;
             text-align: center;
-            padding: 5px;
+            padding: 12px;
             height: 80px;
             word-wrap: break-word;
         }
@@ -139,12 +120,10 @@
         .signature-table1 thead th {
             padding: 0px 0px;
             margin: 0%;
-            /* réduit l’espace vertical dans les en-têtes */
             font-weight: bold;
         }
     </style>
 </head>
-
 <body>
 
     <img src="{{ public_path('images/background.png') }}" class="background">
@@ -153,33 +132,27 @@
 
         <div class=""> &nbsp; &nbsp; </div>
         <div class=""> &nbsp; &nbsp; </div>
+        <div class="top-ref"> &nbsp; &nbsp; </div>
 
-        <div class="title">Demande d’insertion ou modification d’un résultat des années <br> antérieures sur le système
-            APOGEE (Par Module)</div>
-
-        <table class="info-table" >
+        <div class="title">Demande d'annulation d'inscription administrative à une année antérieure</div>
+        
+        <table class="info-table">
             <tr>
-                <td><strong>Etablissement :</strong> {{ $data['etbl'] }}</td>
-                <td style="text-align: right;"><strong>Date de la demande :</strong> {{ $data['dateDM'] }}</td>
+                <td><strong>Etablissement : {{ $data['etbl'] }} </strong></td>
+                <td style="text-align: right;"><strong>Date de la demande : {{ $data['dateDM'] }} </strong></td>
             </tr>
         </table>
 
         <p><strong>Cycle :</strong> {{ $data['typ'] }}</p>
         <p><strong>Filière :</strong> {{ $data['flr'] }}</p>
-        <p><strong>Nom du module :</strong> {{ $data['module'] }}</p>
-        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
-        <p><strong>Semestre :</strong> {{ $data['Semestre'] }}</p>
-        <p><strong>Année universitaire concernée :</strong> {{ $data['AnneeCon'] }}</p>
-
-        <h3 style="text-align: left; margin-top: 10px;">Liste des Étudiants :</h3>
-        <table class="main-table">
+        <p><strong>Année d’inscription concernée :</strong> {{ $data['aneINS'] }}</p>
+        
+        <div class="section-title">Liste des Étudiants :</div>
+        <table class="module-table">
             <thead>
                 <tr>
-                    <th>N° APOGEE</th>
+                    <th>Numéro APOGEE</th>
                     <th>Nom & Prénom</th>
-                    <th>Sessions</th>
-                    <th>Note initiale</th>
-                    <th>Note corrigée</th>
                 </tr>
             </thead>
             <tbody>
@@ -187,46 +160,29 @@
                     <tr>
                         <td>{{ $student['apogee'] }}</td>
                         <td>{{ $student['name'] }}</td>
-                        <td>{{ $student['session'] }}</td>
-                        <td>{{ $student['note_initiale'] }}</td>
-                        <td>{{ $student['note_corrigee'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <p style="margin-top: 10px;"><strong>Raison du retard d’insertion de la note initiale ou de la correction des
-                notes :</strong></p>
+        <p style="margin-top: 10px;"><strong>La raison de l'annulation :</strong></p>
         <div class="reason-box">
-            {{ $data['raso'] }}
+            {{ $data['mtf'] }}
         </div>
 
-        <table class="signature-table1">
+        <table class="signature-table1" style="margin-top: 30px;">
             <thead>
                 <tr>
-                    <th>Responsable du module :<br>{{ $data['ResP'] }}</th>
-                    <th>Coordinateur de la Filière :<br>{{ $data['Cordi'] }}</th>
-                    <th>Avis du Responsable administratif</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="signature-table">
-            <thead>
-                <tr>
-                    <th>Avis du Chef d’établissement</th>
+                    <th>Responsable Administratif</th>
+                    <th>Avis du Chef Service</th>
+                    <th>Avis du Chef d'établissement</th>
                     <th>Avis du Président de l’Université</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -236,5 +192,4 @@
     </div>
 
 </body>
-
 </html>

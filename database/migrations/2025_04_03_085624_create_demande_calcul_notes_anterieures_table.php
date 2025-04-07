@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('annee_universitaire');
             // New column for semesters (stored as JSON)
             $table->json('semesters')->nullable();
+            $table->string('statut')->default('En attente');
             $table->string('nom_demande')
                   ->default("Demande de calcul des notes à une année universitaire antérieure");
             $table->timestamps();

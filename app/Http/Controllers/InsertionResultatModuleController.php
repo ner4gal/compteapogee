@@ -29,6 +29,7 @@ class InsertionResultatModuleController extends Controller
             'students.*.session' => 'required',
             'students.*.note_initiale' => 'required',
             'students.*.note_corrigee' => 'required',
+            'statut'    => 'sometimes|string',
             
         ]);
         $user = auth()->user();
@@ -45,6 +46,7 @@ class InsertionResultatModuleController extends Controller
             'raison_retard'   => $validatedData['raso'],
             'module_nom'      => $validatedData['module'],  // saving module name as module_nom
             'students'        => $validatedData['students'],
+            'statut'            => $request->input('statut', 'En attente'),
             // 'nom_demande' can be set automatically by your model or here as a computed value:
             'nom_demande'     => "Demande d'insertion ou modification d'un résultat des années antérieures (Par Module)"
         ];

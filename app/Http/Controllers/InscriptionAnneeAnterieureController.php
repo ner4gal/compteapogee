@@ -27,6 +27,7 @@ class InscriptionAnneeAnterieureController extends Controller
         'students' => 'required|array|min:1', // At least one student required
         'students.*.apogee' => 'required',
         'students.*.name' => 'required',
+        'statut'    => 'sometimes|string',
     ]);
      // Save to DB
      $record = InscAnneeAnterieure::create([
@@ -41,7 +42,8 @@ class InscriptionAnneeAnterieureController extends Controller
         'annee_inscription' => $validatedData['aneINS'],
         'raison_retard' => $validatedData['mtf'],
         'students' => $validatedData['students'],
-        'nom_demande' => 'Demande d’inscription administrative à une annèe antèrieure'
+        'nom_demande' => 'Demande d’inscription administrative à une annèe antèrieure',
+        'statut'            => $request->input('statut', 'En attente')
     ]);
     $data = $validatedData;
     // Generate PDF with A4 format

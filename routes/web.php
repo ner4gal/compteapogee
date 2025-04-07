@@ -17,6 +17,10 @@ use App\Models\ResulataModule;
 use App\Models\DemandeCalculNotesAnterieure;
 use App\Models\DoctoratInscription;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AnnulationInscriptionAnneeAnterieureController;
+use App\Models\AnnulationInscription;
+use App\Http\Controllers\SuppressionNoteEtudiantController;
+use App\Models\SuppressionNoteEtudiant;
 
 // =======================
 // ROOT ROUTE FOR LOGIN / REDIRECT
@@ -46,18 +50,20 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // PROTECTED ROUTES (Require Authentication)
 // =======================
 Route::middleware(['auth'])->group(function () {
-    
+
     // Dashboard route
     Route::get('/home', function () {
         $apogeeUser = \App\Models\ApogeeUser::where('email', auth()->user()->email)->first();
         $demandes = InscAnneeAnterieure::where('user_id', auth()->id())->latest()->get();
         $demandesResultatEtudiant = ResultatEtudiant::where('user_id', auth()->id())
-                        ->latest()
-                        ->get();
+            ->latest()
+            ->get();
         $demandesReultatModul = ResulataModule::where('user_id', auth()->id())->latest()->get();
         $demandescalcul = DemandeCalculNotesAnterieure::where('user_id', auth()->id())->latest()->get();
         $demandeInscDoc = DoctoratInscription::where('user_id', auth()->id())->latest()->get();
-        return view('home', compact('apogeeUser' , 'demandes' ,  'demandesResultatEtudiant' , 'demandesReultatModul' , 'demandescalcul', 'demandeInscDoc'));
+        $demandeAnluAnne = AnnulationInscription::where('user_id', auth()->id())->latest()->get();
+        $demandeSupp = SuppressionNoteEtudiant::where('user_id', auth()->id())->latest()->get();
+        return view('home', compact('apogeeUser', 'demandes', 'demandesResultatEtudiant', 'demandesReultatModul', 'demandescalcul', 'demandeInscDoc', 'demandeAnluAnne', 'demandeSupp'));
 
     })->name('home');
 
@@ -82,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('insertion.module.form');
 
     Route::post('/insertion-resultat-module', [InsertionResultatModuleController::class, 'generatePDF'])
-         ->name('insertion.module.pdf');
+        ->name('insertion.module.pdf');
 
     // Compte Fonctionnel Apogée Routes
     Route::get('/compte-fonctionnel-apogee', function () {
@@ -98,7 +104,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Insertion resultat etudiant PDF generation 
     Route::post('/insertion-resultat-etudiant', [ResultatEtudiantController::class, 'store'])
-    ->name('resultat.etudiant.store');
+        ->name('resultat.etudiant.store');
 
     // demandes calcul notes
     Route::get('/calcul-notes', function () {
@@ -109,12 +115,47 @@ Route::middleware(['auth'])->group(function () {
 
     //inscription année anterieure doctora 
     Route::post('/doct_inscription_annee_anterieure', [DoctoratInscriptionController::class, 'store'])
-     ->name('doctorat.inscription.store');
+        ->name('doctorat.inscription.store');
 
-     Route::get('/doct_inscription_annee_anterieure', function () {
+    Route::get('/doct_inscription_annee_anterieure', function () {
         return view('doct_inscription_annee_anterieure'); // Ensure view exists in 'resources/views'
     })->name('doctorat.inscription.show');
 
+
+    Route::get('/demande-annulation-inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'showForm'])
+        ->name('annulation.inscription.form');
+
+    Route::post('/inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'generatePDF'])
+        ->name('annulation.inscription.generate');
+        Route::get('/demande-annulation-inscription/{id}', [AnnulationInscriptionAnneeAnterieureController::class, 'show'])
+    ->name('annulation.inscription.show');
+
+    Route::get('/demande-suppression-note-annee-anterieure', [SuppressionNoteEtudiantController::class, 'showForm'])
+        ->name('suppression.note.etudiant.form');
+
+    Route::post('/suppression-note-annee-anterieure', [SuppressionNoteEtudiantController::class, 'store'])
+        ->name('suppression.note.etudiant.store');
+    // Group routes under the "suppression-note-etudiant" prefix.
+// All URLs in this group will start with /suppression-note-etudiant.
+    Route::prefix('suppression-note-etudiant')->group(function () {
+        // Show Route:
+        // GET /suppression-note-etudiant/{id}
+        // Displays details of a specific suppression demand.
+        Route::get('/{id}', [SuppressionNoteEtudiantController::class, 'show'])
+            ->name('suppression.note.etudiant.show');
+
+        // Update Route:
+        // PUT /suppression-note-etudiant/{id}
+        // Processes the update of an existing demand.
+        Route::put('/{id}', [SuppressionNoteEtudiantController::class, 'update'])
+            ->name('suppression.note.etudiant.update');
+
+        // Destroy Route:
+        // DELETE /suppression-note-etudiant/{id}
+        // Deletes the specified suppression demand.
+        Route::delete('/{id}', [SuppressionNoteEtudiantController::class, 'destroy'])
+            ->name('suppression.note.etudiant.destroy');
+    });
     // Admin Dashboard Route with inline admin check
     Route::get('/admindashboard', function () {
         // Ensure the user is authenticated

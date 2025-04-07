@@ -27,6 +27,7 @@ class calculNotesController extends Controller
             'AnneeCon'       => 'required|string', // Academic Year (Année concernée)
             'semesters'      => 'required|array|min:1',  // Semesters checkboxes
             'semesters.*'    => 'required|string', // each semester must be a string
+            'statut'    => 'sometimes|string',
         ]);
 
         // Get the authenticated user
@@ -45,6 +46,7 @@ class calculNotesController extends Controller
             'filiere'            => $validatedData['filiere'],
             'annee_universitaire'=> $validatedData['AnneeCon'],
             'semesters'          => $validatedData['semesters'],
+            'statut'            => $request->input('statut', 'En attente')
             // "nom_demande" is set by default in the migration,
             // but you can override it here if needed.
         ];

@@ -146,74 +146,65 @@
 </head>
 
 <body>
-
     <img src="{{ public_path('images/background.png') }}" class="background">
-
     <div class="content">
-
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-
-        <div class="title">Demande d’insertion ou modification d’un résultat des années <br> antérieures sur le système
-            APOGEE (Par Module)</div>
-
-        <table class="info-table" >
+        <div class="top-ref">&nbsp;</div>
+        <div class="title">
+        Demande de suppression des notes de l'année antérieure <br> (Par Étudiant)
+        </div>
+        <table class="info-table">
             <tr>
                 <td><strong>Etablissement :</strong> {{ $data['etbl'] }}</td>
                 <td style="text-align: right;"><strong>Date de la demande :</strong> {{ $data['dateDM'] }}</td>
             </tr>
         </table>
-
         <p><strong>Cycle :</strong> {{ $data['typ'] }}</p>
         <p><strong>Filière :</strong> {{ $data['flr'] }}</p>
-        <p><strong>Nom du module :</strong> {{ $data['module'] }}</p>
-        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
+        <p><strong>Nom &amp; Prénom :</strong> {{ $data['NomPrenom'] }}</p>
+        <p><strong>Numéro APOGEE :</strong> {{ $data['NumApogee'] }}</p>
         <p><strong>Semestre :</strong> {{ $data['Semestre'] }}</p>
         <p><strong>Année universitaire concernée :</strong> {{ $data['AnneeCon'] }}</p>
+        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
+        @if(isset($data['statut']))
+            <p><strong>Statut :</strong> {{ $data['statut'] }}</p>
+        @endif
 
-        <h3 style="text-align: left; margin-top: 10px;">Liste des Étudiants :</h3>
+        <h3 style="text-align: left; margin-top: 10px;">Liste des Modules :</h3>
         <table class="main-table">
             <thead>
                 <tr>
-                    <th>N° APOGEE</th>
-                    <th>Nom & Prénom</th>
-                    <th>Sessions</th>
-                    <th>Note initiale</th>
-                    <th>Note corrigée</th>
+                    <th>Nom du Module</th>
+                    <th>Session</th>
+                    <th>Note</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data['students'] as $student)
+                @foreach ($data['modules'] as $module)
                     <tr>
-                        <td>{{ $student['apogee'] }}</td>
-                        <td>{{ $student['name'] }}</td>
-                        <td>{{ $student['session'] }}</td>
-                        <td>{{ $student['note_initiale'] }}</td>
-                        <td>{{ $student['note_corrigee'] }}</td>
+                        <td>{{ $module['M'] }}</td>
+                        <td>{{ $module['S'] }}</td>
+                        <td>{{ $module['NI'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <p style="margin-top: 10px;"><strong>Raison du retard d’insertion de la note initiale ou de la correction des
-                notes :</strong></p>
+        <p style="margin-top: 10px;"><strong>Raison de suppression des notes :</strong></p>
         <div class="reason-box">
-            {{ $data['raso'] }}
+            {{ $data['raison'] }}
         </div>
 
         <table class="signature-table1">
             <thead>
                 <tr>
-                    <th>Responsable du module :<br>{{ $data['ResP'] }}</th>
-                    <th>Coordinateur de la Filière :<br>{{ $data['Cordi'] }}</th>
+                    <th>Nom &amp; Prénom Etudiant <br>{{ $data['NomPrenom'] }}</th>
                     <th>Avis du Responsable administratif</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
             </tbody>
         </table>
@@ -221,20 +212,20 @@
         <table class="signature-table">
             <thead>
                 <tr>
+                    <th>Avis du Chef Service</th>
                     <th>Avis du Chef d’établissement</th>
                     <th>Avis du Président de l’Université</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
             </tbody>
         </table>
-
     </div>
-
 </body>
 
 </html>

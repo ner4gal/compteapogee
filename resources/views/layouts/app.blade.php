@@ -30,17 +30,15 @@
 
     <!-- Stylesheets -->
     <!-- Dashmix framework -->
-    <link rel="stylesheet" id="css-main" href="assets/css/dashmix.min.css">
-
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
-    <link rel="stylesheet" id="css-theme" href="assets/css/themes/xpro.css">
-    <link rel="stylesheet" href="assets/select2/css/select2.css" />
-    <link rel="stylesheet" href="vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/dashmix.min.css') }}">
+    <link rel="stylesheet" id="css-theme" href="{{ asset('assets/css/themes/xpro.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/select2/css/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/select2-bootstrap-theme/select2-bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
     <!-- END Stylesheets -->
 
     <!-- Load and set color theme + dark mode preference (blocking script to prevent flashing) -->
-    <script src="assets/js/setTheme.js"></script>
+    <script src="{{ asset('assets/js/setTheme.js') }}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
@@ -331,9 +329,23 @@
     </div>
 
     <!-- Dashmix JS -->
-    <script src="{{ asset('assets/js/dashmix.app.min.js') }}"></script>
+   <!-- Scripts -->
+   <script src="{{ asset('assets/js/dashmix.app.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/chart.js/chart.umd.js') }}"></script>
     <script src="{{ asset('assets/js/pages/db_corporate_slim.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables/dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/be_tables_datatables.min.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

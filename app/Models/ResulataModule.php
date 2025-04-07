@@ -28,6 +28,7 @@ class ResulataModule extends Model
         'module_nom',
         'students',
         'nom_demande',
+         'statut'
     ];
 
     // Cast fields to native types.

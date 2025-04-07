@@ -279,55 +279,65 @@
     </div>
 
     <script>
-        function showLoading() {
-            const modal = new bootstrap.Modal(document.getElementById('pdfModal'));
-            modal.show();
+  // Store the original countdown HTML so it can be reset on each call.
+  const originalCountdownHTML = 'Votre PDF sera prêt dans <strong id="counter">7</strong> secondes...';
 
-            let count = 7;
-            const counterSpan = document.getElementById('counter');
-            const countdownText = document.getElementById('countdownText');
-            const modalContent = document.querySelector('#pdfModal .modal-content');
+  function showLoading() {
+    // Get the modal element and show the modal.
+    const modalElement = document.getElementById('pdfModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
 
-            const interval = setInterval(() => {
-                count--;
-                counterSpan.textContent = count;
+    // Reset the countdown text to its original HTML.
+    const countdownText = document.getElementById('countdownText');
+    countdownText.innerHTML = originalCountdownHTML;
 
-                if (count <= 0) {
-                    clearInterval(interval);
+    // Re-query the counter element now that the content has been reset.
+    const counterSpan = document.getElementById('counter');
 
-                    // ✅ Show success icon and message
-                    countdownText.innerHTML = `
-                                                <div class="text-success mb-2">
-                                                    <i class="fa fa-check-circle fa-2x"></i>
-                                                </div>
-                                                <p><strong>Votre PDF est prêt !</strong></p>
-                                            `;
+    let count = 7;
+    counterSpan.textContent = count; // Ensure it starts at 7.
 
-                    // ✅ Auto-close after 3 seconds
-                    setTimeout(() => {
-                        modal.hide();
-                        pdfForm.reset();
-                    }, 3000);
-                    pdfForm.reset();
-                }
-            }, 1000);
-            
-        }
+    const interval = setInterval(() => {
+      count--;
+      counterSpan.textContent = count;
 
-        $(document).ready(function () {
-            // Initialize Select2 with any options you need
-            $('.selectcls').select2({
-                placeholder: "Select options",
-                allowClear: true,
-                width: 'resolve' // This helps with theme conflicts
-            });
+      if (count <= 0) {
+        clearInterval(interval);
 
-            // If theme JS is trying to modify selects after page load, you might need
-            $(document).on('theme-js-loaded', function () { // hypothetical event
-                $('.selectcls').select2('destroy').select2();
-            });
-        });
-    </script>
+        // Show success icon and message.
+        countdownText.innerHTML = `
+          <div class="text-success mb-2">
+            <i class="fa fa-check-circle fa-2x"></i>
+          </div>
+          <p><strong>Votre PDF est prêt !</strong></p>
+        `;
+
+        // Auto-close after 3 seconds.
+        setTimeout(() => {
+          modal.hide();
+          pdfForm.reset();
+        }, 3000);
+        pdfForm.reset();
+      }
+    }, 1000);
+  }
+
+  $(document).ready(function () {
+    // Initialize Select2 with any options you need.
+    $('.selectcls').select2({
+      placeholder: "Select options",
+      allowClear: true,
+      width: 'resolve' // This helps with theme conflicts.
+    });
+
+    // If theme JS is trying to modify selects after page load, you might need:
+    $(document).on('theme-js-loaded', function () { // hypothetical event
+      $('.selectcls').select2('destroy').select2();
+    });
+  });
+</script>
+
 
 
 @endsection

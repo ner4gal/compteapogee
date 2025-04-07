@@ -32,6 +32,7 @@ return new class extends Migration {
             $table->string('aneINS');         // Année d'inscription concernée
             $table->string('nrtDM');          // Nature de la demande
             $table->text('mtf');              // La raison du retard
+            $table->string('statut')->default('En attente');
             // Default request name (with escaped quotes)
             $table->string('nom_demande')
                   ->default("Demande d''inscription administrative à une année antérieure (Cycle Doctorat)");

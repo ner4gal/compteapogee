@@ -19,6 +19,7 @@ class InscAnneeAnterieure extends Model
         'raison_retard',
         'students',
         'nom_demande',
+         'statut'
     ];
     
     protected $casts = [

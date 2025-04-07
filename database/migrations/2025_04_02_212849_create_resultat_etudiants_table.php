@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('annee_inscription');
             $table->text('raison_retard');
             $table->json('modules'); // store students list
+            $table->string('statut')->default('En attente');
             $table->string('nom_demande')
     ->default("Demande d''insertion ou modification d''un résultat des années antérieures sur le système APOGEE (Par Étudiant)");
 

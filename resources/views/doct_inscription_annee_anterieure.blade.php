@@ -209,40 +209,49 @@
   </div>
 
   <script>
-    const pdfForm = document.getElementById('pdfForm');
-    function showLoading() {
-    const modal = new bootstrap.Modal(document.getElementById('pdfModal'));
+  const pdfForm = document.getElementById('pdfForm');
+  
+  // Store the original countdown HTML for reuse
+  const originalCountdownHTML = 'Votre PDF sera prêt dans <strong id="counter">7</strong> secondes...';
+
+  function showLoading() {
+    const modalElement = document.getElementById('pdfModal');
+    const modal = new bootstrap.Modal(modalElement);
     modal.show();
 
-    let count = 7;
-    const counterSpan = document.getElementById('counter');
+    // Reset the modal content to its initial state
     const countdownText = document.getElementById('countdownText');
-    const modalContent = document.querySelector('#pdfModal .modal-content');
+    countdownText.innerHTML = originalCountdownHTML;
+    
+    // Get the counter element from the reset HTML
+    let counterSpan = document.getElementById('counter');
+    
+    let count = 7;
+    counterSpan.textContent = count; // ensure it starts at 7
 
     const interval = setInterval(() => {
       count--;
       counterSpan.textContent = count;
 
       if (count <= 0) {
-      clearInterval(interval);
+        clearInterval(interval);
 
-      // ✅ Show success icon and message
-      countdownText.innerHTML = `
-                          <div class="text-success mb-2">
-                            <i class="fa fa-check-circle fa-2x"></i>
-                          </div>
-                          <p><strong>Votre PDF est prêt !</strong></p>
-                        `;
+        // Show success icon and message
+        countdownText.innerHTML = `
+          <div class="text-success mb-2">
+            <i class="fa fa-check-circle fa-2x"></i>
+          </div>
+          <p><strong>Votre PDF est prêt !</strong></p>
+        `;
 
-      // ✅ Auto-close after 3 seconds
-      setTimeout(() => {
-        modal.hide();
-        pdfForm.reset();
-      }, 3000);
-      pdfForm.reset();
+        // Auto-close after 3 seconds and reset the form.
+        setTimeout(() => {
+          modal.hide();
+          pdfForm.reset();
+        }, 3000);
       }
     }, 1000);
+  }
+</script>
 
-    }
-  </script>
 @endsection
