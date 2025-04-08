@@ -23,20 +23,19 @@
 
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">
-                        Appogee Users 
-                        </h3>
+                        <h3 class="block-title">Apogee Users</h3>
                     </div>
                     <div class="block-content block-content-full overflow-x-auto">
-                        <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
                         <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
                             <thead>
                                 <tr>
-                                    <th>Nom & Prenom </th>
-                                    <th>Email </th>
-                                    <th>Etablissement </th>
+                                    <th>Nom & Prenom</th>
+                                    <th>Email</th>
+                                    <th>Etablissement</th>
                                     <th>Privilèges APOGEE</th>
+                                    <th>Statut</th>
                                     <th>Registered At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,10 +46,44 @@
                                         <td>{{ $user->etablissement }}</td>
                                         <td>
                                             @foreach($user->privileges_apogee ?? [] as $item)
-                                                <span class="badge bg-primary text-white me-1">{{ $item  }},</span>
+                                                <span class="badge bg-primary text-white me-1">{{ $item }},</span>
                                             @endforeach
                                         </td>
+                                        <td>
+                                            <span class="badge 
+                                        @if($user->acces_apogee_statut === 'Accès accordé') bg-success
+                                        @elseif($user->acces_apogee_statut === 'Accès refusé') bg-danger
+                                        @else bg-warning text-dark @endif">
+                                                {{ $user->acces_apogee_statut }}
+                                            </span>
+                                        </td>
                                         <td>{{ $user->created_at->format('d/m/Y') }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-sm btn-alt-secondary dropdown-toggle"
+                                                    data-bs-toggle="dropdown">
+                                                    Changer statut
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <form method="POST" action="{{ route('admin.update-status', $user->id) }}">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit" name="status" value="Traitement en cours"
+                                                            class="dropdown-item @if($user->acces_apogee_statut === 'Traitement en cours') active @endif">
+                                                            Traitement en cours
+                                                        </button>
+                                                        <button type="submit" name="status" value="Accès accordé"
+                                                            class="dropdown-item @if($user->acces_apogee_statut === 'Accès accordé') active @endif">
+                                                            Accès accordé
+                                                        </button>
+                                                        <button type="submit" name="status" value="Accès refusé"
+                                                            class="dropdown-item @if($user->acces_apogee_statut === 'Accès refusé') active @endif">
+                                                            Accès refusé
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

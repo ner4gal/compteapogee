@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApogeeUser extends Model
 {
+    protected $fillable = [
+        'acces_apogee_statut'
+    ];
     protected $casts = [
         'centre_gestion' => 'array',
         'centre_traitement' => 'array',

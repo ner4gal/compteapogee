@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('telephone')->nullable();
             $table->string('nom_utilisateur_apogee');
             $table->string('mac_address')->nullable();
+            $table->string('acces_apogee_statut')->default('Tratement en cours'); // stores value like "Traitement en cours", "Accès accordé", "Accès refusé"
             
             $table->string('centre_gestion')->nullable(); // stores value like CGC, CGS...
             $table->string('centre_traitement')->nullable(); // stores value like CTN, CTS...
