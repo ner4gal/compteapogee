@@ -254,9 +254,11 @@
       <table class="table table-vcenter">
         <thead>
           <tr>
-            <th></th>
+            <th>Demande</th>
             <th>Module</th>
             <th>Date</th>
+            <th>Statut</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -265,6 +267,26 @@
               <td>{{ $d->nom_demande }}</td>
               <td>{{ $d->module_nom }}</td>
               <td>{{ $d->date_demande->format('d/m/Y') }}</td>
+              <td>
+                @switch($d->statut)
+                  @case('En attente')
+                    <span class="badge bg-warning">{{ $d->statut }}</span>
+                    @break
+                  @case('Approuvé')
+                    <span class="badge bg-success">{{ $d->statut }}</span>
+                    @break
+                  @case('Rejeté')
+                    <span class="badge bg-danger">{{ $d->statut }}</span>
+                    @break
+                  @default
+                    <span class="badge bg-secondary">{{ $d->statut }}</span>
+                @endswitch
+              </td>
+              <td class="text-nowrap">
+                <a href="{{ route('insertion.resultat.module.show', $d->id) }}" class="btn btn-sm btn-primary" title="Voir">
+                  <i class="fa fa-eye"></i>
+                </a>
+              </td>
             </tr>
           @endforeach
         </tbody>
@@ -272,6 +294,7 @@
     @endif
   </div>
 </div>
+
 
             
             <!-- Grade Calculation Requests -->
@@ -288,9 +311,11 @@
       <table class="table table-vcenter">
         <thead>
           <tr>
-            <th></th>
-            <th>Etudiant</th>
+            <th>Demande</th>
+            <th>Étudiant</th>
             <th>Date</th>
+            <th>Statut</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -299,6 +324,26 @@
               <td>{{ $d->nom_demande }}</td>
               <td>{{ $d->NomPrenomETD }}</td>
               <td>{{ $d->date_demande->format('d/m/Y') }}</td>
+              <td>
+                @switch($d->statut)
+                  @case('En attente')
+                    <span class="badge bg-warning">{{ $d->statut }}</span>
+                    @break
+                  @case('Approuvé')
+                    <span class="badge bg-success">{{ $d->statut }}</span>
+                    @break
+                  @case('Rejeté')
+                    <span class="badge bg-danger">{{ $d->statut }}</span>
+                    @break
+                  @default
+                    <span class="badge bg-secondary">{{ $d->statut }}</span>
+                @endswitch
+              </td>
+              <td class="text-nowrap">
+                <a href="{{ route('demande.calcul.show', $d->id) }}" class="btn btn-sm btn-primary" title="Voir">
+                  <i class="fa fa-eye"></i>
+                </a>
+              </td>
             </tr>
           @endforeach
         </tbody>
@@ -306,6 +351,7 @@
     @endif
   </div>
 </div>
+
 
             <!-- Doctoral Registration Requests -->
             <div class="block block-rounded">

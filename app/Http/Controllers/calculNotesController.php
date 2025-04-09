@@ -61,4 +61,40 @@ class calculNotesController extends Controller
         // Return the PDF as a download.
         return $pdf->download('Demande_Calcul_Notes.pdf');
     }
+    public function show($id)
+{
+    $demand = DemandeCalculNotesAnterieure::findOrFail($id);
+    return view('calcul-notes.show', compact('demand'));
+}
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'etbl' => 'required',
+        'dateDM' => 'required|date',
+        'NomPrenomETD' => 'required',
+        'NumETD' => 'required',
+        'cycle' => 'required',
+        'filiere' => 'required',
+        'AnneeCon' => 'required',
+        'semesters' => 'required|array|min:1',
+    ]);
+
+    $demand = DemandeCalculNotesAnterieure::findOrFail($id); // use your correct model
+
+    $demand->update([
+        'etablissement' => $request->etbl,
+        'date_demande' => $request->dateDM,
+        'NomPrenomETD' => $request->NomPrenomETD,
+        'NumETD' => $request->NumETD,
+        'cycle' => $request->cycle,
+        'filiere' => $request->filiere,
+        'annee_inscription' => $request->AnneeCon,
+        'semesters' => $request->semesters,
+    ]);
+
+    // PDF
+    $pdf = PDF::loadView('pdf.demande_calcul_notes_pdf', ['data' => $demand])->setPaper('a4', 'portrait');
+    return $pdf->download('calcul_notes.pdf');
+}
+
 }

@@ -85,6 +85,9 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
         return view('insertion-resultat-module-form');
     })->name('insertion.module.form');
     Route::post('/insertion-resultat-module', [InsertionResultatModuleController::class, 'generatePDF'])->name('insertion.module.pdf');
+    Route::get('/insertion-resultat-module/{id}', [InsertionResultatModuleController::class, 'show'])->name('insertion.resultat.module.show');
+    Route::put('/insertion-resultat-module/{id}', [InsertionResultatModuleController::class, 'update'])->name('insertion.module.update');
+
 
     // Compte Fonctionnel Apogée
     Route::get('/compte-fonctionnel-apogee', function () {
@@ -104,6 +107,9 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     })->name('calcul.notes.show');
     Route::get('/demande-calcul-notes', [CalculNotesController::class, 'create'])->name('demande.calcul.create');
     Route::post('/demande-calcul-notes', [CalculNotesController::class, 'store'])->name('demande.calcul.store');
+    Route::get('/demande-calcul-notes/{id}', [CalculNotesController::class, 'show'])->name('demande.calcul.show');
+    Route::put('/calcul-notes/{id}', [CalculNotesController::class, 'update'])->name('demande.calcul.update');
+
 
     // Doctorat Inscription
     Route::post('/doct_inscription_annee_anterieure', [DoctoratInscriptionController::class, 'store'])->name('doctorat.inscription.store');

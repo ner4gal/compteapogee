@@ -27,9 +27,13 @@ return new class extends Migration
             $table->text('raison_retard');
             // Single module data (one module name).
             $table->string('module_nom');
+            $table->string('responsable_module')->nullable();
+            $table->string('Semestre')->nullable();
+            $table->string('coordinateur_filiere')->nullable();
             $table->string('statut')->default('En attente');
             // List of students (JSON format).
             $table->json('students');
+
             // Request name with a default value.
             $table->string('nom_demande')
                   ->default("Demande d''insertion ou modification d''un résultat des années antérieures (Par Module)");

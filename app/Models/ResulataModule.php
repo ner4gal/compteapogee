@@ -28,8 +28,11 @@ class ResulataModule extends Model
         'module_nom',
         'students',
         'nom_demande',
-         'statut'
-    ];
+         'statut',
+         'responsable_module',
+         'coordinateur_filiere',
+         'Semestre',
+            ];
 
     // Cast fields to native types.
     protected $casts = [

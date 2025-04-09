@@ -3,70 +3,74 @@
 @section('title', 'Accueil - Portail des Demandes Administratives')
 
 @section('content')
-@if(session('warning'))
-    <div class="alert alert-warning">
-        {{ session('warning') }}
-    </div>
-@endif
-
-@if($apogeeUser ?? false)
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5>Statut de votre demande Apogée</h5>
-        </div>
-        <div class="card-body">
-            <p class="mb-0">
-                <strong>Statut actuel:</strong> 
-                <span class="badge 
-                    @if($apogeeUser->acces_apogee_statut === 'Accès accordé') bg-success
-                    @elseif($apogeeUser->acces_apogee_statut === 'Accès refusé') bg-danger
-                    @else bg-warning text-dark @endif">
-                    {{ $apogeeUser->acces_apogee_statut }}
-                </span>
-            </p>
-            @if($apogeeUser->acces_apogee_statut === 'Accès refusé')
-                <p class="mt-2 text-muted">
-                    Contactez l'administration pour plus d'informations.
-                </p>
-            @endif
-        </div>
-    </div>
-@endif
-  <div class="bg-body-extra-light">
+    {{-- Check if the user has already submitted the form --}}
+  @if($apogeeUser ?? false)
+    {{-- Only display the alert if the user has already sent a demand --}}
+    <div class="bg-body-extra-light">
     <div class="content content-full">
+    <div class="row">
+    <div class="alert alert-info fs-5 text-center">
+    <div class="alert alert-info">
+      <p>
+        Vous avez déjà soumis votre demande d'accès APOGÉE. Merci de patienter pour la prise en compte de votre demande.
+      </p>
+      {{-- You can also show the current status if available --}}
+      <p>
+        <strong>Statut actuel:</strong>
+        <span class="badge 
+          @if($apogeeUser->acces_apogee_statut === 'Accès accordé') bg-success
+          @elseif($apogeeUser->acces_apogee_statut === 'Accès refusé') bg-danger
+          @else bg-warning text-dark @endif">
+          {{ $apogeeUser->acces_apogee_statut }}
+        </span>
+      </p>
+      @if($apogeeUser->acces_apogee_statut === 'Accès refusé')
+        <p class="mt-2 text-muted">
+          Contactez l'administration pour plus d'informations.
+        </p>
+      @endif
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  @else
+    {{-- Otherwise display all the forms --}}
+    <div class="bg-body-extra-light">
+      <div class="content content-full">
 
-      {{-- Quick Menu Alert --}}
-      <div class="row">
-        <div class="alert alert-info fs-5 text-center">
-          <p class="mb-2">
-            🎓 <strong>Bienvenue sur le Portail APOGEE !</strong>
-          </p>
-          <p>
-            Merci de remplir le formulaire ci-dessous en fonction de votre situation :
-          </p>
-          <ul class="text-start mt-3">
-            <li>
-              <strong>✅ Vous avez déjà un compte APOGEE</strong> : complétez ou mettez à jour vos informations personnelles, sélectionnez vos centres et définissez vos privilèges d’accès.
-            </li>
-            <li>
-              <strong>🆕 Vous ne possédez pas encore de compte APOGEE</strong> : remplissez le formulaire de demande d’ouverture de compte situé plus bas sur cette page.
-            </li>
-          </ul>
-          <p class="mt-2">
-            🔒 Toutes les données saisies sont strictement confidentielles et utilisées uniquement pour la gestion de votre accès APOGEE.
-          </p>
-        </div>     
-      </div>
-      {{-- End Quick Menu Alert --}}
+        {{-- Quick Menu Alert --}}
+        <div class="row">
+          <div class="alert alert-info fs-5 text-center">
+            <p class="mb-2">
+              🎓 <strong>Bienvenue sur le Portail APOGEE !</strong>
+            </p>
+            <p>
+              Merci de remplir le formulaire ci-dessous en fonction de votre situation :
+            </p>
+            <ul class="text-start mt-3">
+              <li>
+                <strong>✅ Vous avez déjà un compte APOGEE</strong> : complétez ou mettez à jour vos informations personnelles, sélectionnez vos centres et définissez vos privilèges d’accès.
+              </li>
+              <li>
+                <strong>🆕 Vous ne possédez pas encore de compte APOGEE</strong> : remplissez le formulaire de demande d’ouverture de compte situé plus bas sur cette page.
+              </li>
+            </ul>
+            <p class="mt-2">
+              🔒 Toutes les données saisies sont strictement confidentielles et utilisées uniquement pour la gestion de votre accès APOGEE.
+            </p>
+          </div>
+        </div>
+        {{-- End Quick Menu Alert --}}
 
-      {{-- Voter APOGEE Profile Form --}}
-      <div class="row">
-        <div class="col-12">
-        <div class="block block-bordered block-rounded">
-        <div class="block-header block-header-default">
+        {{-- Voter APOGEE Profile Form --}}
+        <div class="row">
+          <div class="col-12">
+            <div class="block block-bordered block-rounded">
+              <div class="block-header block-header-default">
                 <h3 class="block-title">Voter APOGEE Profile</h3>
               </div>
-          <form action="{{ route('apogee-user.store') }}" method="POST">
+              <form action="{{ route('apogee-user.store') }}" method="POST">
             @csrf
               <div class="block-content">
                 <div class="row">
@@ -296,19 +300,20 @@
                 </div>
               </div>
             
-          </form>
+            </form>
+            </div>
           </div>
         </div>
-      </div>
-      {{-- End Voter APOGEE Profile Form --}}
-      <div class="row">
-  <div class="col-12">
-    <div class="block block-bordered block-rounded">
-      <div class="block-header block-header-default">
-        <h3 class="block-title">Demande d'ouverture d'un compte APOGEE</h3>
-      </div>
-      
-      <form id="pdfForm" action="{{ route('generate.doc') }}" method="POST" onsubmit="showLoading()">
+        {{-- End Voter APOGEE Profile Form --}}
+
+        {{-- Demande d'ouverture d'un compte APOGEE Form --}}
+        <div class="row">
+          <div class="col-12">
+            <div class="block block-bordered block-rounded">
+              <div class="block-header block-header-default">
+                <h3 class="block-title">Demande d'ouverture d'un compte APOGEE</h3>
+              </div>
+              <form id="pdfForm" action="{{ route('generate.doc') }}" method="POST" onsubmit="showLoading()">
         @csrf
         <div class="block-content">
           <div class="row">
@@ -547,78 +552,82 @@
           </div>
         </div>
       </form>
-    </div>
-  </div>
-</div>
-      {{--  Demande d'ouverture d'un compte APOGEE Form  --}}
-      
-  </div>
-  <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center p-4">
-                <h5 class="modal-title mb-3" id="pdfModalLabel">Génération du PDF</h5>
-                <p id="countdownText">Votre PDF sera prêt dans <strong><span id="counter">7</span></strong> secondes...</p>
             </div>
-        </div>
-    </div>
-
-    <script>
-  // Store the original countdown HTML so it can be reset on each call.
-  const originalCountdownHTML = 'Votre PDF sera prêt dans <strong id="counter">7</strong> secondes...';
-
-  function showLoading() {
-    // Get the modal element and show the modal.
-    const modalElement = document.getElementById('pdfModal');
-    const modal = new bootstrap.Modal(modalElement);
-    modal.show();
-
-    // Reset the countdown text to its original HTML.
-    const countdownText = document.getElementById('countdownText');
-    countdownText.innerHTML = originalCountdownHTML;
-
-    // Re-query the counter element now that the content has been reset.
-    const counterSpan = document.getElementById('counter');
-
-    let count = 7;
-    counterSpan.textContent = count; // Ensure it starts at 7.
-
-    const interval = setInterval(() => {
-      count--;
-      counterSpan.textContent = count;
-
-      if (count <= 0) {
-        clearInterval(interval);
-
-        // Show success icon and message.
-        countdownText.innerHTML = `
-          <div class="text-success mb-2">
-            <i class="fa fa-check-circle fa-2x"></i>
           </div>
-          <p><strong>Votre PDF est prêt !</strong></p>
-        `;
+        </div>
+        {{-- End Demande d'ouverture d'un compte APOGEE Form --}}
 
-        // Auto-close after 3 seconds.
-        setTimeout(() => {
-          modal.hide();
+      </div>
+    </div>
+  @endif
+
+  {{-- Modal and Script Section remain as-is --}}
+  <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-4">
+        <h5 class="modal-title mb-3" id="pdfModalLabel">Génération du PDF</h5>
+        <p id="countdownText">Votre PDF sera prêt dans <strong><span id="counter">7</span></strong> secondes...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Store the original countdown HTML so it can be reset on each call.
+    const originalCountdownHTML = 'Votre PDF sera prêt dans <strong id="counter">7</strong> secondes...';
+
+    function showLoading() {
+      // Get the modal element and show the modal.
+      const modalElement = document.getElementById('pdfModal');
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+
+      // Reset the countdown text to its original HTML.
+      const countdownText = document.getElementById('countdownText');
+      countdownText.innerHTML = originalCountdownHTML;
+
+      // Re-query the counter element now that the content has been reset.
+      const counterSpan = document.getElementById('counter');
+
+      let count = 7;
+      counterSpan.textContent = count; // Ensure it starts at 7.
+
+      const interval = setInterval(() => {
+        count--;
+        counterSpan.textContent = count;
+
+        if (count <= 0) {
+          clearInterval(interval);
+
+          // Show success icon and message.
+          countdownText.innerHTML = `
+            <div class="text-success mb-2">
+              <i class="fa fa-check-circle fa-2x"></i>
+            </div>
+            <p><strong>Votre PDF est prêt !</strong></p>
+          `;
+
+          // Auto-close after 3 seconds.
+          setTimeout(() => {
+            modal.hide();
+            pdfForm.reset();
+          }, 3000);
           pdfForm.reset();
-        }, 3000);
-        pdfForm.reset();
-      }
-    }, 1000);
-  }
+        }
+      }, 1000);
+    }
 
-  $(document).ready(function () {
-    // Initialize Select2 with any options you need.
-    $('.selectcls').select2({
-      placeholder: "Select options",
-      allowClear: true,
-      width: 'resolve' // This helps with theme conflicts.
-    });
+    $(document).ready(function () {
+      // Initialize Select2 with any options you need.
+      $('.selectcls').select2({
+        placeholder: "Select options",
+        allowClear: true,
+        width: 'resolve' // This helps with theme conflicts.
+      });
 
-    // If theme JS is trying to modify selects after page load, you might need:
-    $(document).on('theme-js-loaded', function () { // hypothetical event
-      $('.selectcls').select2('destroy').select2();
+      // If theme JS is trying to modify selects after page load, you might need:
+      $(document).on('theme-js-loaded', function () {
+        $('.selectcls').select2('destroy').select2();
+      });
     });
-  });
-</script>
+  </script>
 @endsection
