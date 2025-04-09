@@ -1,11 +1,21 @@
-<option value="Faculté des Langues des Lettres et des Arts">Faculté des Langues des Lettres et des Arts</option>
-<option value="Faculté des Sciences Humaines et Sociales">Faculté des Sciences Humaines et Sociales</option>
-<option value="Faculté des Sciences">Faculté des Sciences</option>
-<option value="Faculté d'Economie et de Gestion">Faculté d'Economie et de Gestion</option>
-<option value="Faculté des Sciences Juridiques et Politiques">Faculté des Sciences Juridiques et Politiques</option>
-<option value="Ecole Nationale de Commerce et de Gestion">Ecole Nationale de Commerce et de Gestion</option>
-<option value="Ecole Nationale des Sciences Appliquées">Ecole Nationale des Sciences Appliquées</option>
-<option value="Ecole Supérieure de Technologie">Ecole Supérieure de Technologie</option>
-<option value="Ecole Nationale Supérieure de Chimie">Ecole Nationale Supérieure de Chimie</option>
-<option value="Ecole Supérieure d'Education et de Formation">Ecole Supérieure d'Education et de Formation</option>
-<option value="Institut des Métiers de Sport">Institut des Métiers de Sport</option>
+@php
+  $etablissements = [
+    "Faculté des Langues des Lettres et des Arts",
+    "Faculté des Sciences Humaines et Sociales",
+    "Faculté des Sciences",
+    "Faculté d'Economie et de Gestion",
+    "Faculté des Sciences Juridiques et Politiques",
+    "Ecole Nationale de Commerce et de Gestion",
+    "Ecole Nationale des Sciences Appliquées",
+    "Ecole Supérieure de Technologie",
+    "Ecole Nationale Supérieure de Chimie",
+    "Ecole Supérieure d'Education et de Formation",
+    "Institut des Métiers de Sport",
+  ];
+@endphp
+
+@foreach($etablissements as $etab)
+  <option value="{{ $etab }}" {{ (isset($selectedEtablissement) && $selectedEtablissement === $etab) ? 'selected' : '' }}>
+    {{ $etab }}
+  </option>
+@endforeach

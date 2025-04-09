@@ -36,22 +36,30 @@
           <hr class="my-4">
           <div class="mb-4">
   <label class="form-label">Avancement de délibération</label>
+
+  @php
+    $selectedP8 = old('p8', $apogeeUser->responsable_apogee_access ?? '');
+  @endphp
+
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="p8" value="T" id="radioT" required>
+    <input class="form-check-input" type="radio" name="p8" value="T" id="radioT" required
+           {{ $selectedP8 === 'T' ? 'checked' : '' }}>
     <label class="form-check-label" for="radioT">T</label>
   </div>
+
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="p8" value="A" id="radioA" required>
+    <input class="form-check-input" type="radio" name="p8" value="A" id="radioA" required
+           {{ $selectedP8 === 'A' ? 'checked' : '' }}>
     <label class="form-check-label" for="radioA">A</label>
   </div>
 </div>
 
-
-          <div class="mt-4 text-center">
-          <button type="submit" class="btn btn-primary">
-            <i class="fa fa-file-pdf me-1"></i> Générer le PDF
-          </button>
-          </div>
+<div class="mt-4 text-center">
+  <button type="submit" class="btn btn-primary">
+    <i class="fa fa-file-pdf me-1"></i>
+    {{ isset($apogeeUser) ? 'Modifier et Télécharger à nouveau' : 'Générer le PDF' }}
+  </button>
+</div>
         </div>
         </form>
         <!-- ✅ END FORM -->

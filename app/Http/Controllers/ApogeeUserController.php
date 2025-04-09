@@ -118,7 +118,100 @@ public function showProfileForm()
 
 public function showCreationForm()
 {
-    return view('apogee.creation-form');
+    $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->first();
+    return view('apogee.creation-form' ,compact('apogeeUser'));
 }
+public function generateDocument(Request $request)
+{
+    $validated = $request->validate([
+        'etbl' => 'required|string|max:255',
+        'dateDM' => 'required|date',
+        'nomPrenomUser' => 'required|string|max:255',
+        'userName' => 'required|string|max:255',
+        'fonction' => 'nullable|string|max:255',
+        'tele' => 'nullable|string|max:50',
+        'mac' => 'nullable|string|max:255',
+        'centre_gestion' => 'nullable|array',
+        'centre_traitement' => 'nullable|array',
+        'centre_inscription_pedagogique' => 'nullable|array',
+        'centre_incompatibilite' => 'nullable|array',
+        'p1' => 'nullable',
+        'p2' => 'nullable',
+        'p3' => 'nullable',
+        'p4' => 'nullable',
+        'p5' => 'nullable',
+        'p6' => 'nullable',
+        'p7' => 'nullable',
+        'p8' => 'nullable|string|in:T,A',
+    ]);
+
+    $privilegesMap = [
+        'p1' => 'Inscription Administrative',
+        'p2' => 'Inscription Pédagogique',
+        'p3' => 'Résultat',
+        'p4' => 'Structure des enseignements',
+        'p5' => 'Dossier Étudiant',
+        'p6' => 'Modalités de contrôle des connaissances',
+        'p7' => 'Épreuves',
+    ];
+
+    $privileges = [];
+    foreach ($privilegesMap as $key => $label) {
+        if ($request->has($key)) {
+            $privileges[] = $label;
+        }
+    }
+
+    // ✅ This avoids all "missing field" insert issues
+    $apogeeUser = ApogeeUser::firstOrNew(['email' => auth()->user()->email]);
+
+    $apogeeUser->etablissement = $validated['etbl'];
+    $apogeeUser->nom_prenom = $validated['nomPrenomUser'];
+    $apogeeUser->nom_utilisateur_apogee = $validated['userName'];
+    $apogeeUser->fonction = $validated['fonction'] ?? null;
+    $apogeeUser->telephone = $validated['tele'] ?? null;
+    $apogeeUser->mac_address = $validated['mac'] ?? null;
+    $apogeeUser->acces_apogee_statut = 'Traitement en cours';
+    $apogeeUser->centre_gestion = $validated['centre_gestion'] ?? [];
+    $apogeeUser->centre_traitement = $validated['centre_traitement'] ?? [];
+    $apogeeUser->centre_inscription_pedagogique = $validated['centre_inscription_pedagogique'] ?? [];
+    $apogeeUser->centre_incompatibilite = $validated['centre_incompatibilite'] ?? [];
+    $apogeeUser->privileges_apogee = $privileges;
+    $apogeeUser->responsable_apogee_access = $validated['p8'] ?? null;
+    
+    // ✅ Critical line — must not forget this!
+    $apogeeUser->email = auth()->user()->email;
+    
+    $apogeeUser->save();
+    $data = [
+        'etbl' => $validated['etbl'],
+        'dateDM' => $validated['dateDM'],
+        'nomPrenomUser' => $validated['nomPrenomUser'],
+        'userName' => $validated['userName'],
+        'fonction' => $validated['fonction'] ?? '',
+        'tele' => $validated['tele'] ?? '',
+        'mac' => $validated['mac'] ?? '',
+        'centre_gestion' => $validated['centre_gestion'] ?? [],
+        'centre_traitement' => $validated['centre_traitement'] ?? [],
+        'centre_inscription_pedagogique' => $validated['centre_inscription_pedagogique'] ?? [],
+        'centre_incompatibilite' => $validated['centre_incompatibilite'] ?? [],
+        'p1' => $request->has('p1'),
+        'p2' => $request->has('p2'),
+        'p3' => $request->has('p3'),
+        'p4' => $request->has('p4'),
+        'p5' => $request->has('p5'),
+        'p6' => $request->has('p6'),
+        'p7' => $request->has('p7'),
+        'p8' => $validated['p8'] ?? null,
+    ];
+
+    $pdf = PDF::loadView('pdf.Apogee_pdf', ['data' => $data]);
+
+    return $pdf->download('demande_compte_apogee.pdf');
+}
+
+
+
+
 
 }

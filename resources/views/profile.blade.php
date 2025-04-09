@@ -13,10 +13,15 @@
               <p>
                 <strong>Statut actuel:</strong>
                 <span class="badge 
-                  @if($apogeeUser->acces_apogee_statut === 'Accès accordé') bg-success
+                  @if($apogeeUser->acces_apogee_statut === 'Accès accordé') bg-success 
                   @elseif($apogeeUser->acces_apogee_statut === 'Accès refusé') bg-danger
-                  @else bg-warning text-dark @endif">
+                  @else bg-warning text-dark @endif" >
                   {{ $apogeeUser->acces_apogee_statut }}
+                  <div class="col-md-12 d-flex justify-content-around">
+                  <a href="{{ route('CreateAppogetDemand') }}" class="btn btn-outline-primary btn-lg w-100 ms-2">
+                      Création de compte APOGÉE
+                   </a>
+                  </div>
                 </span>
               </p>
               @if($apogeeUser->acces_apogee_statut === 'Accès refusé')

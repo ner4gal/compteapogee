@@ -1,19 +1,29 @@
-<option value="MPD">Centre Inscrip pédag Mast FSJES / MPD</option>
-<option value="PMS">Centre Inscrip pédagog Mét Sport / PMS</option>
-<option value="PFC">Centre Inscript pédag ForConti ENCG / PFC</option>
-<option value="PFS">Centre Inscript pédag ForConti Fac. Scien / PFS</option>
-<option value="PLJ">Centre Inscript pédag Lic Jurd / PLJ</option>
-<option value="PLA">Centre Inscript pédag Lic fac lang art / PLA</option>
-<option value="PMA">Centre Inscript pédag Mas LLA / PMA</option>
-<option value="PML">Centre Inscript pédag Mast F SHS / PML</option>
-<option value="PMJ">Centre Inscript pédag Mast Jurd / PMJ</option>
-<option value="PDF">Centre Inscription pédagogique Droit Fra / PDF</option>
-<option value="CPC">Centre Inscription pédagogique ENCG / CPC</option>
-<option value="CPA">Centre Inscription pédagogique ENSAK / CPA</option>
-<option value="PET">Centre Inscription pédagogique EST / PET</option>
-<option value="CPL">Centre Inscription pédagogique Fac. SHS / CPL</option>
-<option value="CPD">Centre Inscription pédagogique Fac.SJE / CPD</option>
-<option value="CP">Centre Inscription pédagogique Fac. Scien / CP</option>
-<option value="CPK">Centre Inscription pédagogique Kénitra / CPK</option>
-<option value="PEC">Centre inscrip pédag Ecole Nat Sup Chimi / PEC</option>
-<option value="PEE">Centre inscrip pédag Ecole Sup Edu Form / PEE</option>
+@php
+  $centresInscription = [
+    'MPD' => 'Centre Inscrip pédag Mast FSJES / MPD',
+    'PMS' => 'Centre Inscrip pédagog Mét Sport / PMS',
+    'PFC' => 'Centre Inscript pédag ForConti ENCG / PFC',
+    'PFS' => 'Centre Inscript pédag ForConti Fac. Scien / PFS',
+    'PLJ' => 'Centre Inscript pédag Lic Jurd / PLJ',
+    'PLA' => 'Centre Inscript pédag Lic fac lang art / PLA',
+    'PMA' => 'Centre Inscript pédag Mas LLA / PMA',
+    'PML' => 'Centre Inscript pédag Mast F SHS / PML',
+    'PMJ' => 'Centre Inscript pédag Mast Jurd / PMJ',
+    'PDF' => 'Centre Inscription pédagogique Droit Fra / PDF',
+    'CPC' => 'Centre Inscription pédagogique ENCG / CPC',
+    'CPA' => 'Centre Inscription pédagogique ENSAK / CPA',
+    'PET' => 'Centre Inscription pédagogique EST / PET',
+    'CPL' => 'Centre Inscription pédagogique Fac. SHS / CPL',
+    'CPD' => 'Centre Inscription pédagogique Fac.SJE / CPD',
+    'CP' => 'Centre Inscription pédagogique Fac. Scien / CP',
+    'CPK' => 'Centre Inscription pédagogique Kénitra / CPK',
+    'PEC' => 'Centre inscrip pédag Ecole Nat Sup Chimi / PEC',
+    'PEE' => 'Centre inscrip pédag Ecole Sup Edu Form / PEE',
+  ];
+@endphp
+
+@foreach($centresInscription as $code => $label)
+  <option value="{{ $code }}" {{ in_array($code, $selected ?? []) ? 'selected' : '' }}>
+    {{ $label }}
+  </option>
+@endforeach

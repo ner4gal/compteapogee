@@ -1,25 +1,35 @@
-<option value="GLA">Cent Gestion Lic fac Langue, litt,art / GLA</option>
-<option value="FCC">Centre Gestion FC ENCG / FCC</option>
-<option value="MGA">Centre Gestion Master F Lang Lettre Arts / MGA</option>
-<option value="MGL">Centre Gestion Master F Sc Hum Sociale / MGL</option>
-<option value="CGC">Centre Géstion ENCG / CGC</option>
-<option value="CGA">Centre de Gestion ENSA Kenitra / CGA</option>
-<option value="GST">Centre de Gestion EST Kenitra / GST</option>
-<option value="ECG">Centre de Gestion Ecole Nat Sup Chimie K / ECG</option>
-<option value="CFC">Centre de Gestion formation Continu F.Sc / CFC</option>
-<option value="MGJ">Centre de GestionMaster F Sc JuridiquesP / MGJ</option>
-<option value="CGK">Centre de Géstion Central de Kénitra / CGK</option>
-<option value="CDD">Centre de gestion CED Droit, Eco Gestion / CDD</option>
-<option value="CDS">Centre de gestion CED Science / CDS</option>
-<option value="CGE">Centre de gestion Ecole Sup Edu Form Ken / CGE</option>
-<option value="CDN">Centre de gestion doctorat ENCG / CDN</option>
-<option value="CDF">Centre de gestion doctorat ESEF / CDF</option>
-<option value="CDA">Centre de gestion doctorat LANG / CDA</option>
-<option value="CGL">Centre de géstion Fac. Sc Hum Sociales / CGL</option>
-<option value="MGD">Centre de géstion Mast F.Sc.Eco.Ges / MGD</option>
-<option value="CGS">Centre de géstion de la fac des Sciences / CGS</option>
-<option value="CMS">Centre de géstion des Métiers de Sport / CMS</option>
-<option value="CGD">Centre de géstion fac.Sc.Eco.Ges / CGD</option>
-<option value="CGJ">Centre gestion FacSc Juridique Politique / CGJ</option>
-<option value="CDE">Centre étude doctorale ENSA / CDE</option>
-<option value="CDL">Centre de gestion CED Lettres et sc.Huma / CDL</option>
+@php
+  $centres = [
+    'GLA' => 'Cent Gestion Lic fac Langue, litt,art / GLA',
+    'FCC' => 'Centre Gestion FC ENCG / FCC',
+    'MGA' => 'Centre Gestion Master F Lang Lettre Arts / MGA',
+    'MGL' => 'Centre Gestion Master F Sc Hum Sociale / MGL',
+    'CGC' => 'Centre Géstion ENCG / CGC',
+    'CGA' => 'Centre de Gestion ENSA Kenitra / CGA',
+    'GST' => 'Centre de Gestion EST Kenitra / GST',
+    'ECG' => 'Centre de Gestion Ecole Nat Sup Chimie K / ECG',
+    'CFC' => 'Centre de Gestion formation Continu F.Sc / CFC',
+    'MGJ' => 'Centre de GestionMaster F Sc JuridiquesP / MGJ',
+    'CGK' => 'Centre de Géstion Central de Kénitra / CGK',
+    'CDD' => 'Centre de gestion CED Droit, Eco Gestion / CDD',
+    'CDS' => 'Centre de gestion CED Science / CDS',
+    'CGE' => 'Centre de gestion Ecole Sup Edu Form Ken / CGE',
+    'CDN' => 'Centre de gestion doctorat ENCG / CDN',
+    'CDF' => 'Centre de gestion doctorat ESEF / CDF',
+    'CDA' => 'Centre de gestion doctorat LANG / CDA',
+    'CGL' => 'Centre de géstion Fac. Sc Hum Sociales / CGL',
+    'MGD' => 'Centre de géstion Mast F.Sc.Eco.Ges / MGD',
+    'CGS' => 'Centre de géstion de la fac des Sciences / CGS',
+    'CMS' => 'Centre de géstion des Métiers de Sport / CMS',
+    'CGD' => 'Centre de géstion fac.Sc.Eco.Ges / CGD',
+    'CGJ' => 'Centre gestion FacSc Juridique Politique / CGJ',
+    'CDE' => 'Centre étude doctorale ENSA / CDE',
+    'CDL' => 'Centre de gestion CED Lettres et sc.Huma / CDL',
+  ];
+@endphp
+
+@foreach($centres as $code => $label)
+  <option value="{{ $code }}" {{ in_array($code, $selected ?? []) ? 'selected' : '' }}>
+    {{ $label }}
+  </option>
+@endforeach

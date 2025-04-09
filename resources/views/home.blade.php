@@ -123,15 +123,11 @@
                   </tr>
                   <tr>
                     <th>Responsable APOGÉE</th>
+                      
                     <td>
-                      @foreach($apogeeUser->responsable_apogee_access ?? [] as $access)
-                        @if($access === 'T')
-                          <span class="badge bg-success me-1">T</span>
-                        @elseif($access === 'A')
-                          <span class="badge bg-primary me-1">A</span>
-                        @endif
-                      @endforeach
-                    </td>
+  {{ $apogeeUser->responsable_apogee_access }}
+                       </td>
+                    
                   </tr>
                   <tr>
                     <th>Date de création</th>

@@ -1,41 +1,39 @@
 <div class="mb-4">
   <label class="form-label">Centre de Gestion</label>
   <select class="selectcls" name="centre_gestion[]" multiple="multiple" style="width: 100%" required>
-    @include('apogee.partials.options-centre-gestion')
+    @include('apogee.partials.options-centre-gestion', [
+      'selected' => old('centre_gestion', $apogeeUser->centre_gestion ?? [])
+    ])
   </select>
 </div>
+
 <div class="mb-4">
   <label class="form-label">Centre Traitement</label>
   <select class="selectcls" name="centre_traitement[]" multiple="multiple" style="width: 100%" required>
-    @include('apogee.partials.options-centre-traitement')
+    @include('apogee.partials.options-centre-traitement', [
+      'selected' => old('centre_traitement', $apogeeUser->centre_traitement ?? [])
+    ])
   </select>
 </div>
+
 <div class="mb-4">
   <label class="form-label">Centre d'inscription pédagogique</label>
   <select class="selectcls" name="centre_inscription_pedagogique[]" multiple="multiple" style="width: 100%" required>
-    @include('apogee.partials.options-centre-inscription')
+    @include('apogee.partials.options-centre-inscription', [
+      'selected' => old('centre_inscription_pedagogique', $apogeeUser->centre_inscription_pedagogique ?? [])
+    ])
   </select>
 </div>
+
 <div class="mb-4">
   <label class="form-label">Centre d'Incompatibilité</label>
   <select class="selectcls" name="centre_incompatibilite[]" multiple="multiple" style="width: 100%" required>
-    @include('apogee.partials.options-centre-incompatibilite')
+    @include('apogee.partials.options-centre-incompatibilite', [
+      'selected' => old('centre_incompatibilite', $apogeeUser->centre_incompatibilite ?? [])
+    ])
   </select>
 </div>
-<script>
-  $(document).ready(function () {
-  // Initialize Select2 with any options you need.
-  $('.selectcls').select2({
-    placeholder: "Select options",
-    allowClear: true,
-    width: 'resolve' // This helps with theme conflicts.
-  });
 
-  // If theme JS is trying to modify selects after page load, you might need:
-  $(document).on('theme-js-loaded', function () { // hypothetical event
-    $('.selectcls').select2('destroy').select2();
-  });
-});
 </script>
 <style>
 /* Selected items in the box */
