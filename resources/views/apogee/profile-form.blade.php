@@ -16,17 +16,17 @@
             <div class="block-content">
               <div class="row">
                 <div class="col-md-6">
-                  @include('partials.apogee-left-form')
+                  @include('apogee.partials.apogee-left-form')
                 </div>
                 <div class="col-md-6">
-                  @include('partials.apogee-right-form')
+                  @include('apogee.partials.apogee-right-form')
                 </div>
               </div>
 
               <hr class="my-4">
               <div class="row">
                 <div class="col-md-12">
-                  @include('partials.apogee-privileges')
+                  @include('apogee.partials.apogee-privileges')
                 </div>
               </div>
 

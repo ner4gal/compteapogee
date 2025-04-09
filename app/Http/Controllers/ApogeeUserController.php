@@ -113,12 +113,12 @@ public function generateModificationPDF(Request $request)
 public function showProfileForm()
 {
     $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->first();
-    return view('apogee.partials.profile-form', compact('apogeeUser'));
+    return view('apogee.profile-form', compact('apogeeUser'));
 }
 
 public function showCreationForm()
 {
-    return view('apogee.partials.creation-form');
+    return view('apogee.creation-form');
 }
 
 }

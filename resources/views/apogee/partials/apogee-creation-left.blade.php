@@ -1,7 +1,7 @@
 <div class="mb-4">
   <label class="form-label" for="etbl">Etablissement</label>
   <select class="form-select" name="etbl">
-    @include('partials.options-etablissement')
+    @include('apogee.partials.options-etablissement')
   </select>
 </div>
 <div class="mb-4">
@@ -10,7 +10,8 @@
 </div>
 <div class="mb-4">
   <label class="form-label">Nom et Prénom du demandeur</label>
-  <input type="text" name="nomPrenomUser" class="form-control" required>
+  <input type="text" name="nomPrenomUser" class="form-control" value="{{ auth()->user()->name }}" required>
+
 </div>
 <div class="mb-4">
   <label class="form-label">Nom d'utilisateur APOGEE</label>
