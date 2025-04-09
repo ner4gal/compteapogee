@@ -75,7 +75,7 @@ class ApogeeUserController extends Controller
         'centre_inscription_pedagogique' => 'nullable|array',
         'centre_incompatibilite' => 'nullable|array',
         'privileges_apogee' => 'nullable|array',
-        'responsable_apogee_access' => 'nullable|array'
+        'responsable_apogee_access' => 'nullable|string|in:T,A',
     ]);
 
     $user = ApogeeUser::findOrFail($id);
