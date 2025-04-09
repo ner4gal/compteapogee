@@ -145,9 +145,9 @@
                 <a href="{{ route('apogee-user.pdf') }}" class="btn btn-outline-danger" target="_blank">
                   <i class="fa fa-file-pdf me-1"></i> Télécharger en PDF
                 </a>
-                <a href="" class="btn btn-outline-primary">
-                  <i class="fa fa-edit me-1"></i> Modifier mon profil
-                </a>
+                <a href="{{ route('apogee.show', $apogeeUser->id) }}" class="btn btn-outline-primary">
+  <i class="fa fa-edit me-1"></i> Modifier mon profil
+</a>
               </div>
             </div>
           </div>

@@ -59,4 +59,66 @@ class ApogeeUserController extends Controller
         $pdf = PDF::loadView('apogee.profile-pdf', compact('apogeeUser'));
         return $pdf->download('profil_apogee.pdf');
     }
+    public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'etablissement' => 'required|string|max:255',
+        'nom_prenom' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'fonction' => 'nullable|string|max:255',
+        'telephone' => 'nullable|string|max:50',
+        'nom_utilisateur_apogee' => 'required|string|max:255',
+        'mac_address' => 'nullable|string|max:255',
+        
+        'centre_gestion' => 'nullable|array',
+        'centre_traitement' => 'nullable|array',
+        'centre_inscription_pedagogique' => 'nullable|array',
+        'centre_incompatibilite' => 'nullable|array',
+        'privileges_apogee' => 'nullable|array',
+        'responsable_apogee_access' => 'nullable|array'
+    ]);
+
+    $user = ApogeeUser::findOrFail($id);
+    $user->fill($validated);
+    $user->save();
+
+    $pdf = PDF::loadView('apogee.profile-pdf', compact('user'));
+    return $pdf->download('profil_apogee_modifie.pdf');
+}
+public function show($id)
+{
+    $user = ApogeeUser::findOrFail($id);
+    $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->first();
+
+    return view('apogee.show', compact('apogeeUser', 'user'));
+}
+public function generateModificationPDF(Request $request)
+{
+    // Validate and handle logic here...
+    $validated = $request->validate([
+        'etbl' => 'required|string',
+        'dateDM' => 'required|date',
+        'demNTR' => 'required|string',
+        'nomPrenomUser' => 'required|string',
+        'userName' => 'required|string',
+        'fonction' => 'nullable|string',
+        'tele' => 'nullable|string',
+        'mac' => 'nullable|string',
+        // Include other validations as needed
+    ]);
+
+    $pdf = PDF::loadView('pdf.apogee-modification', ['data' => $validated]);
+    return $pdf->download('modification_compte_apogee.pdf');
+}
+public function showProfileForm()
+{
+    $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->first();
+    return view('apogee.partials.profile-form', compact('apogeeUser'));
+}
+
+public function showCreationForm()
+{
+    return view('apogee.partials.creation-form');
+}
+
 }

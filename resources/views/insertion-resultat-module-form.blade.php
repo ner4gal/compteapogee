@@ -186,7 +186,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center p-4">
             <h5 class="modal-title mb-3" id="pdfModalLabel">Génération du PDF</h5>
-            <p id="countdownText">Votre PDF sera téléchargé dans <strong id="counter">5</strong> secondes...</p>
+            <p id="countdownText">Votre PDF sera téléchargé dans <strong id="counter">3</strong> secondes...</p>
             <button id="downloadBtn" class="btn btn-success">Télécharger le PDF</button>
         </div>
     </div>
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let downloadBtn = this;
         downloadBtn.disabled = true; // Prevent multiple clicks
         let counterElement = document.getElementById('counter');
-        let count = 5;
+        let count = 3;
         counterElement.textContent = count;
         let interval = setInterval(function() {
             count--;
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(function() {
                     pdfForm.reset();
                     downloadBtn.disabled = false;
-                    counterElement.textContent = "5";
+                    counterElement.textContent = "3";
                 }, 100);
             }
         }, 1000);
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Optional: Reset modal state when it is hidden to ensure it’s ready for next use.
     document.getElementById('pdfModal').addEventListener('hidden.bs.modal', function () {
-        document.getElementById('counter').textContent = "5";
+        document.getElementById('counter').textContent = "3";
         document.getElementById('downloadBtn').disabled = false;
     });
 });

@@ -1,0 +1,10 @@
+<option value="CIE_FLLA">Centre d'Incompatibilié FLLA / CIE_FLLA</option>
+<option value="CIE_ENCG">Centre d'Incompatibilié d'Epreuves ENCG / CIE_ENCG</option>
+<option value="CIE_ENSC">Centre d'Incompatibilié d'Epreuves ENSC / CIE_ENSC</option>
+<option value="CIE_ESFE">Centre d'Incompatibilié d'Epreuves ESEF / CIE_ESFE</option>
+<option value="CIE_ESTK">Centre d'Incompatibilié d'Epreuves ESTK / CIE_ESTK</option>
+<option value="CIE_SCIENC">Centre d'Incompatibilié d'Epreuves Scien / CIE_SCIENC</option>
+<option value="CIE_DROIT">Centre d'incompatibilité Fac Sciences Ju / CIE_DROIT</option>
+<option value="CIE_ENSA">Centre d'incompatibilité d'Epreuves ENSA / CIE_ENSA</option>
+<option value="CIE_ECONOM">Centre d'incompatibilité d'Epreuves Econ / CIE_ECONOM</option>
+<option value="CIE_LETTRE">Centre d'incompatibilité d'Epreuves Lett / CIE_LETTRE</option>

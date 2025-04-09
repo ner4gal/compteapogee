@@ -47,4 +47,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function getApogeeUserAttribute()
+   {
+    return \App\Models\ApogeeUser::where('email', $this->email)
+        ->where('nom_prenom', $this->name)
+        ->first();
+    }
 }

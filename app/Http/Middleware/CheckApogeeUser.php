@@ -18,7 +18,8 @@ class CheckApogeeUser
             'apogee-user.store',
             'apogee-user.pdf',
             'logout',
-            'generate.doc'
+            'generate.doc',
+            'CreateAppogetDemand'
         ];
         
         // Bypass for admin

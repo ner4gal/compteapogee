@@ -94,6 +94,15 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
         return view('compte-fonctionnel-apogee');
     })->name('compte-fonctionnel-apogee.show');
     Route::post('/generate-doc', [CompteFonctionnelApogeeGoogleDocsController::class, 'generateDocument'])->name('generate.doc');
+    Route::put('/apogee/{id}', [ApogeeUserController::class, 'update'])->name('apogee.update');
+    Route::get('/apogee/pdf', [ApogeeUserController::class, 'downloadPDF'])->name('apogee.download');
+    Route::get('/apogee/{id}/show', [ApogeeUserController::class, 'show'])->name('apogee.show');
+    Route::get('/apogee/confirm', [ApogeeUserController::class, 'showProfileForm'])->name('AppogetConfirme');
+    Route::get('/apogee/create', [ApogeeUserController::class, 'showCreationForm'])->name('CreateAppogetDemand');
+    
+
+    Route::post('/generate-doc-modif', [ApogeeUserController::class, 'generateModificationPDF'])->name('generate.doc.modif');
+
 
     // Resultat Etudiant
     Route::get('/insertion-resultat-etudiant', function () {
