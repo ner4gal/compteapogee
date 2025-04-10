@@ -150,12 +150,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-main-link" href="{{ route('compte-fonctionnel-apogee.show') }}">
-                                        <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Nouvelle Spécialité Doctorat</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a class="nav-main-link" href="{{ route('annulation.inscription.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">Annulation d'Inscription</span>
@@ -226,7 +220,7 @@
                                 <li class="nav-main-item">
                                     <a class="nav-main-link" href="{{ route('inscription-annee-anterieure') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Inscription Administrative</span>
+                                        <span class="nav-main-link-name ms-3">Inscription Administrative ( Licence / Master )</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
@@ -238,19 +232,19 @@
                                 <li class="nav-main-item">
                                     <a class="nav-main-link" href="{{ route('insertion.resultat.etudiant') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Résultat Étudian</span>
+                                        <span class="nav-main-link-name ms-3">Résultat Étudiant</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
                                     <a class="nav-main-link" href="{{ route('insertion.module.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Résultat Étudians Par Module</span>
+                                        <span class="nav-main-link-name ms-3">Résultat Étudiants Par Module</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
                                     <a class="nav-main-link" href="{{ route('doctorat.inscription.show') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Inscription Doctorat</span>
+                                        <span class="nav-main-link-name ms-3">nscription Administrative Doctorat</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
@@ -260,9 +254,15 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="nav-main-link" href="">
+                                    <a class="nav-main-link" href="{{ route('annulation.inscription.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Nouvelle Spécialité Doctorat</span>
+                                        <span class="nav-main-link-name ms-3">Annulation d'Inscription</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-main-link" href="{{ route('suppression.note.etudiant.form') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">suppression des notes</span>
                                     </a>
                                 </li>
                             </ul>
