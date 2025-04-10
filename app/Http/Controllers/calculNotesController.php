@@ -96,5 +96,21 @@ public function update(Request $request, $id)
     $pdf = PDF::loadView('pdf.demande_calcul_notes_pdf', ['data' => $demand])->setPaper('a4', 'portrait');
     return $pdf->download('calcul_notes.pdf');
 }
+public function updateStatus(Request $request, $id)
+    {
+        $demand = DemandeCalculNotesAnterieure::findOrFail($id);
+        $demand->statut = $request->input('status');
+        $demand->save();
+
+        return redirect()->back()->with('success', 'Statut mis à jour avec succès.');
+    }
+    public function destroy($id)
+    {
+        $demand = DemandeCalculNotesAnterieure::findOrFail($id);
+        $demand->delete();
+    
+        return redirect()->back()->with('success', 'Demande supprimée avec succès.');
+    }
+    
 
 }

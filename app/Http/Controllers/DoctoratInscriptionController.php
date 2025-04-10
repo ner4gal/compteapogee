@@ -121,4 +121,19 @@ class DoctoratInscriptionController extends Controller
         // Return the PDF as a response for download.
         return response()->download($pdfPath);
     }
+    public function updateStatus(Request $request, $id)
+{
+    $demand = DoctoratInscription::findOrFail($id);
+    $demand->statut = $request->input('status');
+    $demand->save();
+
+    return redirect()->back()->with('success', 'Statut mis à jour avec succès.');
+}
+public function destroy($id)
+{
+    $demand = DoctoratInscription::findOrFail($id);
+    $demand->delete();
+
+    return redirect()->back()->with('success', 'Demande supprimée avec succès.');
+}
 }

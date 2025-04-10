@@ -118,6 +118,8 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     Route::post('/demande-calcul-notes', [CalculNotesController::class, 'store'])->name('demande.calcul.store');
     Route::get('/demande-calcul-notes/{id}', [CalculNotesController::class, 'show'])->name('demande.calcul.show');
     Route::put('/calcul-notes/{id}', [CalculNotesController::class, 'update'])->name('demande.calcul.update');
+    Route::put('/admin/calcul-notes/{id}/update-status', [CalculNotesController::class, 'updateStatus'])->name('admin.calcul-notes.update-status');
+   Route::delete('/admin/calcul-notes/{id}', [CalculNotesController::class, 'destroy'])->name('admin.calcul-notes.destroy');
 
 
     // Doctorat Inscription
@@ -125,6 +127,10 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     Route::get('/doct_inscription_annee_anterieure', function () {
         return view('doct_inscription_annee_anterieure');
     })->name('doctorat.inscription.show');
+    Route::put('/admin/doctorat/{id}/update-status', [DoctoratInscriptionController::class, 'updateStatus'])
+    ->name('admin.doctorat.update-status');
+    Route::delete('/admin/doctorat/{id}', [DoctoratInscriptionController::class, 'destroy'])
+    ->name('admin.doctorat.destroy');
 
     // Annulation Inscription
     Route::get('/demande-annulation-inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'showForm'])->name('annulation.inscription.form');
