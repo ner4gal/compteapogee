@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>Login - UIT Portal</title>
+    <title>Login - UIT Portail</title>
 
     <meta name="description" content="Login to the UIT portal using your Google account.">
     <meta name="author" content="UIT IT Department">
@@ -13,7 +13,7 @@
 
     <!-- Icons -->
     <link rel="shortcut icon" href="{{ asset('assets/media/favicons/logo.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/media/favicons/logo.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/media/favicons/photo22@2x.png') }}">
     <link rel="apple-touch-icon" sizes="180x180"
         href="{{ asset('assets/media/favicons/logo.png') }}">
 
@@ -29,7 +29,7 @@
         <!-- Main Container -->
         <main id="main-container">
             <!-- Page Content -->
-            <div class="bg-image" style="background-image: url('{{ asset('assets/media/photos/photo22@2x.jpg') }}');">
+            <div class="bg-image" style="background-image: url('{{ asset('images/photo22@2x.jpg') }}');">
                 <div class="row g-0 bg-primary-op">
                     <!-- Main Section -->
                     <div class="hero-static col-md-6 d-flex align-items-center bg-body-extra-light">
@@ -71,7 +71,7 @@
                                     alt="Ibn Tofail University Logo" class="img-fluid" style="max-height: ;">
                             </p>
                             <p class="fs-lg fw-semibold text-white-75 mb-0">
-                                Administrative
+                            Apogée UIT | Portail des Demandes Administratives 
                             </p>
                         </div>
                     </div>
