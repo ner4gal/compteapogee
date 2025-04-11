@@ -129,13 +129,13 @@
                                                 </div>
                                             </div>
 
-                                            <a href="{{ route('admin.apogee-users.show', $user->id) }}"
+                                            <a href=""
                                                 class="btn btn-sm btn-alt-info" aria-label="Voir le profil utilisateur">
                                                 <i class="fa fa-eye"></i> Voir
                                             </a>
 
                                             {{-- Delete Button --}}
-                                            <form action="{{ route('admin.apogee-users.destroy', $user->id) }}" method="POST"
+                                            <form action="" method="POST"
                                                 style="display:inline-block;"
                                                 onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
                                                 @csrf
