@@ -142,7 +142,8 @@ public function generateDocument(Request $request)
         'p5' => 'nullable',
         'p6' => 'nullable',
         'p7' => 'nullable',
-        'p8' => 'nullable|string|in:T,A',
+        'p8'=> 'nullable',
+        'p9' => 'nullable|string|in:T,A',
     ]);
 
     $privilegesMap = [
@@ -153,7 +154,7 @@ public function generateDocument(Request $request)
         'p5' => 'Dossier Étudiant',
         'p6' => 'Modalités de contrôle des connaissances',
         'p7' => 'Épreuves',
-    ];
+        'p8' => 'Théses HDR', ];
 
     $privileges = [];
     foreach ($privilegesMap as $key => $label) {
@@ -177,7 +178,7 @@ public function generateDocument(Request $request)
     $apogeeUser->centre_inscription_pedagogique = $validated['centre_inscription_pedagogique'] ?? [];
     $apogeeUser->centre_incompatibilite = $validated['centre_incompatibilite'] ?? [];
     $apogeeUser->privileges_apogee = $privileges;
-    $apogeeUser->responsable_apogee_access = $validated['p8'] ?? null;
+    $apogeeUser->responsable_apogee_access = $validated['p9'] ?? null;
     
     // ✅ Critical line — must not forget this!
     $apogeeUser->email = auth()->user()->email;
@@ -202,7 +203,8 @@ public function generateDocument(Request $request)
         'p5' => $request->has('p5'),
         'p6' => $request->has('p6'),
         'p7' => $request->has('p7'),
-        'p8' => $validated['p8'] ?? null,
+        'p8' => $request->has('p8'),
+        'p9' => $validated['p9'] ?? null,
     ];
 
     $pdf = PDF::loadView('pdf.Apogee_pdf', ['data' => $data]);

@@ -218,7 +218,9 @@
                 <td>
                     <span class="checkbox">@if($data['p7']) <span class="checkmark">✓</span> @endif</span> Épreuves
                 </td>
-                <td></td>
+                <td>
+                    <span class="checkbox">@if($data['p8']) <span class="checkmark">✓</span> @endif</span> Théses HDR
+                </td>
             </tr>
         </table>
 
@@ -230,11 +232,11 @@
         <table class="privileges-table">
             <tr>
                 <td style="text-align: center;">
-                    <span class="checkbox">@if($data['p8'] === 'T') <span class="checkmark">✓</span> @endif</span>
+                    <span class="checkbox">@if($data['p9'] === 'T') <span class="checkmark">✓</span> @endif</span>
                     <strong>T</strong>
                 </td>
                 <td style="text-align: center;">
-                    <span class="checkbox">@if($data['p8'] === 'A') <span class="checkmark">✓</span> @endif</span>
+                    <span class="checkbox">@if($data['p9'] === 'A') <span class="checkmark">✓</span> @endif</span>
                     <strong>A</strong>
                 </td>
             </tr>

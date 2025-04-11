@@ -66,13 +66,13 @@
   @endphp
 
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="p8" value="T" id="radioT" 
+    <input class="form-check-input" type="radio" name="p9" value="T" id="radioT" 
            {{ $selectedP8 === 'T' ? 'checked' : '' }}>
     <label class="form-check-label" for="radioT">T</label>
   </div>
 
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="p8" value="A" id="radioA" 
+    <input class="form-check-input" type="radio" name="p9" value="A" id="radioA" 
            {{ $selectedP8 === 'A' ? 'checked' : '' }}>
     <label class="form-check-label" for="radioA">A</label>
   </div>
@@ -159,8 +159,9 @@
       p5: "Dossier Étudiant",
       p6: "Modalités de contrôle des connaissances",
       p7: "Épreuves",
-      p8: "Accès Responsable T",
-      p9: "Accès Responsable A",
+      p8: "Théses HDR",
+      p9: "Accès Responsable T",
+      p10: "Accès Responsable A",
     };
 
     const displayed = new Set();

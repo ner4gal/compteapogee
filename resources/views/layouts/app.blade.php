@@ -52,7 +52,7 @@
             <!-- Side Header -->
             <div class="content-header bg-primary">
                 <!-- Logo -->
-                <a class="fw-semibold text-white tracking-wide" href="index.html">
+                <a class="fw-semibold text-white tracking-wide" href="#">
                     Ibn<span class="opacity-75">Tofail</span>
                     <span class="fw-normal">University</span>
                 </a>
@@ -182,7 +182,7 @@
                 <!-- Left Section -->
                 <div class="d-flex align-items-center">
                     <!-- Logo -->
-                    <a class="fw-semibold text-dual tracking-wide" href="index.html">
+                    <a class="fw-semibold text-dual tracking-wide" href="#">
                         Ibn<span class="opacity-75">Tofail</span>
                         <span class="fw-normal">University</span>
                     </a>
