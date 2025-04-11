@@ -9,7 +9,7 @@
     "Ecole Nationale des Sciences Appliquées",
     "Ecole Supérieure de Technologie",
     "Ecole Nationale Supérieure de Chimie",
-    "Ecole Supérieure de l'Education et de la Formation de Kénitra",
+    "Ecole Supérieure de l'Education et de la Formation ",
     "Institut des Métiers de Sport",
     "Présidence de l'Université Ibn Tofail ",
   ];
