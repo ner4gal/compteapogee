@@ -66,13 +66,13 @@
   @endphp
 
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="p8" value="T" id="radioT" required
+    <input class="form-check-input" type="radio" name="p8" value="T" id="radioT" 
            {{ $selectedP8 === 'T' ? 'checked' : '' }}>
     <label class="form-check-label" for="radioT">T</label>
   </div>
 
   <div class="form-check">
-    <input class="form-check-input" type="radio" name="p8" value="A" id="radioA" required
+    <input class="form-check-input" type="radio" name="p8" value="A" id="radioA" 
            {{ $selectedP8 === 'A' ? 'checked' : '' }}>
     <label class="form-check-label" for="radioA">A</label>
   </div>
