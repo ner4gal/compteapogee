@@ -9,7 +9,7 @@
 
 <div class="mb-4">
   <label class="form-label">Centre Traitement</label>
-  <select class="selectcls" name="centre_traitement[]" multiple="multiple" style="width: 100%" required>
+  <select class="selectcls" name="centre_traitement[]" multiple="multiple" style="width: 100%" >
     @include('apogee.partials.options-centre-traitement', [
       'selected' => old('centre_traitement', $apogeeUser->centre_traitement ?? [])
     ])
@@ -18,7 +18,7 @@
 
 <div class="mb-4">
   <label class="form-label">Centre d'inscription pédagogique</label>
-  <select class="selectcls" name="centre_inscription_pedagogique[]" multiple="multiple" style="width: 100%" required>
+  <select class="selectcls" name="centre_inscription_pedagogique[]" multiple="multiple" style="width: 100%" >
     @include('apogee.partials.options-centre-inscription', [
       'selected' => old('centre_inscription_pedagogique', $apogeeUser->centre_inscription_pedagogique ?? [])
     ])
@@ -27,7 +27,7 @@
 
 <div class="mb-4">
   <label class="form-label">Centre d'Incompatibilité</label>
-  <select class="selectcls" name="centre_incompatibilite[]" multiple="multiple" style="width: 100%" required>
+  <select class="selectcls" name="centre_incompatibilite[]" multiple="multiple" style="width: 100%" >
     @include('apogee.partials.options-centre-incompatibilite', [
       'selected' => old('centre_incompatibilite', $apogeeUser->centre_incompatibilite ?? [])
     ])

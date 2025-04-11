@@ -11,6 +11,7 @@
     "Ecole Nationale Supérieure de Chimie",
     "Ecole Supérieure d'Education et de Formation",
     "Institut des Métiers de Sport",
+    "Présidence de l'Université Ibn Tofail ",
   ];
 @endphp
 
