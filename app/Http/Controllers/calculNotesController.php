@@ -27,6 +27,7 @@ class calculNotesController extends Controller
             'AnneeCon'       => 'required|string', // Academic Year (Année concernée)
             'semesters'      => 'required|array|min:1',  // Semesters checkboxes
             'semesters.*'    => 'required|string', // each semester must be a string
+            'mtf'       => 'required', // Reason for request
             'statut'    => 'sometimes|string',
         ]);
 
@@ -35,21 +36,21 @@ class calculNotesController extends Controller
 
         // Map the form fields to the database fields
         $dataToStore = [
-            'user_id'            => $user->id,
-            'user_email'         => $user->email,
-            'user_name'          => $user->name,
-            'etablissement'      => $validatedData['etbl'],
-            'date_demande'       => $validatedData['dateDM'],
-            'NomPrenomETD'       => $validatedData['NomPrenomETD'],
-            'NumETD'             => $validatedData['NumETD'],
-            'cycle'              => $validatedData['cycle'],
-            'filiere'            => $validatedData['filiere'],
-            'annee_universitaire'=> $validatedData['AnneeCon'],
-            'semesters'          => $validatedData['semesters'],
-            'statut'            => $request->input('statut', 'En attente')
-            // "nom_demande" is set by default in the migration,
-            // but you can override it here if needed.
+            'user_id'             => $user->id,
+            'user_email'          => $user->email,
+            'user_name'           => $user->name,
+            'etablissement'       => $validatedData['etbl'],
+            'date_demande'        => $validatedData['dateDM'],
+            'NomPrenomETD'        => $validatedData['NomPrenomETD'],
+            'NumETD'              => $validatedData['NumETD'],
+            'cycle'               => $validatedData['cycle'],
+            'filiere'             => $validatedData['filiere'],
+            'annee_universitaire' => $validatedData['AnneeCon'],
+            'semesters'           => json_encode($validatedData['semesters']), // array must be serialized
+            'Raison'              => $validatedData['mtf'], // ← this is what was missing in your insert
+            'statut'              => $request->input('statut', 'En attente'),
         ];
+        
 
         // Create the record in the database
         DemandeCalculNotesAnterieure::create($dataToStore);

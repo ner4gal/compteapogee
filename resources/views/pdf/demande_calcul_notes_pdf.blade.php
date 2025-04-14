@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        /* Page and Body */
-        @page {
+           @page {
             size: A4;
             margin: 0;
         }
@@ -18,7 +17,6 @@
             word-wrap: break-word;
         }
 
-        /* Background image fixed at full page size */
         .background {
             position: fixed;
             top: 0;
@@ -28,22 +26,12 @@
             z-index: -1;
         }
 
-        /* Main container with margins to avoid overlapping the header/footer in the background */
         .content {
             position: relative;
             padding: 35mm 20mm 20mm;
-            /* top, left/right, bottom */
             z-index: 1;
         }
 
-        /* Small reference text at top-left */
-        .top-ref {
-            font-size: 10px;
-            text-align: left;
-            margin-bottom: 5px;
-        }
-
-        /* Centered title */
         .title {
             text-align: center;
             font-size: 14px;
@@ -51,7 +39,6 @@
             margin-bottom: 10px;
         }
 
-        /* Table defaults */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -59,22 +46,40 @@
 
         .info-table td {
             padding: 2px 0;
-            word-wrap: break-word;
         }
 
-        /* Minimal spacing for paragraphs */
         p {
             margin: 3px 0;
         }
 
-        /* Signatures table */
+        .module-table th,
+        .module-table td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .reason-box {
+            border: 1px solid black;
+            padding: 5px;
+            margin-top: 10px;
+            min-height: 40px;
+        }
+
         .signature-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 0px;
         }
 
-        .signature-table th,
+        .signature-table th{
+            padding: 0px;
+            border: 1px solid black;
+        }
+        .signature-table1 th{
+            padding: 0px;
+            border: 1px solid black;
+        }
         .signature-table td {
             border: 1px solid black;
             text-align: center;
@@ -83,8 +88,39 @@
             word-wrap: break-word;
         }
 
+        .signature-small {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
         .signature-table thead th {
-            padding: 3px;
+            padding: 0px 0px;
+            margin: 0%;
+            font-weight: bold;
+        }
+
+        .signature-table1 {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        .signature-table1 td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 12px;
+            height: 80px;
+            word-wrap: break-word;
+        }
+
+        .signature-small1 {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .signature-table1 thead th {
+            padding: 0px 0px;
+            margin: 0%;
             font-weight: bold;
         }
     </style>
@@ -144,11 +180,15 @@
                 @endforeach
             </tbody>
         </table>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
+        
 
-
+        <p style="margin-top: 10px;"><strong>La raison de l'annulation :</strong></p>
+        <div class="reason-box">
+            {{ $data['mtf'] }}
+        </div>
+        <div class=""> &nbsp; &nbsp; </div>
+        <div class=""> &nbsp; &nbsp; </div>
+        <div class=""> &nbsp; &nbsp; </div>
         <!-- Signatures Table (4 columns) -->
         <table class="signature-table" style="margin-top: 20px;">
             <thead>

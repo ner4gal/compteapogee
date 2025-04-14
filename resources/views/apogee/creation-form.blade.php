@@ -62,7 +62,7 @@
   <label class="form-label">Avancement de délibération</label>
 
   @php
-    $selectedP8 = old('p8', $apogeeUser->responsable_apogee_access ?? '');
+    $selectedP8 = old('p9', $apogeeUser->responsable_apogee_access ?? '');
   @endphp
 
   <div class="form-check">
@@ -162,6 +162,8 @@
       p8: "Théses HDR",
       p9: "Accès Responsable T",
       p10: "Accès Responsable A",
+      "composante[]": "Composantes sélectionnées",
+
     };
 
     const displayed = new Set();
@@ -190,5 +192,8 @@
     function confirmAndSubmit() {
     document.getElementById('pdfForm').submit();
     }
+  
+
+
   </script>
 @endpush

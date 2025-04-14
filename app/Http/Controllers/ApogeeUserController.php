@@ -119,8 +119,12 @@ public function showProfileForm()
 public function showCreationForm()
 {
     $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->first();
-    return view('apogee.creation-form' ,compact('apogeeUser'));
+
+
+
+    return view('apogee.creation-form', compact('apogeeUser', ));
 }
+
 public function generateDocument(Request $request)
 {
     $validated = $request->validate([
@@ -144,6 +148,7 @@ public function generateDocument(Request $request)
         'p7' => 'nullable',
         'p8'=> 'nullable',
         'p9' => 'nullable|string|in:T,A',
+        'composante' => 'nullable|array',
     ]);
 
     $privilegesMap = [
@@ -154,7 +159,8 @@ public function generateDocument(Request $request)
         'p5' => 'Dossier Étudiant',
         'p6' => 'Modalités de contrôle des connaissances',
         'p7' => 'Épreuves',
-        'p8' => 'Théses HDR', ];
+        'p8' => 'Théses HDR',
+    ];
 
     $privileges = [];
     foreach ($privilegesMap as $key => $label) {
@@ -163,9 +169,8 @@ public function generateDocument(Request $request)
         }
     }
 
-    // ✅ This avoids all "missing field" insert issues
+    // ✅ No composante is saved to the DB
     $apogeeUser = ApogeeUser::firstOrNew(['email' => auth()->user()->email]);
-
     $apogeeUser->etablissement = $validated['etbl'];
     $apogeeUser->nom_prenom = $validated['nomPrenomUser'];
     $apogeeUser->nom_utilisateur_apogee = $validated['userName'];
@@ -179,11 +184,12 @@ public function generateDocument(Request $request)
     $apogeeUser->centre_incompatibilite = $validated['centre_incompatibilite'] ?? [];
     $apogeeUser->privileges_apogee = $privileges;
     $apogeeUser->responsable_apogee_access = $validated['p9'] ?? null;
-    
-    // ✅ Critical line — must not forget this!
     $apogeeUser->email = auth()->user()->email;
-    
+
     $apogeeUser->save();
+
+    // ✅ Compose data for PDF only (do not save composante to DB)
+    $etbl = trim($validated['etbl']);
     $data = [
         'etbl' => $validated['etbl'],
         'dateDM' => $validated['dateDM'],
@@ -196,6 +202,8 @@ public function generateDocument(Request $request)
         'centre_traitement' => $validated['centre_traitement'] ?? [],
         'centre_inscription_pedagogique' => $validated['centre_inscription_pedagogique'] ?? [],
         'centre_incompatibilite' => $validated['centre_incompatibilite'] ?? [],
+        'composante' => $validated['composante'] ?? [],
+        
         'p1' => $request->has('p1'),
         'p2' => $request->has('p2'),
         'p3' => $request->has('p3'),
@@ -206,11 +214,23 @@ public function generateDocument(Request $request)
         'p8' => $request->has('p8'),
         'p9' => $validated['p9'] ?? null,
     ];
-
+   
     $pdf = PDF::loadView('pdf.Apogee_pdf', ['data' => $data]);
 
     return $pdf->download('demande_compte_apogee.pdf');
 }
+public function destroy($id)
+{
+    if (auth()->user()->email !== 'karim.elalkaoui1@uit.ac.ma') {
+        abort(403, 'Non autorisé');
+    }
+
+    $user = ApogeeUser::findOrFail($id);
+    $user->delete();
+
+    return redirect()->back()->with('success', 'Utilisateur supprimé avec succès.');
+}
+
 
 
 

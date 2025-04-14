@@ -38,3 +38,55 @@
   <label class="form-label">Adresse MAC de l'ordinateur</label>
   <input type="text" class="form-control" name="mac_address">
 </div>
+<style>
+/* Selected items in the box */
+.select2-selection__choice {
+    background-color: #0d6efd; /* Bootstrap Primary */
+    border: none;
+    color: white;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 0.375rem;
+}
+
+/* Hover effect for remove (X) */
+.select2-selection__choice__remove {
+    color: #ffffff;
+    margin-right: 8px;
+}
+.select2-selection__choice__remove:hover {
+    color: #ffdddd;
+}
+
+/* Dropdown style */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #0d6efd;
+    color: white;
+}
+/* Selected tag style */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #0d6efd !important; /* Bootstrap Primary Blue */
+    border: none !important;
+    color: white !important;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 0.375rem;
+    margin-top: 4px;
+}
+
+/* Remove (x) button inside tags */
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #ffffff !important;
+    margin-right: 8px;
+    font-weight: bold;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: #ffcccc !important;
+}
+
+/* When item is hovered in the dropdown */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #0d6efd !important;
+    color: white !important;
+}
+</style>

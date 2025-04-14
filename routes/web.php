@@ -157,5 +157,8 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::put('/users/{user}/update-status', [AdminDashboardController::class, 'updateStatus'])
              ->name('admin.update-status');
+        Route::delete('/apogee-users/{id}', [ApogeeUserController::class, 'destroy'])->name('admin.apogee-users.destroy');
+
     });
+
 });

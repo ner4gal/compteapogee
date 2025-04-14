@@ -9,6 +9,12 @@ use App\Models\DemandeCalculNotesAnterieure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApogeeStatusChanged;
+use App\Models\InscAnneeAnterieure;
+use App\Models\ResultatEtudiant;
+use App\Models\AnnulationInscription;
+use App\Models\SuppressionNoteEtudiant;
+use App\Models\ResulataModule;
+
 
 class AdminDashboardController extends Controller
 {
@@ -23,8 +29,25 @@ class AdminDashboardController extends Controller
         // Retrieve all Calcul des Notes demands (adjust model name as needed)
         $calculNotesDemands = DemandeCalculNotesAnterieure::all();
 
+        // Retrieve all InscAnneeAnterieure demands
+        $inscAnneeAnterieureDemands = InscAnneeAnterieure::all();
+        // Retrieve all ResultatEtudiant demands
+        $resultatEtudiantDemands = ResultatEtudiant::all();
+        // Retrieve all AnnulationInscription demands
+        $annulationInscriptionDemands = AnnulationInscription::all();
+        // Retrieve all SuppressionNoteEtudiant demands
+        $suppressionNoteEtudiantDemands = SuppressionNoteEtudiant::all();
+        // Retrieve all AnnulationInscription demands
+        $annulationInscriptionDemands = AnnulationInscription::all();
+        // Retrieve all SuppressionNoteEtudiant demands
+        $suppressionNoteEtudiantDemands = SuppressionNoteEtudiant::all();
+        // Retrieve all InsertionResultatModule demands 
+        $insertionResultatModuleDemands = ResulataModule::all();
+
         // Pass the data to the admin dashboard view
-        return view('admindashboard', compact('users', 'doctoratDemands', 'calculNotesDemands'));
+        return view('admindashboard', compact('users', 'doctoratDemands', 'calculNotesDemands',
+            'inscAnneeAnterieureDemands', 'resultatEtudiantDemands', 'annulationInscriptionDemands',
+            'suppressionNoteEtudiantDemands', 'insertionResultatModuleDemands'));
     }
     // app/Http/Controllers/AdminDashboardController.php
 public function updateStatus(Request $request, $id)

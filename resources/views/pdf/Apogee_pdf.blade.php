@@ -1,3 +1,19 @@
+@php
+  $etablissements = [
+    'FLLA' => "Faculté des Langues des Lettres et des Arts",
+    'FSHS' => "Faculté des Sciences Humaines et Sociales",
+    'FS' => "Faculté des Sciences",
+    'FEG' => "Faculté d'Economie et de Gestion",
+    'FSJP' => "Faculté des Sciences Juridiques et Politiques",
+    'ENCG' => "Ecole Nationale de Commerce et de Gestion",
+    'ENSA' => "Ecole Nationale des Sciences Appliquées",
+    'EST' => "Ecole Supérieure de Technologie",
+    'ENSC' => "Ecole Nationale Supérieure de Chimie",
+    'ESEF' => "Ecole Supérieure de l'Education et de la Formation ",
+    'IMS' => "Institut des Métiers de Sport",
+  ];
+@endphp
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -182,7 +198,12 @@
         <p><strong>Centre d'inscription pédagogique :</strong>
             {{ implode(', ', $data['centre_inscription_pedagogique']) }}</p>
         <p><strong>Centre d'incompatibilité :</strong> {{ implode(', ', $data['centre_incompatibilite']) }}</p>
-
+        {{-- ✅ New section only if "Présidence de l'Université Ibn Tofail" --}}
+        @if(trim($data['etbl']) === "Présidence de l'Université Ibn Tofail")
+    <p><strong>Composantes sélectionnées :</strong> 
+        {{ !empty($data['composante']) ? implode(', ', $data['composante']) : 'Aucune' }}
+    </p>
+@endif
         <p class="privilege-section-title">Privilèges du Compte Utilisateur d’APOGÉE par domaine</p>
         <table class="privileges-table">
             <tr>
