@@ -171,7 +171,6 @@
 <body>
     <img src="{{ public_path('images/background.png') }}" class="background">
     <div class=""> &nbsp; &nbsp; </div>
-    <div class=""> &nbsp; &nbsp; </div>
 
     <div class="content">
         <div class="title">Demande d'ouverture d’un compte fonctionnel
