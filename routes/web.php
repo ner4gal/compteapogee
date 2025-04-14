@@ -134,7 +134,7 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
 
     // Annulation Inscription
     Route::get('/demande-annulation-inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'showForm'])->name('annulation.inscription.form');
-    Route::post('/inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'generatePDF'])->name('annulation.inscription.generate');
+    Route::post('/demande-annulation-inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'generatePDF'])->name('annulation.inscription.generate');
     Route::get('/demande-annulation-inscription/{id}', [AnnulationInscriptionAnneeAnterieureController::class, 'show'])->name('annulation.inscription.show');
 
     // Suppression Note

@@ -269,7 +269,9 @@
                 <tr>
                     <th>Responsable Administratif</th>
                     <th>Avis du Chef Service &nbsp; </th>
-                    <th>Avis du Chef d'établissement</th>
+                    <th>
+    {{ trim($data['etbl']) === "Présidence de l'Université Ibn Tofail" ? "Avis du Chef de division" : "Avis du Chef d'établissement" }}
+                    </th>
                     <th>Avis du Président de l’Université</th>
                 </tr>
             </thead>

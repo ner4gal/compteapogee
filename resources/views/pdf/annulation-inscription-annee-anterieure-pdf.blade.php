@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <style>
-          @page {
+        @page {
             size: A4;
             margin: 0;
         }
@@ -14,6 +14,8 @@
             margin: 0;
             padding: 0;
             word-wrap: break-word;
+            position: relative;
+            min-height: 297mm;
         }
 
         .background {
@@ -27,7 +29,7 @@
 
         .content {
             position: relative;
-            padding: 35mm 20mm 20mm;
+            padding: 35mm 20mm 100mm; /* Increased bottom padding to accommodate signature */
             z-index: 1;
         }
 
@@ -65,31 +67,39 @@
             min-height: 40px;
         }
 
+        /* Signature table container */
+        .signature-container {
+            position: absolute;
+            bottom: 25mm;
+            left: 20mm;
+            right: 20mm;
+            width: calc(100% - 40mm);
+            z-index: 1;
+        }
+
+        /* Consolidated signature table styles */
         .signature-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 0px;
+        }
+        .reference {
+            position: absolute;
+            top: 3mm;
+            left: 20;
         }
 
-        .signature-table th{
+
+        .signature-table th {
             padding: 0px;
             border: 1px solid black;
         }
-        .signature-table1 th{
-            padding: 0px;
-            border: 1px solid black;
-        }
+
         .signature-table td {
             border: 1px solid black;
             text-align: center;
-            padding: 5px;
+            padding: 12px;
             height: 80px;
             word-wrap: break-word;
-        }
-
-        .signature-small {
-            font-size: 11px;
-            font-weight: normal;
         }
 
         .signature-table thead th {
@@ -98,41 +108,21 @@
             font-weight: bold;
         }
 
-        .signature-table1 {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 5px;
-        }
-
-        .signature-table1 td {
-            border: 1px solid black;
-            text-align: center;
-            padding: 12px;
-            height: 80px;
-            word-wrap: break-word;
-        }
-
-        .signature-small1 {
+        .signature-small {
             font-size: 11px;
             font-weight: normal;
-        }
-
-        .signature-table1 thead th {
-            padding: 0px 0px;
-            margin: 0%;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <img src="{{ public_path('images/background.png') }}" class="background">
+     <!-- Reference number in top right corner -->
+     <div class="reference">réf : APOGEE-003</div>
 
     <div class="content">
-
         <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class="top-ref"> &nbsp; &nbsp; </div>
+        
 
         <div class="title">Demande d'annulation d'inscription administrative à une année antérieure</div>
         
@@ -145,7 +135,7 @@
 
         <p><strong>Cycle :</strong> {{ $data['typ'] }}</p>
         <p><strong>Filière :</strong> {{ $data['flr'] }}</p>
-        <p><strong>Année d’inscription concernée :</strong> {{ $data['aneINS'] }}</p>
+        <p><strong>Année d'inscription concernée :</strong> {{ $data['aneINS'] }}</p>
         
         <div class="section-title">Liste des Étudiants :</div>
         <table class="module-table">
@@ -169,14 +159,17 @@
         <div class="reason-box">
             {{ $data['mtf'] }}
         </div>
+    </div>
 
-        <table class="signature-table1" style="margin-top: 30px;">
+    <!-- Signature table positioned absolutely at the bottom -->
+    <div class="signature-container">
+        <table class="signature-table">
             <thead>
                 <tr>
                     <th>Responsable Administratif</th>
                     <th>Avis du Chef Service</th>
                     <th>Avis du Chef d'établissement</th>
-                    <th>Avis du Président de l’Université</th>
+                    <th>Avis du Président de l'Université</th>
                 </tr>
             </thead>
             <tbody>
@@ -188,7 +181,6 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
 
 </body>

@@ -49,7 +49,7 @@
 
             <!-- Quick Stats -->
             <div class="row">
-                <form id="pdfForm" action="/inscription-annee-anterieure" method="POST">
+                <form id="pdfForm" action="{{ route('annulation.inscription.generate') }}" method="POST">
                     @csrf
 
                     <div class="mb-3">

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <style>
-           @page {
+        @page {
             size: A4;
             margin: 0;
         }
@@ -15,6 +14,8 @@
             margin: 0;
             padding: 0;
             word-wrap: break-word;
+            position: relative;
+            min-height: 297mm;
         }
 
         .background {
@@ -28,7 +29,7 @@
 
         .content {
             position: relative;
-            padding: 35mm 20mm 20mm;
+            padding: 35mm 20mm 100mm; /* Increased bottom padding for signature space */
             z-index: 1;
         }
 
@@ -37,6 +38,13 @@
             font-size: 14px;
             font-weight: bold;
             margin-bottom: 10px;
+        }
+
+        .reference {
+            position: absolute;
+            top: 5mm;
+            left: 20mm;
+           
         }
 
         table {
@@ -66,31 +74,33 @@
             min-height: 40px;
         }
 
+        /* Signature container */
+        .signature-container {
+            position: absolute;
+            bottom: 25mm;
+            left: 20mm;
+            right: 20mm;
+            width: calc(100% - 40mm);
+            z-index: 1;
+        }
+
+        /* Signature table styles */
         .signature-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 0px;
         }
 
-        .signature-table th{
+        .signature-table th {
             padding: 0px;
             border: 1px solid black;
         }
-        .signature-table1 th{
-            padding: 0px;
-            border: 1px solid black;
-        }
+
         .signature-table td {
             border: 1px solid black;
             text-align: center;
-            padding: 5px;
+            padding: 12px;
             height: 80px;
             word-wrap: break-word;
-        }
-
-        .signature-small {
-            font-size: 11px;
-            font-weight: normal;
         }
 
         .signature-table thead th {
@@ -99,45 +109,34 @@
             font-weight: bold;
         }
 
-        .signature-table1 {
+        /* Semester table styles */
+        .semester-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 5px;
+            margin-bottom: 10px;
         }
 
-        .signature-table1 td {
+        .semester-table th,
+        .semester-table td {
             border: 1px solid black;
+            padding: 5px;
+        }
+
+        .semester-table td {
             text-align: center;
-            padding: 12px;
-            height: 80px;
-            word-wrap: break-word;
-        }
-
-        .signature-small1 {
-            font-size: 11px;
-            font-weight: normal;
-        }
-
-        .signature-table1 thead th {
-            padding: 0px 0px;
-            margin: 0%;
-            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-
     <!-- Background image with logos & footer already in the PNG -->
     <img src="{{ public_path('images/background.png') }}" class="background">
 
+    <!-- Reference number in top right corner -->
+    <div class="reference">réf : APOGEE-004</div>
+    <div class=""> &nbsp; &nbsp; </div>
+    <div class=""> &nbsp; &nbsp; </div>
     <div class="content">
-
-        <!-- Reference top-left -->
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class="top-ref"> &nbsp; &nbsp; </div>
-
         <!-- Title centered -->
         <div class="title">Demande de calcul des notes à une année universitaire antérieure</div>
         <div class=""> &nbsp; &nbsp; </div>
@@ -160,43 +159,42 @@
         <!-- Semesters -->
         <p><strong>Les Semestres Concernés :</strong></p>
         <div class=""> &nbsp; &nbsp; </div>
-        <table style="width:100%; border-collapse: collapse; margin-bottom: 10px;">
+        <table class="semester-table">
             <thead>
                 <tr>
-                    <th style="border:1px solid black; padding:5px;">Semestre</th>
-                    <th style="border:1px solid black; padding:5px;">Statut</th>
+                    <th>Semestre</th>
+                    <th>Statut</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (['Semestre 1', 'Semestre 2', 'Semestre 3', 'Semestre 4', 'Semestre 5', 'Semestre 6'] as $semestre)
-                            <tr>
-                                <td style="border:1px solid black; padding:5px;">{{ $semestre }}</td>
-                                <td style="border:1px solid black; padding:5px; text-align:center;">
-                                    {!! (isset($data['semesters']) && in_array($semestre, $data['semesters']))
-                    ? '<span style="color:green; font-size:18px; font-weight:bold;">&#x2714;</span>'
-                    : '<span style="color:red; font-size:18px; font-weight:bold;">&#10006;</span>' !!}
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>{{ $semestre }}</td>
+                        <td>
+                            {!! (isset($data['semesters']) && in_array($semestre, $data['semesters']))
+                                ? '<span style="color:green; font-size:18px; font-weight:bold;">&#x2714;</span>'
+                                : '<span style="color:red; font-size:18px; font-weight:bold;">&#10006;</span>' !!}
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
         
-
-        <p style="margin-top: 10px;"><strong>La raison de l'annulation :</strong></p>
+        <p style="margin-top: 10px;"><strong>La raison :</strong></p>
         <div class="reason-box">
             {{ $data['mtf'] }}
         </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <!-- Signatures Table (4 columns) -->
-        <table class="signature-table" style="margin-top: 20px;">
+    </div>
+
+    <!-- Signature table positioned absolutely at the bottom -->
+    <div class="signature-container">
+        <table class="signature-table">
             <thead>
                 <tr>
                     <th>Responsable Administratif</th>
                     <th>Avis du Chef Service</th>
                     <th>Avis du Chef d'établissement</th>
-                    <th>Avis du Président de l’Université</th>
+                    <th>Avis du Président de l'Université</th>
                 </tr>
             </thead>
             <tbody>
@@ -208,8 +206,6 @@
                 </tr>
             </tbody>
         </table>
-
     </div>
 </body>
-
 </html>
