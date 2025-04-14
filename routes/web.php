@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     // Dashboard
     Route::get('/home', function () {
-        $apogeeUser = \App\Models\ApogeeUser::where('email', auth()->user()->email)->first();
+        $apogeeUser = ApogeeUser::where('email', auth()->user()->email)->first();
         $demandes = InscAnneeAnterieure::where('user_id', auth()->id())->latest()->get();
         $demandesResultatEtudiant = ResultatEtudiant::where('user_id', auth()->id())->latest()->get();
         $demandesReultatModul = ResulataModule::where('user_id', auth()->id())->latest()->get();
