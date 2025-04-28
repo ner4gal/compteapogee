@@ -78,6 +78,10 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     // Inscription Année Antérieure
     Route::get('/inscription-annee-anterieure', [App\Http\Controllers\InscriptionAnneeAnterieureController::class, 'showForm'])->name('inscription-annee-anterieure');
     Route::post('/inscription-annee-anterieure', [App\Http\Controllers\InscriptionAnneeAnterieureController::class, 'generatePDF']);
+    Route::get('/inscription-annee-anterieure/{id}', [App\Http\Controllers\InscriptionAnneeAnterieureController::class, 'showInscription'])
+     ->name('inscription-annee-anterieure.show');
+     Route::put('/inscription-annee-anterieure/{id}', [App\Http\Controllers\InscriptionAnneeAnterieureController::class, 'update'])
+     ->name('inscription-annee-anterieure.update');
 
     // Insertion Resultat Module
     Route::get('/insertion-resultat-module', function () {
@@ -109,6 +113,8 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
         return view('insertion-resultat-etudiant-form');
     })->name('insertion.resultat.etudiant');
     Route::post('/insertion-resultat-etudiant', [ResultatEtudiantController::class, 'store'])->name('resultat.etudiant.store');
+    Route::get('/insertion-resultat-etudiant/{id}', [ResultatEtudiantController::class, 'show'])->name('insertion.etudiant.show');
+    Route::put('/insertion-resultat-etudiant/{id}', [ResultatEtudiantController::class, 'update'])->name('insertion.etudiant.update');
 
     // Calcul Notes
     Route::get('/calcul-notes', function () {
@@ -135,7 +141,13 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
     // Annulation Inscription
     Route::get('/demande-annulation-inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'showForm'])->name('annulation.inscription.form');
     Route::post('/demande-annulation-inscription-annee-anterieure', [AnnulationInscriptionAnneeAnterieureController::class, 'generatePDF'])->name('annulation.inscription.generate');
-    Route::get('/demande-annulation-inscription/{id}', [AnnulationInscriptionAnneeAnterieureController::class, 'show'])->name('annulation.inscription.show');
+    Route::get('/annulation-inscription/{id}/show', [AnnulationInscriptionAnneeAnterieureController::class, 'show'])->name('annulation.inscription.show');
+
+    Route::get('/annulation-inscription/{id}/edit', [AnnulationInscriptionAnneeAnterieureController::class, 'edit'])->name('annulation.inscription.edit');
+    // Update the annulation inscription (PUT method)
+    Route::put('/annulation-inscription/{id}', [AnnulationInscriptionAnneeAnterieureController::class, 'update'])->name('annulation.inscription.update');
+
+
 
     // Suppression Note
     Route::get('/demande-suppression-note-annee-anterieure', [SuppressionNoteEtudiantController::class, 'showForm'])->name('suppression.note.etudiant.form');

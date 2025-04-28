@@ -61,4 +61,9 @@ class ResultatEtudiantController extends Controller
         // Download the PDF
         return $pdf->download('insertion_resultat_etudiant.pdf');
     }
+    public function show($id)
+    {
+        $demande = ResultatEtudiant::findOrFail($id);
+        return view('insertion-resultat-etudiant.show', compact('demande'));
+    }
 }

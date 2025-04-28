@@ -29,7 +29,7 @@
 
         .content {
             position: relative;
-            padding: 35mm 20mm 100mm; /* Increased bottom padding for signature space */
+            padding: 25mm 20mm 100mm; /* Adjusted top padding to 25mm */
             z-index: 1;
         }
 
@@ -44,7 +44,7 @@
             position: absolute;
             top: 5mm;
             left: 20mm;
-           
+            z-index: 2;
         }
 
         table {
@@ -129,17 +129,16 @@
 </head>
 
 <body>
-    <!-- Background image with logos & footer already in the PNG -->
+    <!-- Background image with logos & footer -->
     <img src="{{ public_path('images/background.png') }}" class="background">
 
-    <!-- Reference number in top right corner -->
+    <!-- Reference number in top left corner -->
     <div class="reference">réf : APOGEE-004</div>
-    <div class=""> &nbsp; &nbsp; </div>
-    <div class=""> &nbsp; &nbsp; </div>
+       
     <div class="content">
+    <div class=""> &nbsp; &nbsp; </div><div class=""> &nbsp; &nbsp; </div><div class=""> &nbsp; &nbsp; </div>
         <!-- Title centered -->
         <div class="title">Demande de calcul des notes à une année universitaire antérieure</div>
-        <div class=""> &nbsp; &nbsp; </div>
 
         <!-- Table for Etablissement (left) & Date (right) -->
         <table class="info-table" style="margin-bottom: 10px;">
@@ -158,7 +157,6 @@
 
         <!-- Semesters -->
         <p><strong>Les Semestres Concernés :</strong></p>
-        <div class=""> &nbsp; &nbsp; </div>
         <table class="semester-table">
             <thead>
                 <tr>
@@ -167,17 +165,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (['Semestre 1', 'Semestre 2', 'Semestre 3', 'Semestre 4', 'Semestre 5', 'Semestre 6'] as $semestre)
-                    <tr>
-                        <td>{{ $semestre }}</td>
-                        <td>
-                            {!! (isset($data['semesters']) && in_array($semestre, $data['semesters']))
-                                ? '<span style="color:green; font-size:18px; font-weight:bold;">&#x2714;</span>'
-                                : '<span style="color:red; font-size:18px; font-weight:bold;">&#10006;</span>' !!}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
+    @foreach (['Semestre 1', 'Semestre 2', 'Semestre 3', 'Semestre 4', 'Semestre 5', 'Semestre 6'] as $semestre)
+        <tr>
+            <td>{{ $semestre }}</td>
+            <td>
+                {!! (isset($data['semesters']) && in_array($semestre, $data['semesters']))
+                    ? '<span style="color:green; font-size:18px; font-weight:bold;">&#x2714;</span>'
+                    : '<span style="color:red; font-size:18px; font-weight:bold;">&#10006;</span>' !!}
+            </td>
+        </tr>
+    @endforeach
+</tbody>
         </table>
         
         <p style="margin-top: 10px;"><strong>La raison :</strong></p>

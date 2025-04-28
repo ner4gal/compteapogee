@@ -182,9 +182,11 @@
       <table class="table table-vcenter">
         <thead>
           <tr>
-            <th></th>
+            <th>Demande</th>
             <th>Filière</th>
             <th>Date</th>
+            <th>Statut</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -193,6 +195,26 @@
               <td class="fw-semibold">{{ $d->nom_demande }}</td>
               <td>{{ $d->filiere }}</td>
               <td>{{ $d->date_demande->format('d/m/Y') }}</td>
+              <td>
+                @switch($d->statut)
+                  @case('En attente')
+                    <span class="badge bg-warning">{{ $d->statut }}</span>
+                    @break
+                  @case('Approuvé')
+                    <span class="badge bg-success">{{ $d->statut }}</span>
+                    @break
+                  @case('Rejeté')
+                    <span class="badge bg-danger">{{ $d->statut }}</span>
+                    @break
+                  @default
+                    <span class="badge bg-secondary">{{ $d->statut }}</span>
+                @endswitch
+              </td>
+              <td>
+                <a href="{{ route('inscription-annee-anterieure.show', $d->id) }}" class="btn btn-sm btn-primary" title="Voir détails">
+                  <i class="fa fa-eye"></i>
+                </a>
+              </td>
             </tr>
           @endforeach
         </tbody>
@@ -200,10 +222,10 @@
     @endif
   </div>
 </div>
-
             
             <!-- Student Result Requests -->
-            <div class="block block-rounded">
+            
+<div class="block block-rounded">
   <div class="block-header block-header-default">
     <h3 class="block-title">Résultat étudiant</h3>
   </div>
@@ -216,9 +238,11 @@
       <table class="table table-vcenter">
         <thead>
           <tr>
-            <th></th>
+            <th>Demande</th>
             <th>Etudiant</th>
             <th>Date</th>
+            <th>Statut</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -227,6 +251,26 @@
               <td>{{ $d->nom_demande }}</td>
               <td>{{ $d->NomPrenom }}</td>
               <td>{{ $d->date_demande->format('d/m/Y') }}</td>
+              <td>
+                @switch($d->statut)
+                  @case('En attente')
+                    <span class="badge bg-warning">{{ $d->statut }}</span>
+                    @break
+                  @case('Approuvé')
+                    <span class="badge bg-success">{{ $d->statut }}</span>
+                    @break
+                  @case('Rejeté')
+                    <span class="badge bg-danger">{{ $d->statut }}</span>
+                    @break
+                  @default
+                    <span class="badge bg-secondary">{{ $d->statut }}</span>
+                @endswitch
+              </td>
+              <td class="text-nowrap">
+                <a href="{{ route('insertion.etudiant.show', $d->id) }}" class="btn btn-sm btn-primary" title="Voir">
+                  <i class="fa fa-eye"></i>
+                </a>
+              </td>
             </tr>
           @endforeach
         </tbody>
@@ -451,7 +495,7 @@
               </td>
               <td class="text-nowrap">
                 <!-- "Voir" action button -->
-                <a href="{{ route('annulation.inscription.show', $d->id) }}" class="btn btn-sm btn-primary" title="Voir">
+                <a href="{{ route('annulation.inscription.show' ,['id' => $d->id])}}" class="btn btn-sm btn-primary" title="Voir">
                   <i class="fa fa-eye"></i>
                 </a>
               </td>

@@ -121,8 +121,7 @@
 
     <div class="content">
         <div class=""> &nbsp; &nbsp; </div>
-        <div class=""> &nbsp; &nbsp; </div>
-        <div class="top-ref"> &nbsp; &nbsp; </div>
+        
 
         <div class="title">Demande d'inscription administrative à une année antérieure</div>
         

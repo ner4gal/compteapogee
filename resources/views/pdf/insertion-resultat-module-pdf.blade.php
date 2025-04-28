@@ -142,12 +142,20 @@
             /* réduit l’espace vertical dans les en-têtes */
             font-weight: bold;
         }
+        .reference {
+            position: absolute;
+            top: 5mm;
+            left: 20mm;
+            z-index: 2;
+        }
+
     </style>
 </head>
 
 <body>
 
     <img src="{{ public_path('images/background.png') }}" class="background">
+    <div class="reference">réf : APOGEE-003</div>
 
     <div class="content">
 

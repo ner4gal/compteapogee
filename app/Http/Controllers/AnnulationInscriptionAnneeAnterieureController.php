@@ -15,6 +15,80 @@ class AnnulationInscriptionAnneeAnterieureController extends Controller
     {
         return view('annulation-inscription-annee-anterieure');
     }
+    public function edit(Request $request,$id){
+    // Validate the request
+    $validatedData = $request->validate([
+        'etbl'      => 'required',
+        'dateDM'    => 'required|date',
+        'typ'       => 'required',
+        'flr'       => 'required',
+        'aneINS'    => 'required',
+        'mtf'       => 'required',
+        'students'  => 'required|array|min:1',
+        'students.*.apogee' => 'required',
+        'students.*.name'   => 'required',
+        'statut'    => 'sometimes|string'
+    ]);
+
+    // Find and update the record
+    $demand = AnnulationInscription::findOrFail($id);
+    $demand->update([
+        'etablissement'     => $validatedData['etbl'],
+        'date_demande'      => $validatedData['dateDM'],
+        'cycle'             => $validatedData['typ'],
+        'filiere'           => $validatedData['flr'],
+        'annee_inscription' => $validatedData['aneINS'],
+        'raison_retard'     => $validatedData['mtf'],
+        'students'          => $validatedData['students'],
+        'statut'            => $validatedData['statut'] ?? 'En attente'
+    ]);
+
+    // Generate the PDF
+    $pdf = PDF::loadView('pdf.annulation-inscription-annee-anterieure-pdf', ['data' => $validatedData])
+              ->setPaper('a4', 'portrait');
+
+    // Return the download
+    return $pdf->download('Demande_Modifiee_Annulation_Inscription.pdf');
+
+
+    }
+    public function update(Request $request,$id){
+        // Validate the request
+        $validatedData = $request->validate([
+            'etbl'      => 'required',
+            'dateDM'    => 'required|date',
+            'typ'       => 'required',
+            'flr'       => 'required',
+            'aneINS'    => 'required',
+            'mtf'       => 'required',
+            'students'  => 'required|array|min:1',
+            'students.*.apogee' => 'required',
+            'students.*.name'   => 'required',
+            'statut'    => 'sometimes|string'
+        ]);
+    
+        // Find and update the record
+        $demand = AnnulationInscription::findOrFail($id);
+        $demand->update([
+            'etablissement'     => $validatedData['etbl'],
+            'date_demande'      => $validatedData['dateDM'],
+            'cycle'             => $validatedData['typ'],
+            'filiere'           => $validatedData['flr'],
+            'annee_inscription' => $validatedData['aneINS'],
+            'raison_retard'     => $validatedData['mtf'],
+            'students'          => $validatedData['students'],
+            'statut'            => $validatedData['statut'] ?? 'En attente'
+        ]);
+    
+        // Generate the PDF
+        $pdf = PDF::loadView('pdf.annulation-inscription-annee-anterieure-pdf', ['data' => $validatedData])
+                  ->setPaper('a4', 'portrait');
+    
+        // Return the download
+        return $pdf->download('Demande_Modifiee_Annulation_Inscription.pdf');
+    
+    
+        }
 
     /**
      * Generate the PDF for the annulment request.

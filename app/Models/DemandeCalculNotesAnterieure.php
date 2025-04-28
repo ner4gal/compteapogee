@@ -36,4 +36,10 @@ class DemandeCalculNotesAnterieure extends Model
         'date_demande' => 'date',
         'semesters' => 'array', // Automatically converts JSON to an array and vice versa.
     ];
+    protected $appends = ['semesters_array'];
+    public function getSemestersArrayAttribute()
+    {
+        return json_decode($this->semesters ?? '[]', true);
+    }
+    
 }

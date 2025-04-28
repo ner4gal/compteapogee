@@ -66,19 +66,19 @@
                     @endfor
                 </select>
             </div>
-
             <h4 class="mt-4">Les Semestres Concernés</h4>
             <div class="row">
                 @foreach(['Semestre 1','Semestre 2','Semestre 3','Semestre 4','Semestre 5','Semestre 6'] as $index => $sem)
                     <div class="col-md-4 mb-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="semesters[]" value="{{ $sem }}" id="sem{{ $index+1 }}"
-                            {{ in_array($sem, $demand->semesters ?? []) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="sem{{ $index+1 }}">{{ $sem }}</label>
+                        <input class="form-check-input" type="checkbox" name="semesters[]" value="{{ $sem }}" id="sem{{ $index+1 }}"
+            {{ in_array($sem, $demand->semesters_array) ? 'checked' : '' }}>
+        <label class="form-check-label" for="sem{{ $index+1 }}">{{ $sem }}</label>
                         </div>
                     </div>
                 @endforeach
             </div>
+           
 
             <button type="submit" class="btn btn-primary w-100 mt-4">Modifier et télécharger votre PDF à nouveau</button>
         </form>
