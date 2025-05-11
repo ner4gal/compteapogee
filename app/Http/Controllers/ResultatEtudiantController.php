@@ -61,9 +61,22 @@ class ResultatEtudiantController extends Controller
         // Download the PDF
         return $pdf->download('insertion_resultat_etudiant.pdf');
     }
-    public function show($id)
-    {
-        $demande = ResultatEtudiant::findOrFail($id);
-        return view('insertion-resultat-etudiant.show', compact('demande'));
-    }
+   public function show($id)
+{
+    $demande = ResultatEtudiant::findOrFail($id);
+    $etablissements = [
+        'Faculté des Langues des Lettres et des Arts',
+        'Faculté des Sciences Humaines et Sociales',
+        'Faculté des Sciences',
+        'Faculté d\'Economie et de Gestion',
+        'Faculté des Sciences Juridiques et Politiques',
+        'Ecole Nationale de Commerce et de Gestion',
+        'Ecole Nationale des Sciences Appliquées',
+        'Ecole Supérieure de Technologie',
+        'Ecole Nationale Supérieure de Chimie',
+        'Ecole Supérieure d\'Education et de Formation',
+        'Institut des Métiers de Sport'
+    ];
+    return view('insertion-resultat-etudiant.show', compact('demande', 'etablissements'));
+}
 }

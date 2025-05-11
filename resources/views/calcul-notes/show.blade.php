@@ -8,11 +8,40 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('Demands') }}">Demandes</a></li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}">Accueil / Table de bord</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('Demands') }}">Demandes</a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">Calcul Note</li>
             </ol>
         </nav>
+        
+        <!-- Quick Access Menu -->
+        <div class="row">
+            <div class="col-19 col-md-6 col-xl-6">
+                <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
+                    <div class="block-content">
+                        <p class="my-2">
+                            <i class="fa fa-compass fa-2x text-muted"></i>
+                        </p>
+                        <p class="fw-semibold">Accueil / Table de bord</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-md-6 col-xl-6">
+                <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('Demands') }}">
+                    <div class="block-content">
+                        <p class="my-2">
+                            <i class="fa fa-file-word fa-2x text-muted"></i>
+                        </p>
+                        <p class="fw-semibold">Les Demandes Administratives</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- END Quick Menu -->
 
         <h2 class="text-center mb-4">Modifier et Télécharger la Demande de Calcul des Notes</h2>
 
@@ -62,24 +91,26 @@
                 <label class="form-label">Année universitaire concernée</label>
                 <select name="AnneeCon" class="form-select" required>
                     @for($year = 2015; $year <= 2023; $year++)
-                        <option value="{{ $year }}-{{ $year + 1 }}" {{ $demand->annee_inscription == "$year-$year+1" ? 'selected' : '' }}>{{ $year }}-{{ $year + 1 }}</option>
+                        <option value="{{ $year }}-{{ $year + 1 }}" {{ $demand->annee_inscription == "$year-".($year + 1) ? 'selected' : '' }}>
+                            {{ $year }}-{{ $year + 1 }}
+                        </option>
                     @endfor
                 </select>
             </div>
+            
             <h4 class="mt-4">Les Semestres Concernés</h4>
             <div class="row">
                 @foreach(['Semestre 1','Semestre 2','Semestre 3','Semestre 4','Semestre 5','Semestre 6'] as $index => $sem)
                     <div class="col-md-4 mb-3">
                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="semesters[]" value="{{ $sem }}" id="sem{{ $index+1 }}"
-            {{ in_array($sem, $demand->semesters_array) ? 'checked' : '' }}>
-        <label class="form-check-label" for="sem{{ $index+1 }}">{{ $sem }}</label>
+                            <input class="form-check-input" type="checkbox" name="semesters[]" value="{{ $sem }}" id="sem{{ $index+1 }}"
+                                {{ in_array($sem, $demand->semesters_array) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="sem{{ $index+1 }}">{{ $sem }}</label>
                         </div>
                     </div>
                 @endforeach
             </div>
            
-
             <button type="submit" class="btn btn-primary w-100 mt-4">Modifier et télécharger votre PDF à nouveau</button>
         </form>
     </div>

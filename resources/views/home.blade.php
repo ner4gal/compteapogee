@@ -11,9 +11,9 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
           <li class="breadcrumb-item">
-            <a href="javascript:void(0)">Home</a>
+            <a href="javascript:void(0)">Accueil / Table de bord</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+          <li class="breadcrumb-item active" aria-current="page">Accueil / Table de bord</li>
         </ol>
       </nav>
       <!-- END Breadcrumb -->
@@ -26,7 +26,7 @@
               <p class="my-2">
                 <i class="fa fa-compass fa-2x text-muted"></i>
               </p>
-              <p class="fw-semibold">Home</p>
+              <p class="fw-semibold">Accueil / Table de bord</p>
             </div>
           </a>
         </div>

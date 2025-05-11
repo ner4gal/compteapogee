@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('home') }}">Accueil / Table de bord</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <a href="{{ route('Demands') }}">Demands</a>
@@ -27,7 +27,7 @@
                             <p class="my-2">
                                 <i class="fa fa-compass fa-2x text-muted"></i>
                             </p>
-                            <p class="fw-semibold">Home</p>
+                            <p class="fw-semibold">Accueil / Table de bord</p>
                         </div>
                     </a>
                 </div>
@@ -49,7 +49,7 @@
 
             <!-- Quick Stats -->
             <div class="row">
-                <form id="pdfForm" action="{{ route('annulation.inscription.generate') }}" method="POST">
+                <form id="pdfForm" method="POST" action="{{ route('annulation.inscription.generate') }}">
                     @csrf
 
                     <div class="mb-3">
@@ -94,8 +94,6 @@
                         <input type="text" name="flr" class="form-control" required>
                     </div>
 
-                    <!-- Removed Nature de la demande radio buttons for annulation demand -->
-
                     <div class="mb-3">
                         <label class="form-label">Année universitaire concernée</label>
                         <select class="form-select" name="aneINS" required>
@@ -124,91 +122,123 @@
                         <textarea name="mtf" rows="4" class="form-control" required></textarea>
                     </div>
 
-                    <button type="button" id="openModalButton" class="btn btn-primary w-100">Générer le PDF</button>
+                    <button type="button" id="generatePdfBtn" class="btn btn-primary w-100">Générer le PDF</button>
                 </form>
             </div>
             <!-- END Quick Stats -->
         </div>
     </div>
 
-    <!-- Loading Modal -->
-    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center p-4">
-                <h5 class="modal-title mb-3" id="pdfModalLabel">Génération du PDF</h5>
-                <p id="countdownText">Votre PDF sera téléchargé dans <strong id="counter">5</strong> secondes...</p>
-                <button id="downloadBtn" class="btn btn-success">Télécharger le PDF</button>
+    <!-- PDF Preview Modal -->
+    <div class="modal fade" id="pdfPreviewModal" tabindex="-1" aria-labelledby="pdfPreviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfPreviewModalLabel">Aperçu du PDF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="pdfLoading" class="d-flex justify-content-center align-items-center" style="height: 300px;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="ms-3">Génération du PDF en cours...</p>
+                    </div>
+                    <iframe id="pdfPreviewFrame" style="display: none; width: 100%; height: 600px; border: none;"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <a id="downloadPdfBtn" class="btn btn-primary" href="#" download="demande_annulation_inscription.pdf">
+                        <i class="fa fa-download me-1"></i> Télécharger
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    let studentIndex = 1; // Start index for new students
+        document.addEventListener("DOMContentLoaded", function () {
+            let studentIndex = 1;
 
-    // Dynamically add student rows
-    document.getElementById("add-student-btn").addEventListener("click", function () {
-        let container = document.getElementById("students-container");
+            // Dynamically add student rows
+            document.getElementById("add-student-btn").addEventListener("click", function () {
+                let container = document.getElementById("students-container");
 
-        let newStudentRow = document.createElement("div");
-        newStudentRow.classList.add("student-row", "d-flex", "align-items-center", "gap-2", "mt-2");
-        newStudentRow.innerHTML = `
-            <input type="text" name="students[${studentIndex}][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
-            <input type="text" name="students[${studentIndex}][name]" class="form-control" placeholder="Nom & Prénom" required>
-            <button type="button" class="btn btn-danger remove-student-btn">❌</button>
-        `;
-        container.appendChild(newStudentRow);
+                let newStudentRow = document.createElement("div");
+                newStudentRow.classList.add("student-row", "d-flex", "align-items-center", "gap-2", "mt-2");
+                newStudentRow.innerHTML = `
+                    <input type="text" name="students[${studentIndex}][apogee]" class="form-control" placeholder="Numéro APOGEE" required>
+                    <input type="text" name="students[${studentIndex}][name]" class="form-control" placeholder="Nom & Prénom" required>
+                    <button type="button" class="btn btn-danger remove-student-btn">❌</button>
+                `;
+                container.appendChild(newStudentRow);
 
-        // Remove student row when clicking the ❌ button
-        newStudentRow.querySelector(".remove-student-btn").addEventListener("click", function () {
-            newStudentRow.remove();
+                // Remove student row when clicking the ❌ button
+                newStudentRow.querySelector(".remove-student-btn").addEventListener("click", function () {
+                    newStudentRow.remove();
+                });
+                studentIndex++;
+            });
+
+            // Handle PDF generation and preview
+            document.getElementById('generatePdfBtn').addEventListener('click', function() {
+                // Validate form first
+                const form = document.getElementById('pdfForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                // Show the preview modal
+                const previewModal = new bootstrap.Modal(document.getElementById('pdfPreviewModal'));
+                previewModal.show();
+
+                // Show loading state
+                document.getElementById('pdfLoading').style.display = 'flex';
+                document.getElementById('pdfPreviewFrame').style.display = 'none';
+
+                // Submit form data via AJAX
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/pdf',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    // Create object URL for the PDF
+                    const pdfUrl = URL.createObjectURL(blob);
+                    
+                    // Hide loading and show PDF
+                    document.getElementById('pdfLoading').style.display = 'none';
+                    const pdfFrame = document.getElementById('pdfPreviewFrame');
+                    pdfFrame.style.display = 'block';
+                    pdfFrame.src = pdfUrl;
+                    
+                    // Set download link
+                    document.getElementById('downloadPdfBtn').href = pdfUrl;
+                    
+                    // Clean up object URL when modal is closed
+                    document.getElementById('pdfPreviewModal').addEventListener('hidden.bs.modal', function() {
+                        URL.revokeObjectURL(pdfUrl);
+                        pdfFrame.src = '';
+                    }, { once: true });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('pdfLoading').innerHTML = 
+                        '<div class="alert alert-danger">Erreur lors de la génération du PDF. Veuillez réessayer.</div>';
+                });
+            });
         });
-        studentIndex++;
-    });
-
-    // Use a dedicated button (not type="submit") to open the modal.
-    document.getElementById('openModalButton').addEventListener('click', function () {
-        let modalElement = document.getElementById('pdfModal');
-        let modal = new bootstrap.Modal(modalElement);
-        modal.show();
-    });
-
-    // Handle the modal's download button to start the countdown and submit the form.
-    document.getElementById('downloadBtn').addEventListener('click', function () {
-        let downloadBtn = this;
-        downloadBtn.disabled = true; // Prevent multiple clicks
-        let counterElement = document.getElementById('counter');
-        let count = parseInt(counterElement.textContent);
-
-        let interval = setInterval(function () {
-            count--;
-            counterElement.textContent = count;
-            if (count <= 0) {
-                clearInterval(interval);
-
-                // Hide the modal
-                let modalElement = document.getElementById('pdfModal');
-                let modalInstance = bootstrap.Modal.getInstance(modalElement);
-                modalInstance.hide();
-
-                // Submit the form
-                document.getElementById('pdfForm').submit();
-
-                // Reset the form and modal state after a short delay
-                setTimeout(function() {
-                    document.getElementById('pdfForm').reset();
-                    downloadBtn.disabled = false;
-                    counterElement.textContent = "5";
-                }, 100);
-            }
-        }, 1000);
-    });
-
-    // Optional: Reset the modal's state when it's hidden so it's ready for next use.
-    document.getElementById('pdfModal').addEventListener('hidden.bs.modal', function () {
-        document.getElementById('counter').textContent = "5";
-        document.getElementById('downloadBtn').disabled = false;
-    });
-});
-</script>
-
+    </script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'Admin  Table de bord')
 
 @section('content')
     <div class="bg-body-extra-light">
@@ -8,14 +8,14 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('home') }}">Accueil / Table de bord</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Admin Dashboard</li>
+                    <li class="breadcrumb-item active" aria-current="page">Admin  Table de bord</li>
                 </ol>
             </nav>
 
             <div class="container my-6">
-                <h1 class="text-center mb-6">Admin Dashboard</h1>
+                <h1 class="text-center mb-6">Admin  Table de bord</h1>
 
                 @include('admin.tables.apogee-users')
                 @include('admin.tables.doctorat-demands')

@@ -1,90 +1,199 @@
 @extends('layouts.app')
 
-@section('title', "Modifier la demande d'APOGEE")
+@section('title', 'Demande de Création APOGÉE')
 
 @section('content')
-<div class="bg-body-extra-light">
-  <div class="content content-full">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
-        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('Demands') }}">Demandes</a></li>
-        <li class="breadcrumb-item active">Modification APOGEE</li>
-      </ol>
-    </nav>
+  <div class="bg-body-extra-light">
+    <div class="content content-full">
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-alt bg-body-light px-4 py-2 rounded push">
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0)">Accueil</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Demande d'ouverture d'un compte APOGÉE</li>
+        </ol>
+      </nav>
+      <!-- END Breadcrumb -->
 
-    <h2 class="text-center mb-4">Demande de modification d'un compte fonctionnel d'accès à l'applicatif d'APOGEE</h2>
-
-    <form action="{{ route('apogee.update', $apogeeUser->id) }}" method="POST">
-      @csrf
-      @method('PUT')
-
-      <div class="mb-3">
-        <label class="form-label">Etablissement</label>
-        <input type="text" name="etablissement" class="form-control" value="{{ old('etablissement', $apogeeUser->etablissement) }}" required>
+      <!-- Quick Access Menu -->
+      <div class="row">
+        <div class="col-12 col-md-12 col-xl-12">
+          <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('Profile') }}">
+            <div class="block-content">
+              <p class="my-2">
+                <i class="fa fa-file-word fa-2x text-muted"></i>
+              </p>
+              <p class="fw-semibold">Accueil</p>
+            </div>
+          </a>
+        </div>
       </div>
+    <div class="row">
+      <div class="col-12">
+      <div class="block block-bordered block-rounded">
+        <div class="block-header block-header-default">
+        <h3 class="block-title">Demande d'ouverture d'un compte APOGÉE</h3>
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label">Nom et Prénom</label>
-        <input type="text" name="nom_prenom" class="form-control" value="{{ old('nom_prenom', $apogeeUser->nom_prenom) }}" required>
-      </div>
+        <!-- ✅ FORM -->
+        <form id="pdfForm" action="{{ route('DommendModification.doc') }}" method="POST"
+        onsubmit="return showConfirmation(event)">
+        @csrf
+        <div class="block-content">
+          <div class="row">
+          <div class="col-md-6">
+            @include('apogee.partials.apogee-creation-left')
+          </div>
+          <div class="col-md-6">
+            @include('apogee.partials.apogee-creation-right')
+          </div>
+          </div>
 
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" value="{{ old('email', $apogeeUser->email) }}" required>
-      </div>
+          <hr class="my-4">
+          <div class="row">
+          <div class="col-md-12">
+            @include('apogee.partials.apogee-privileges-creation')
+          </div>
+          </div>
 
-      <div class="mb-3">
-        <label class="form-label">Fonction</label>
-        <input type="text" name="fonction" class="form-control" value="{{ old('fonction', $apogeeUser->fonction) }}">
-      </div>
+          <hr class="my-4">
+          <div class="mb-4">
+  <label class="form-label">Avancement de délibération</label>
 
-      <div class="mb-3">
-        <label class="form-label">Téléphone</label>
-        <input type="text" name="telephone" class="form-control" value="{{ old('telephone', $apogeeUser->telephone) }}">
-      </div>
+  @php
+    $selectedP8 = old('p9', $apogeeUser->responsable_apogee_access ?? '');
+  @endphp
 
-      <div class="mb-3">
-        <label class="form-label">Nom d'utilisateur APOGEE</label>
-        <input type="text" name="nom_utilisateur_apogee" class="form-control" value="{{ old('nom_utilisateur_apogee', $apogeeUser->nom_utilisateur_apogee) }}" required>
-      </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="p9" value="T" id="radioT" 
+           {{ $selectedP8 === 'T' ? 'checked' : '' }}>
+    <label class="form-check-label" for="radioT">T</label>
+  </div>
 
-      <div class="mb-3">
-        <label class="form-label">Adresse MAC</label>
-        <input type="text" name="mac_address" class="form-control" value="{{ old('mac_address', $apogeeUser->mac_address) }}">
-      </div>
-
-      <!-- Repeat for array fields using a multi-select input -->
-      @php
-        $selectClass = 'form-select selectcls' // for Select2 enhancement
-      @endphp
-
-      <div class="mb-3">
-        <label class="form-label">Centre de Gestion</label>
-        <select name="centre_gestion[]" class="{{ $selectClass }}" multiple>
-          @foreach(config('apogee.centres_gestion') as $option)
-            <option value="{{ $option }}" {{ in_array($option, old('centre_gestion', $apogeeUser->centre_gestion ?? [])) ? 'selected' : '' }}>{{ $option }}</option>
-          @endforeach
-        </select>
-      </div>
-
-      <!-- Repeat for: centre_traitement, centre_inscription_pedagogique, centre_incompatibilite, privileges_apogee, responsable_apogee_access -->
-
-      <button type="submit" class="btn btn-primary w-100 mt-3">
-        <i class="fa fa-paper-plane me-1"></i> Générer votre demande de modification
-      </button>
-    </form>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="p9" value="A" id="radioA" 
+           {{ $selectedP8 === 'A' ? 'checked' : '' }}>
+    <label class="form-check-label" for="radioA">A</label>
   </div>
 </div>
 
-<script>
-$(document).ready(function () {
-  $('.selectcls').select2({
-    placeholder: "Sélectionnez...",
-    allowClear: true,
-    width: '100%'
-  });
-});
-</script>
+<div class="mt-4 text-center">
+  <button type="submit" class="btn btn-primary">
+    <i class="fa fa-file-pdf me-1"></i>
+    {{ isset($apogeeUser) ? 'Modifier et Télécharger à nouveau' : 'Générer le PDF' }}
+  </button>
+</div>
+        </div>
+        </form>
+        <!-- ✅ END FORM -->
+
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ✅ CONFIRMATION MODAL -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title">Confirmation de votre demande</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body" id="confirmationContent">
+      <!-- Filled by JS -->
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Modifier</button>
+      <button type="button" class="btn btn-success" onclick="confirmAndSubmit()">Confirmer</button>
+      </div>
+    </div>
+    </div>
+  </div>
 @endsection
+
+@push('scripts')
+  <!-- ✅ SELECT2 INIT -->
+  <script>
+    $(document).ready(function () {
+    $('.selectcls').select2({
+      placeholder: "Select options",
+      allowClear: true,
+      width: 'resolve'
+    });
+
+    $(document).on('theme-js-loaded', function () {
+      $('.selectcls').select2('destroy').select2();
+    });
+    });
+  </script>
+
+  <!-- ✅ CONFIRMATION LOGIC -->
+  <script>
+    function showConfirmation(e) {
+    e.preventDefault();
+    const form = document.getElementById('pdfForm');
+    const formData = new FormData(form);
+    const entries = Array.from(formData.entries());
+
+    let html = '<div class="table-responsive"><table class="table table-bordered"><tbody>';
+    const prettyLabels = {
+      etbl: "Établissement",
+      dateDM: "Date de la demande",
+      nomPrenomUser: "Nom et Prénom",
+      userName: "Nom d'utilisateur APOGÉE",
+      fonction: "Fonction",
+      tele: "Téléphone",
+      mac: "Adresse MAC",
+      "centre_gestion[]": "Centre de Gestion",
+      "centre_traitement[]": "Centre de Traitement",
+      "centre_inscription_pedagogique[]": "Centre d'inscription pédagogique",
+      "centre_incompatibilite[]": "Centre d'Incompatibilité",
+      p1: "Inscription Administrative",
+      p2: "Inscription Pédagogique",
+      p3: "Résultat",
+      p4: "Structure des enseignements",
+      p5: "Dossier Étudiant",
+      p6: "Modalités de contrôle des connaissances",
+      p7: "Épreuves",
+      p8: "Théses HDR",
+      p9: "Accès Responsable T",
+      p10: "Accès Responsable A",
+      "composante[]": "Composantes sélectionnées",
+
+    };
+
+    const displayed = new Set();
+
+    entries.forEach(([key, value]) => {
+      if (key === "_token") return; // skip token
+
+      const label = prettyLabels[key] || prettyLabels[key.replace(/\[\]$/, '')] || key.replace(/_/g, ' ');
+      if (!displayed.has(key)) {
+      const allValues = entries
+        .filter(entry => entry[0] === key)
+        .map(entry => entry[1])
+        .join(', ');
+      html += `<tr><td><strong>${label}</strong></td><td>${allValues}</td></tr>`;
+      displayed.add(key);
+      }
+    });
+
+    html += '</tbody></table></div>';
+    document.getElementById('confirmationContent').innerHTML = html;
+    new bootstrap.Modal(document.getElementById('confirmationModal')).show();
+
+    return false;
+    }
+
+    function confirmAndSubmit() {
+    document.getElementById('pdfForm').submit();
+    }
+  
+
+
+  </script>
+@endpush

@@ -50,7 +50,10 @@ class InscriptionAnneeAnterieureController extends Controller
     $pdf = PDF::loadView('pdf.inscription-annee-anterieure-pdf', ['data' => $validatedData])
               ->setPaper('a4', 'portrait'); // Set A4 size
 
-    return $pdf->download('Demande_Inscription_Annee_Anterieure.pdf');
+    return response($pdf->output(), 200)
+    ->header('Content-Type', 'application/pdf')
+    ->header('Content-Disposition', 'inline; filename="Demande_Inscription_Annee_Anterieure.pdf"');
+
     }
     public function showInscription($id)
     {
