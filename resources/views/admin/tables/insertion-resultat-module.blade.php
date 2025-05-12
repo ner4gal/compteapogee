@@ -7,12 +7,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nom & Prénom</th>
                     <th>Email</th>
                     <th>Filière</th>
                     <th>Module</th>
-                    <th>Note</th>
-                    <th>Session</th>
+                    <th>Semestre</th>
                     <th>Année</th>
                     <th>Statut</th>
                     <th>Actions</th>
@@ -22,12 +20,10 @@
                 @foreach ($insertionResultatModuleDemands as $demand)
                     <tr>
                         <td>{{ $demand->id }}</td>
-                        <td>{{ $demand->nom_prenom }}</td>
                         <td>{{ $demand->user_email }}</td>
                         <td>{{ $demand->filiere }}</td>
-                        <td>{{ $demand->module }}</td>
-                        <td>{{ $demand->note }}</td>
-                        <td>{{ $demand->session }}</td>
+                        <td>{{ $demand->module_nom }}</td>
+                        <td>{{ $demand->Semestre }}</td>
                         <td>{{ $demand->annee }}</td>
                         <td>
                             <span class="badge @if($demand->statut === 'Traité') bg-success @elseif($demand->statut === 'Rejeté') bg-danger @else bg-warning text-dark @endif">
