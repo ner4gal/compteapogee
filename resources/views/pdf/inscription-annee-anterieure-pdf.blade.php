@@ -14,8 +14,6 @@
             margin: 0;
             padding: 0;
             word-wrap: break-word;
-            position: relative;
-            min-height: 297mm;
         }
 
         .background {
@@ -29,14 +27,20 @@
 
         .content {
             position: relative;
-            padding: 35mm 20mm 100mm; /* Increased bottom padding to accommodate signature */
+            padding: 35mm 20mm 20mm;
             z-index: 1;
         }
 
+        .top-ref {
+            font-size: 10px;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
         .title {
-            text-align: center;
             font-size: 14px;
             font-weight: bold;
+            text-align: center;
             margin-bottom: 10px;
         }
 
@@ -47,42 +51,46 @@
 
         .info-table td {
             padding: 2px 0;
+            word-wrap: break-word;
         }
 
         p {
             margin: 3px 0;
+            word-wrap: break-word;
         }
 
-        .module-table th,
-        .module-table td {
+        .main-table th,
+        .main-table td {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
+            word-wrap: break-word;
+        }
+
+        .main-table {
+            margin-top: 10px;
         }
 
         .reason-box {
             border: 1px solid black;
             padding: 5px;
             margin-top: 10px;
+            word-wrap: break-word;
             min-height: 40px;
-        }
-
-        /* Signature table styling */
-        .signature-container {
-            position: absolute;
-            bottom: 25mm;
-            left: 20mm;
-            right: 20mm;
-            width: calc(100% - 40mm);
-            z-index: 1;
         }
 
         .signature-table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 0px;
         }
 
         .signature-table th {
+            padding: 0px;
+            border: 1px solid black;
+        }
+
+        .signature-table1 th {
             padding: 0px;
             border: 1px solid black;
         }
@@ -105,30 +113,64 @@
             margin: 0%;
             font-weight: bold;
         }
-        .reference {
-            position: absolute;
-            top: 3mm;
-            left: 20;
+
+        .signature-table1 {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
         }
 
+        .signature-table1 td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px;
+            height: 80px;
+            word-wrap: break-word;
+        }
+
+        .signature-small1 {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .signature-table1 thead th {
+            padding: 0px 0px;
+            margin: 0%;
+            font-weight: bold;
+        }
+        
+        .reference {
+            position: absolute;
+            top: 5mm;
+            left: 20mm;
+            z-index: 2;
+        }
+          .signature-container {
+            position: absolute;
+            bottom: 25mm;
+            left: 20mm;
+            right: 20mm;
+            width: calc(100% - 40mm);
+            z-index: 1;
+        }
     </style>
 </head>
-<body>
 
+<body>
     <img src="{{ public_path('images/background.png') }}" class="background">
-    <!-- Reference number in top right corner -->
     <div class="reference">réf : APOGEE-001</div>
 
     <div class="content">
         <div class=""> &nbsp; &nbsp; </div>
         
+        <div class="title">
+          Demande d'inscription administrative à une année antérieure
+        </div>
 
-        <div class="title">Demande d'inscription administrative à une année antérieure</div>
-        
         <table class="info-table">
             <tr>
-                <td><strong>Etablissement : {{ $data['etbl'] }} </strong></td>
-                <td style="text-align: right;"><strong>Date de la demande :{{ $data['dateDM'] }} </strong>  </td>
+                <td><strong>Etablissement :</strong> {{ $data['etbl'] }}</td>
+                <td style="text-align: right;"><strong>Date de la demande :</strong> {{ $data['dateDM'] }}</td>
             </tr>
         </table>
 
@@ -137,11 +179,15 @@
         <p><strong>Année d'inscription concernée :</strong> {{ $data['aneINS'] }}</p>
         <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
         
-        <div class="section-title">Liste des Étudiants :</div>
-        <table class="module-table ">
+        @if(isset($data['statut']))
+            <p><strong>Statut :</strong> {{ $data['statut'] }}</p>
+        @endif
+
+        <h3 style="text-align: left; margin-top: 10px;">Liste des Étudiants :</h3>
+        <table class="main-table">
             <thead>
                 <tr>
-                    <th>Numéro APOGEE</th>
+                   <th>Numéro APOGEE</th>
                     <th>Nom & Prénom</th>
                 </tr>
             </thead>
@@ -159,11 +205,8 @@
         <div class="reason-box">
             {{ $data['mtf'] }}
         </div>
-    </div>
-
-    <!-- Signature table positioned absolutely at the bottom -->
     <div class="signature-container">
-        <table class="signature-table">
+        <table class="signature-table1">
             <thead>
                 <tr>
                     <th>Avis du Coordinateur de la filière</th>
@@ -181,7 +224,7 @@
                 </tr>
             </tbody>
         </table>
+     </div>
     </div>
-
 </body>
 </html>

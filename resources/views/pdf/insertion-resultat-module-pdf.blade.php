@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <style>
+     <style>
         @page {
             size: A4;
             margin: 0;
@@ -81,7 +81,6 @@
         }
 
         .signature-table {
-
             width: 100%;
             border-collapse: collapse;
             margin-top: 0px;
@@ -113,7 +112,6 @@
         .signature-table thead th {
             padding: 0px 0px;
             margin: 0%;
-            /* réduit l’espace vertical dans les en-têtes */
             font-weight: bold;
         }
 
@@ -139,16 +137,23 @@
         .signature-table1 thead th {
             padding: 0px 0px;
             margin: 0%;
-            /* réduit l’espace vertical dans les en-têtes */
             font-weight: bold;
         }
+        
         .reference {
             position: absolute;
             top: 5mm;
             left: 20mm;
             z-index: 2;
         }
-
+          .signature-container {
+            position: absolute;
+            bottom: 25mm;
+            left: 20mm;
+            right: 20mm;
+            width: calc(100% - 40mm);
+            z-index: 1;
+        }
     </style>
 </head>
 
@@ -208,7 +213,7 @@
         <div class="reason-box">
             {{ $data['raso'] }}
         </div>
-
+        <div class="signature-container">
         <table class="signature-table1">
             <thead>
                 <tr>
@@ -240,7 +245,7 @@
                 </tr>
             </tbody>
         </table>
-
+        </div>
     </div>
 
 </body>

@@ -5,15 +5,15 @@
     <style>
         @page {
             size: A4;
-            margin: 10mm 15mm;
+            margin: 0;
         }
 
         body {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 11px;
+            font-size: 12px;
             margin: 0;
             padding: 0;
-            line-height: 1.2;
+            word-wrap: break-word;
         }
 
         .background {
@@ -23,127 +23,145 @@
             width: 210mm;
             height: 297mm;
             z-index: -1;
-            opacity: 0.05;
         }
 
-        .document-container {
+        .content {
             position: relative;
-            min-height: 277mm;
-            padding-bottom: 80mm;
+            padding: 35mm 20mm 20mm;
+            z-index: 1;
         }
 
-        .reference {
-            position: absolute;
-            top: 5mm;
-            left: 0;
-            font-weight: bold;
+        .top-ref {
+            font-size: 10px;
+            text-align: left;
+            margin-bottom: 5px;
         }
 
         .title {
             font-size: 14px;
             font-weight: bold;
             text-align: center;
-            margin: 20px 0 10px 0;
-            padding-top: 15px;
+            margin-bottom: 10px;
         }
 
-        .info-table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px;
         }
 
         .info-table td {
-            padding: 1px 0;
+            padding: 2px 0;
+            word-wrap: break-word;
         }
 
-        .info-row {
+        p {
             margin: 3px 0;
+            word-wrap: break-word;
+        }
+
+        .main-table th,
+        .main-table td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+            word-wrap: break-word;
         }
 
         .main-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 5px 0;
-            font-size: 10px;
-            table-layout: fixed;
-        }
-
-        .main-table th, 
-        .main-table td {
-            border: 1px solid black;
-            padding: 3px;
-            text-align: center;
-        }
-
-        .main-table th:nth-child(1) {
-            width: 60%;
-        }
-        .main-table th:nth-child(2),
-        .main-table th:nth-child(3) {
-            width: 20%;
+            margin-top: 10px;
         }
 
         .reason-box {
             border: 1px solid black;
             padding: 5px;
-            min-height: 30px;
-            margin: 5px 0;
-            font-size: 10px;
-            line-height: 1.3;
-        }
-
-        .signature-section {
-            position: absolute;
-            bottom: 10mm;
-            left: 0;
-            right: 0;
-            width: 100%;
+            margin-top: 10px;
+            word-wrap: break-word;
+            min-height: 40px;
         }
 
         .signature-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 5px;
-            font-size: 10px;
-            table-layout: fixed;
+            margin-top: 0px;
         }
 
         .signature-table th {
+            padding: 0px;
             border: 1px solid black;
-            padding: 3px;
-            font-weight: bold;
-            height: 30px;
+        }
+
+        .signature-table1 th {
+            padding: 0px;
+            border: 1px solid black;
         }
 
         .signature-table td {
             border: 1px solid black;
             text-align: center;
-            padding: 8px;
-            height: 40px;
+            padding: 5px;
+            height: 80px;
+            word-wrap: break-word;
         }
 
-        .section-title {
+        .signature-small {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .signature-table thead th {
+            padding: 0px 0px;
+            margin: 0%;
             font-weight: bold;
-            margin: 8px 0 3px 0;
         }
 
-        .university-address {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+        .signature-table1 {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        .signature-table1 td {
+            border: 1px solid black;
             text-align: center;
-            font-size: 10px;
-            padding: 5px 0;
+            padding: 5px;
+            height: 80px;
+            word-wrap: break-word;
+        }
+
+        .signature-small1 {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .signature-table1 thead th {
+            padding: 0px 0px;
+            margin: 0%;
+            font-weight: bold;
+        }
+        
+        .reference {
+            position: absolute;
+            top: 5mm;
+            left: 20mm;
+            z-index: 2;
+        }
+          .signature-container {
+            position: absolute;
+            bottom: 25mm;
+            left: 20mm;
+            right: 20mm;
+            width: calc(100% - 40mm);
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
     <img src="{{ public_path('images/background.png') }}" class="background">
-    <div class="document-container">
-        <div class="reference">réf : APOGEE-006</div>
+    <div class="reference">réf : APOGEE-006</div>
+
+    <div class="content">
+        <div class=""> &nbsp; &nbsp; </div>
         
         <div class="title">
             Demande de suppression des notes de l'année antérieure<br>
@@ -157,19 +175,19 @@
             </tr>
         </table>
 
-        <div class="info-row"><strong>Cycle :</strong> {{ $data['typ'] }}</div>
-        <div class="info-row"><strong>Filière :</strong> {{ $data['flr'] }}</div>
-        <div class="info-row"><strong>Nom & Prénom :</strong> {{ $data['NomPrenom'] }}</div>
-        <div class="info-row"><strong>Numéro APOGEE :</strong> {{ $data['NumApogee'] }}</div>
-        <div class="info-row"><strong>Semestre :</strong> {{ $data['Semestre'] }}</div>
-        <div class="info-row"><strong>Année universitaire concernée :</strong> {{ $data['AnneeCon'] }}</div>
-        <div class="info-row"><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</div>
+        <p><strong>Cycle :</strong> {{ $data['typ'] }}</p>
+        <p><strong>Filière :</strong> {{ $data['flr'] }}</p>
+        <p><strong>Nom & Prénom :</strong> {{ $data['NomPrenom'] }}</p>
+        <p><strong>Numéro APOGEE :</strong> {{ $data['NumApogee'] }}</p>
+        <p><strong>Semestre :</strong> {{ $data['Semestre'] }}</p>
+        <p><strong>Année universitaire concernée :</strong> {{ $data['AnneeCon'] }}</p>
+        <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
         
         @if(isset($data['statut']))
-            <div class="info-row"><strong>Statut :</strong> {{ $data['statut'] }}</div>
+            <p><strong>Statut :</strong> {{ $data['statut'] }}</p>
         @endif
 
-        <div class="section-title">Liste des Modules :</div>
+        <h3 style="text-align: left; margin-top: 10px;">Liste des Modules :</h3>
         <table class="main-table">
             <thead>
                 <tr>
@@ -189,48 +207,43 @@
             </tbody>
         </table>
 
-        <div class="section-title">Raison de suppression des notes :</div>
+        <p style="margin-top: 10px;"><strong>Raison de suppression des notes :</strong></p>
         <div class="reason-box">
             {{ $data['raison'] }}
         </div>
+    <div class="signature-container">
+        <table class="signature-table1">
+            <thead>
+                <tr>
+                    <th> Etudiant : {{ $data['NomPrenom'] }}<br></th>
+                    <th>Avis du Responsable administratif</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
 
-        <div class="signature-section">
-            <table class="signature-table">
-                <thead>
-                    <tr>
-                        <th width="50%">Nom & Prénom Etudiant<br>{{ $data['NomPrenom'] }}</th>
-                        <th width="50%">Avis du Responsable administratif</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table class="signature-table">
-                <thead>
-                    <tr>
-                        <th width="33%">Avis du Chef Service</th>
-                        <th width="33%">Avis du Chef d'établissement</th>
-                        <th width="34%">Avis du Président de l'Université</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="university-address">
-            14000 - الفنيطرة - 242 رئاسة جامعة ابن طهيل، المركب الجامعي، صب
-        </div>
+        <table class="signature-table">
+            <thead>
+                <tr>
+                    <th>Avis du Chef Service</th>
+                    <th>Avis du Chef d'établissement</th>
+                    <th>Avis du Président de l'Université</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+     </div>
     </div>
 </body>
 </html>

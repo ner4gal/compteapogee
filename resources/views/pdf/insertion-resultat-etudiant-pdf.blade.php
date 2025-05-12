@@ -14,8 +14,6 @@
             margin: 0;
             padding: 0;
             word-wrap: break-word;
-            position: relative;
-            min-height: 297mm;
         }
 
         .background {
@@ -29,22 +27,21 @@
 
         .content {
             position: relative;
-            padding: 35mm 20mm 100mm; /* Increased bottom padding for signature space */
+            padding: 35mm 20mm 20mm;
             z-index: 1;
         }
 
-        .title {
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .top-ref {
+            font-size: 10px;
+            text-align: left;
+            margin-bottom: 5px;
         }
 
-        .reference {
-            position: absolute;
-            top: 5mm;
-            left: 20mm;
-            z-index: 2;
+        .title {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
         }
 
         table {
@@ -54,40 +51,43 @@
 
         .info-table td {
             padding: 2px 0;
+            word-wrap: break-word;
         }
 
         p {
             margin: 3px 0;
+            word-wrap: break-word;
         }
 
-        .module-table th,
-        .module-table td {
+        .main-table th,
+        .main-table td {
             border: 1px solid black;
             padding: 5px;
             text-align: center;
+            word-wrap: break-word;
+        }
+
+        .main-table {
+            margin-top: 10px;
         }
 
         .reason-box {
             border: 1px solid black;
             padding: 5px;
             margin-top: 10px;
+            word-wrap: break-word;
             min-height: 40px;
         }
 
-        /* Signature container */
-        .signature-container {
-            position: absolute;
-            bottom: 25mm;
-            left: 20mm;
-            right: 20mm;
-            width: calc(100% - 40mm);
-            z-index: 1;
-        }
-
-        /* Signature table styles */
-        .signature-table1 {
+        .signature-table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 0px;
+        }
+
+        .signature-table th {
+            padding: 0px;
+            border: 1px solid black;
         }
 
         .signature-table1 th {
@@ -95,12 +95,42 @@
             border: 1px solid black;
         }
 
+        .signature-table td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 5px;
+            height: 80px;
+            word-wrap: break-word;
+        }
+
+        .signature-small {
+            font-size: 11px;
+            font-weight: normal;
+        }
+
+        .signature-table thead th {
+            padding: 0px 0px;
+            margin: 0%;
+            font-weight: bold;
+        }
+
+        .signature-table1 {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
         .signature-table1 td {
             border: 1px solid black;
             text-align: center;
-            padding: 10px;
+            padding: 5px;
             height: 80px;
             word-wrap: break-word;
+        }
+
+        .signature-small1 {
+            font-size: 11px;
+            font-weight: normal;
         }
 
         .signature-table1 thead th {
@@ -108,30 +138,40 @@
             margin: 0%;
             font-weight: bold;
         }
-
-        h3 {
-            margin: 10px 0 5px 0;
+        
+        .reference {
+            position: absolute;
+            top: 5mm;
+            left: 20mm;
+            z-index: 2;
+        }
+          .signature-container {
+            position: absolute;
+            bottom: 25mm;
+            left: 20mm;
+            right: 20mm;
+            width: calc(100% - 40mm);
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
-    <!-- Background image with logos & footer already in the PNG -->
     <img src="{{ public_path('images/background.png') }}" class="background">
-
-    <!-- Reference number in top left corner -->
     <div class="reference">réf : APOGEE-002</div>
-    <div class=""> &nbsp; &nbsp; </div>
-    
 
     <div class="content">
-        <div class="title">Demande d'insertion ou modification d'un résultat des années antérieures sur le système
-            APOGEE (Par Étudiant)</div>
+        <div class=""> &nbsp; &nbsp; </div>
+        
+        <div class="title">
+           Demande d'insertion ou modification d'un résultat des années antérieures sur le système
+            APOGEE (Par Étudiant)
+        </div>
 
         <table class="info-table">
             <tr>
-                <td><strong>Etablissement : {{ $data['etbl'] }} </strong></td>
-                <td style="text-align: right;"><strong>Date de la demande :{{ $data['dateDM'] }} </strong></td>
+                <td><strong>Etablissement :</strong> {{ $data['etbl'] }}</td>
+                <td style="text-align: right;"><strong>Date de la demande :</strong> {{ $data['dateDM'] }}</td>
             </tr>
         </table>
 
@@ -142,12 +182,16 @@
         <p><strong>Semestre :</strong> {{ $data['Semestre'] }}</p>
         <p><strong>Année universitaire concernée :</strong> {{ $data['AnneeCon'] }}</p>
         <p><strong>Nature de la demande :</strong> {{ $data['nrtDM'] }}</p>
+        
+        @if(isset($data['statut']))
+            <p><strong>Statut :</strong> {{ $data['statut'] }}</p>
+        @endif
 
-        <h3>Liste des Modules</h3>
-        <table class="module-table">
+        <h3 style="text-align: left; margin-top: 10px;">Liste des Modules</h3>
+        <table class="main-table">
             <thead>
                 <tr>
-                    <th>Nom du Module</th>
+                   <th>Nom du Module</th>
                     <th>Session</th>
                     <th>Note Initiale</th>
                     <th>Note Corrigée</th>
@@ -165,13 +209,11 @@
             </tbody>
         </table>
 
-        <p style="margin-top: 10px;"><strong>Raison du retard :</strong></p>
+        <p style="margin-top: 10px;"><strong>Raison du retard d’insertion de la note initiale ou de la correction des
+                notes :</strong></p>
         <div class="reason-box">
             {{ $data['raison'] }}
         </div>
-    </div>
-
-    <!-- Signature table positioned absolutely at the bottom -->
     <div class="signature-container">
         <table class="signature-table1">
             <thead>
@@ -191,6 +233,7 @@
                 </tr>
             </tbody>
         </table>
+     </div>
     </div>
 </body>
 </html>
