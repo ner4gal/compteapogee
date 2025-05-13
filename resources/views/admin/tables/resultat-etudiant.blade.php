@@ -6,14 +6,11 @@
         <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nom & Prénom</th>
-                    <th>Email</th>
+                    <th>Email De Demandeur</th>
+                    <th>Nom & Prénom Etudiant </th>
                     <th>Filière</th>
-                    <th>Module</th>
-                    <th>Note Initiale</th>
-                    <th>Note Corrigée</th>
-                    <th>Session</th>
+                    <th>Cycle</th>
+                    <th>Etablissement</th>
                     <th>Statut</th>
                     <th>Actions</th>
                 </tr>
@@ -21,14 +18,11 @@
             <tbody>
                 @foreach ($resultatEtudiantDemands as $demand)
                     <tr>
-                        <td>{{ $demand->id }}</td>
-                        <td>{{ $demand->nom_prenom }}</td>
                         <td>{{ $demand->user_email }}</td>
+                        <td>{{ $demand->NomPrenom }}</td>
                         <td>{{ $demand->filiere }}</td>
-                        <td>{{ $demand->module }}</td>
-                        <td>{{ $demand->note_initiale }}</td>
-                        <td>{{ $demand->note_corrigee }}</td>
-                        <td>{{ $demand->session }}</td>
+                        <td>{{ $demand->cycle }}</td>
+                        <td>{{ $demand->etablissement }}</td>
                         <td>
                             <span class="badge @if($demand->statut === 'Traité') bg-success @elseif($demand->statut === 'Rejeté') bg-danger @else bg-warning text-dark @endif">
                                 {{ $demand->statut ?? 'En attente' }}

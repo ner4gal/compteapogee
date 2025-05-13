@@ -99,4 +99,12 @@ class InscriptionAnneeAnterieureController extends Controller
               
     return $pdf->download('Demande_Inscription_Annee_Anterieure_Updated.pdf');
 }
+public function updateStatus(Request $request, $id)
+    {
+        $demand = InscAnneeAnterieure::findOrFail($id);
+        $demand->statut = $request->input('status');
+        $demand->save();
+
+        return redirect()->back()->with('success', 'Statut mis à jour avec succès.');
+    }
 }

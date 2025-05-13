@@ -82,7 +82,8 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
      ->name('inscription-annee-anterieure.show');
      Route::put('/inscription-annee-anterieure/{id}', [App\Http\Controllers\InscriptionAnneeAnterieureController::class, 'update'])
      ->name('inscription-annee-anterieure.update');
-
+    Route::put('/admin/inscription-annee-anterieure/{id}/update-status', [App\Http\Controllers\InscriptionAnneeAnterieureController::class, 'updateStatus'])
+     ->name('admin.inscription-annee-anterieure.update-status');
     // Insertion Resultat Module
     Route::get('/insertion-resultat-module', function () {
         return view('insertion-resultat-module-form');

@@ -24,7 +24,7 @@
                         <td>{{ optional($demand->date_demande)->format('d/m/Y') ?? '—' }}</td>
                         <td>{{ $demand->cycle }}</td>
                         <td>{{ $demand->filiere }}</td>
-                        <td>{{ $demand->AnneeCon }}</td>
+                        <td>{{ $demand->annee_universitaire }}</td>
                         <td>
                             <span class="badge @if($demand->statut === 'Traité') bg-success @elseif($demand->statut === 'Rejeté') bg-danger @else bg-warning text-dark @endif">
                                 {{ $demand->statut ?? 'En attente' }}
