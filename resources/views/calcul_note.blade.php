@@ -110,9 +110,9 @@
         <div class="mb-3">
           <label class="form-label">Année universitaire concernée</label>
           <select class="form-select" name="AnneeCon" required>
-            @for($year = date('Y')-5; $year <= date('Y'); $year++)
-              <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
-            @endfor
+            @for($year = 2015; $year <= 2023; $year++)
+                                <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
+                            @endfor
           </select>
         </div>
 
@@ -128,6 +128,7 @@
             </div>
           @endfor
         </div>
+        
 
         <div class="mb-3">
           <label class="form-label">La raison</label>
