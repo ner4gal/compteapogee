@@ -44,6 +44,8 @@ class ResultatEtudiantController extends Controller
         'user_name'       => $user->name,
         'etablissement'   => $request->etbl,
         'NomPrenom' => $request->NomPrenom,
+        'NumApogee' => $request->NumApogee,
+        'Semestre'        => $request->Semestre,
         'date_demande'    => $request->dateDM,
         'cycle'           => $request->typ,
         'filiere'         => $request->flr,
@@ -78,5 +80,59 @@ class ResultatEtudiantController extends Controller
         'Institut des Métiers de Sport'
     ];
     return view('insertion-resultat-etudiant.show', compact('demande', 'etablissements'));
+}
+public function update(Request $request, $id)
+{
+    // Get the authenticated user
+    $user = auth()->user();
+
+    // Find the existing record
+    $resultat = ResultatEtudiant::findOrFail($id);
+
+    // Update the record without validation
+    $resultat->update([
+        'user_id' => $user->id,
+        'user_email' => $user->email,
+        'user_name' => $user->name,
+        'etablissement' => $request->etbl,
+        'NomPrenom' => $request->NomPrenom,
+        'NumApogee' => $request->NumApogee,
+        'date_demande' => $request->dateDM,
+        'cycle' => $request->typ,
+        'filiere' => $request->flr,
+        'semestre' => $request->Semestre,
+        'nature_demande' => $request->nrtDM,
+        'annee_inscription' => $request->AnneeCon,
+        'raison_retard' => $request->raison,
+        'modules' => $request->modules,
+        'nom_demande' => "Demande d'insertion ou modification d'un résultat des années antérieures sur le système APOGEE (Par Étudiant)",
+        'statut' => $request->input('statut', 'En attente'),
+    ]);
+
+    // Prepare data for PDF
+    $pdfData = [
+        'etbl' => $request->etbl,
+        'dateDM' => $request->dateDM,
+        'NomPrenom' => $request->NomPrenom,
+        'NumApogee' => $request->NumApogee,
+        'typ' => $request->typ,
+        'flr' => $request->flr,
+        'Semestre' => $request->Semestre,
+        'AnneeCon' => $request->AnneeCon,
+        'nrtDM' => $request->nrtDM,
+        'raison' => $request->raison,
+        'modules' => $request->modules,
+        'user_name' => $user->name,
+        'user_email' => $user->email,
+    ];
+
+    // Debug: Check what data is being sent to the PDF view
+    // return response()->json($pdfData);
+
+    // Regenerate the PDF
+    $pdf = Pdf::loadView('pdf.insertion-resultat-etudiant-pdf', ['data' => $pdfData]);
+
+    // Return the updated PDF for download
+    return $pdf->download('insertion_resultat_etudiant_modifie.pdf');
 }
 }

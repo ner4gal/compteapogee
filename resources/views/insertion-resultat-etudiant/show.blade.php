@@ -67,6 +67,10 @@
         <label class="form-label">Nom & Prénom de l'étudiant</label>
         <input type="text" name="NomPrenom" class="form-control" value="{{ old('NomPrenom', $demande->NomPrenom) }}" required>
       </div>
+      <div class="mb-3">
+        <label class="form-label">Numéro d'Apogée </label>
+        <input type="text" name="NumApogee" class="form-control" value="{{ old('NumApogee', $demande->NumApogee) }}" required>
+      </div>
 
       <div class="mb-3">
         <label class="form-label">Cycle</label>
@@ -133,7 +137,7 @@
 
       <div class="mb-3">
         <label class="form-label">Raison du retard</label>
-        <textarea name="raso" rows="4" class="form-control" required>{{ old('raso', $demande->raison_retard) }}</textarea>
+        <textarea name="raison" rows="4" class="form-control" required>{{ old('raison', $demande->raison_retard) }}</textarea>
       </div>
 
       <div class="d-flex justify-content-between">
