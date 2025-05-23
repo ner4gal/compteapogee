@@ -163,24 +163,50 @@
       <!-- END APOGEE User Information Section -->
 
       <!-- Recent Requests Section -->
-      <div class="row">
-        <div class="block block-rounded">
-          <div class="block-content">
-            <h4 class="mb-3 text-center">Vos dernières demandes</h4>
-            
-            <!-- Administrative Registration Requests -->
-            <div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Inscription administrative</h3>
-  </div>
-  <div class="block-content">
-    @if($demandes->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
+<div class="row">
+  <div class="block block-rounded">
+    <div class="block-content">
+      <h4 class="mb-3 text-center">Vos dernières demandes</h4>
+      
+      <!-- Centered horizontal toggle buttons -->
+      <div class="text-center mb-3">
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <button class="btn btn-sm btn-alt-primary toggle-table active" data-target="#adminRegTable">
+            Inscription administrative
+          </button>
+          <button class="btn btn-sm btn-alt-primary toggle-table" data-target="#studentResultTable">
+            Résultat étudiant
+          </button>
+          <button class="btn btn-sm btn-alt-primary toggle-table" data-target="#moduleResultTable">
+            Résultat par module
+          </button>
+          <button class="btn btn-sm btn-alt-primary toggle-table" data-target="#gradeCalcTable">
+            Calcule des notes
+          </button>
+          <button class="btn btn-sm btn-alt-primary toggle-table" data-target="#doctoralRegTable">
+            Inscription Doc
+          </button>
+          <button class="btn btn-sm btn-alt-primary toggle-table" data-target="#cancelRegTable">
+            Annulation
+          </button>
+          <button class="btn btn-sm btn-alt-primary toggle-table" data-target="#gradeDeleteTable">
+            Suppression notes
+          </button>
+        </div>
       </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+      
+      <div class="tables-container">
+        <!-- Administrative Registration Requests -->
+        <div class="table-section show" id="adminRegTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandes->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                   <thead>
           <tr>
             <th>Demande</th>
             <th>Filière</th>
@@ -218,25 +244,23 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-            
-            <!-- Student Result Requests -->
-            
-<div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Résultat étudiant</h3>
-  </div>
-  <div class="block-content">
-    @if($demandesResultatEtudiant->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
-      </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+                </table>
+              @endif
+            </div>
+          </div>
+        </div>
+        
+        <!-- Student Result Requests -->
+        <div class="table-section" id="studentResultTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandesResultatEtudiant->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                  <thead>
           <tr>
             <th>Demande</th>
             <th>Etudiant</th>
@@ -274,25 +298,23 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-
-            
-            <!-- Module Result Requests -->
-            <div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Résultat par module</h3>
-  </div>
-  <div class="block-content">
-    @if($demandesReultatModul->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
-      </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+                </table>
+              @endif
+            </div>
+          </div>
+        </div>
+        
+        <!-- Module Result Requests -->
+        <div class="table-section" id="moduleResultTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandesReultatModul->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                  <thead>
           <tr>
             <th>Demande</th>
             <th>Module</th>
@@ -330,26 +352,23 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-
-
-            
-            <!-- Grade Calculation Requests -->
-            <div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Calcule des notes</h3>
-  </div>
-  <div class="block-content">
-    @if($demandescalcul->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
-      </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+                </table>
+              @endif
+            </div>
+          </div>
+        </div>
+        
+        <!-- Grade Calculation Requests -->
+        <div class="table-section" id="gradeCalcTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandescalcul->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                   <thead>
           <tr>
             <th>Demande</th>
             <th>Étudiant</th>
@@ -387,25 +406,23 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-
-
-            <!-- Doctoral Registration Requests -->
-            <div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Inscription administrative Doc</h3>
-  </div>
-  <div class="block-content">
-    @if($demandeInscDoc->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
-      </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+                </table>
+              @endif
+            </div>
+          </div>
+        </div>
+        
+        <!-- Doctoral Registration Requests -->
+        <div class="table-section" id="doctoralRegTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandeInscDoc->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                   <thead>
           <tr>
             <th>Demande</th>
             <th>Doctorant</th>
@@ -445,25 +462,23 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-
-            
-            <!-- Registration Cancellation Requests -->
-            <div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Annulation d'inscription</h3>
-  </div>
-  <div class="block-content">
-    @if($demandeAnluAnne->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
-      </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+                </table>
+              @endif
+            </div>
+          </div>
+        </div>
+        
+        <!-- Registration Cancellation Requests -->
+        <div class="table-section" id="cancelRegTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandeAnluAnne->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                   <thead>
           <tr>
             <th>Demande</th>
             <th>Filière</th>
@@ -502,27 +517,23 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-
-
-            
-            <!-- Grade Deletion Requests -->
-            <div class="block block-rounded">
-  <div class="block-header block-header-default">
-    <h3 class="block-title">Suppression des notes</h3>
-  </div>
-  <div class="block block-rounded">
-  <div class="block-content">
-    @if($demandeSupp->isEmpty())
-      <div class="alert alert-info text-center">
-        Aucune demande
-      </div>
-    @else
-      <table class="table table-vcenter">
-        <thead>
+                </table>
+              @endif
+            </div>
+          </div>
+        </div>
+        
+        <!-- Grade Deletion Requests -->
+        <div class="table-section" id="gradeDeleteTable">
+          <div class="block block-rounded">
+            <div class="block-content">
+              @if($demandeSupp->isEmpty())
+                <div class="alert alert-info text-center">
+                  Aucune demande
+                </div>
+              @else
+                <table class="table table-vcenter">
+                  <thead>
           <tr>
             <th>Demande</th>
             <th>Étudiant</th>
@@ -561,19 +572,67 @@
             </tr>
           @endforeach
         </tbody>
-      </table>
-    @endif
-  </div>
-</div>
-
-</div>
-
-            <!-- END Recent Requests Tables -->
+                </table>
+              @endif
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
       <!-- END Recent Requests Section -->
     </div>
   </div>
   <!-- END Main Page Content -->
+   <style>
+  .table-section {
+    display: none;
+  }
+  .table-section.show {
+    display: block;
+  }
+  .toggle-table.active {
+    background-color: #3498db;
+    color: white;
+  }
+  .tables-container {
+    position: relative;
+    min-height: 300px; /* Adjust based on your content */
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add click event to all toggle buttons
+  document.querySelectorAll('.toggle-table').forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      document.querySelectorAll('.toggle-table').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Add active class to clicked button
+      this.classList.add('active');
+      
+      // Hide all tables
+      document.querySelectorAll('.table-section').forEach(section => {
+        section.classList.remove('show');
+      });
+      
+      // Show the selected table
+      const target = this.getAttribute('data-target');
+      document.querySelector(target).classList.add('show');
+    });
+  });
+  
+  // Show the first table by default
+  const firstButton = document.querySelector('.toggle-table');
+  if (firstButton) {
+    firstButton.click();
+  }
+});
+</script>
 @endsection
