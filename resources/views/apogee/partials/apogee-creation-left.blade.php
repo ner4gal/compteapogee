@@ -12,6 +12,7 @@
     'ESEF' => "Ecole Supérieure de l'Education et de la Formation ",
     'IMS' => "Institut des Métiers de Sport",
     'PRES' => "Présidence de l'Université Ibn Tofail",
+    'CEDuit' => "CED de l'Université Ibn Tofail",
   ];
 @endphp
 

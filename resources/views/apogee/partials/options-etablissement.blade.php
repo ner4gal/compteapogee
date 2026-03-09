@@ -12,6 +12,7 @@
     "Ecole Supérieure de l'Education et de la Formation ",
     "Institut des Métiers de Sport",
     "Présidence de l'Université Ibn Tofail ",
+    "CED  Université Ibn Tofail ",
   ];
 @endphp
 

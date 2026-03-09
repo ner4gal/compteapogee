@@ -96,7 +96,7 @@
         <div class="mb-3">
           <label class="form-label">Date de la 1ère inscription</label>
           <select class="form-select" name="date1Ins" required>
-            @for($year = 2015; $year <= 2023; $year++)
+            @for($year = 2015; $year <= 2024; $year++)
               <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
             @endfor
           </select>
@@ -151,7 +151,7 @@
         <div class="mb-3">
           <label class="form-label">Année universitaire concernée</label>
           <select class="form-select" name="aneINS" required>
-            @for($year = 2015; $year <= 2023; $year++)
+            @for($year = 2020; $year <= 2024; $year++)
               <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
             @endfor
           </select>
@@ -165,6 +165,11 @@
               value="Nouvelle inscription">
             <label class="form-check-label" for="nouvelleInscription">Nouvelle inscription</label>
           </div>
+            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="nrtDM" id="modificationInscription"
+                                value="Réinscription">
+                            <label class="form-check-label" for="Réinscription">Réinscription</label>
+                        </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="nrtDM" id="modificationInscription"
               value="Modification d'une inscription">
