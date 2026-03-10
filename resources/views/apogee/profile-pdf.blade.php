@@ -138,7 +138,16 @@
     @endforeach
 
     <div class="section-title">Responsable APOGÉE</div>
-    @forelse($apogeeUser->responsable_apogee_access ?? [] as $access)
+    @php
+        $responsableAccess = $apogeeUser->responsable_apogee_access ?? [];
+
+        if (is_string($responsableAccess) && $responsableAccess !== '') {
+            $responsableAccess = [$responsableAccess];
+        } elseif (!is_array($responsableAccess)) {
+            $responsableAccess = [];
+        }
+    @endphp
+    @forelse($responsableAccess as $access)
         <span class="badge">{{ $access === 'T' ? 'T (Ouverture)' : 'A (Fermeture)' }}</span>
     @empty
         <span class="badge">Aucun</span>

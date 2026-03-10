@@ -44,6 +44,9 @@
                         <button class="btn btn-sm btn-alt-primary toggle-table" data-target="resultatModule">
                             Résultat Module
                         </button>
+                        <button class="btn btn-sm btn-alt-primary toggle-table" data-target="verrouillageCompteApogee">
+                            Verrouillage APOGEE
+                        </button>
                     </div>
                 </div>
 
@@ -72,6 +75,9 @@
                     </div>
                     <div id="resultatModule" class="table-section">
                         @include('admin.tables.insertion-resultat-module')
+                    </div>
+                    <div id="verrouillageCompteApogee" class="table-section">
+                        @include('admin.tables.verrouillage-compte-apogee')
                     </div>
                 </div>
             </div>

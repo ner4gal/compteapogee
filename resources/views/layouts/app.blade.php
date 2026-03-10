@@ -161,6 +161,12 @@
                                         <span class="nav-main-link-name ms-3">suppression des notes</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="nav-main-link" href="{{ route('verrouillage.compte.apogee.form') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Verrouillage compte APOGEE</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -263,6 +269,12 @@
                                     <a class="nav-main-link" href="{{ route('suppression.note.etudiant.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
                                         <span class="nav-main-link-name ms-3">suppression des notes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="nav-main-link" href="{{ route('verrouillage.compte.apogee.form') }}">
+                                        <i class="fa fa-file-word fa-2x text-muted"></i>
+                                        <span class="nav-main-link-name ms-3">Verrouillage compte APOGEE</span>
                                     </a>
                                 </li>
                             </ul>

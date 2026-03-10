@@ -19,7 +19,7 @@
     <!-- END Breadcrumb -->
 
     <!-- Quick Menu -->
-    <div class="row">
+    <div class="row g-4 mb-4">
       <div class="col-12 col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered block-link-shadow text-center" href="{{ route('home') }}">
         <div class="block-content">
@@ -51,12 +51,12 @@
     <h2 class="content-heading">
       <i class="fa fa-angle-right text-muted me-1"></i> Licence / Master
     </h2>
-    <div class="row">
+    <div class="row g-4 demands-grid">
 
       <div class="col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered" href="{{ route('insertion.module.form') }}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-tasks fa-2x text-muted"></i>
           </p>
@@ -72,8 +72,8 @@
       </div>
       <div class="col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered" href="{{route('insertion.resultat.etudiant')}}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-file-alt fa-2x text-muted"></i>
           </p>
@@ -88,8 +88,8 @@
       </div>
       <div class="col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered" href="{{ route('calcul.notes.show') }}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-calculator fa-2x text-muted"></i>
           </p>
@@ -100,8 +100,8 @@
       </div>
       <div class="col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered" href="{{ route('inscription-annee-anterieure') }}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-user-plus fa-2x text-muted"></i>
           </p>
@@ -112,8 +112,8 @@
       </div>
       <div class="col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered" href="{{ route('annulation.inscription.form') }}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-user-minus fa-2x text-muted"></i>
           </p>
@@ -124,12 +124,27 @@
       </div>
       <div class="col-md-6 col-xl-6">
       <a class="block block-rounded block-bordered" href="{{ route('suppression.note.etudiant.form') }}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-calculator fa-2x text-muted"></i>
           </p>
           <div class="fs-sm fw-semibold text-uppercase">suppression des notes</div>
+        </div>
+        </div>
+      </a>
+      </div>
+      <div class="col-md-6 col-xl-6">
+      <a class="block block-rounded block-bordered" href="{{ route('verrouillage.compte.apogee.form') }}">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
+          <p class="my-2">
+          <i class="fa fa-lock fa-2x text-muted"></i>
+          </p>
+          <div class="fs-sm fw-semibold text-uppercase">Verrouillage Compte APOGEE</div>
+          <p class="mt-3 text-muted fs-sm">
+          Demande de verrouillage d'un compte APOGEE avec les informations du demandeur préremplies.
+          </p>
         </div>
         </div>
       </a>
@@ -141,11 +156,11 @@
     <h2 class="content-heading">
       <i class="fa fa-angle-right text-muted me-1"></i> Doctorat
     </h2>
-    <div class="row">
+    <div class="row g-4 demands-grid">
       <div class="col-md-6 col-xl-12">
       <a class="block block-rounded block-bordered" href="{{ route('doctorat.inscription.show')  }}">
-        <div class="block-content p-2">
-        <div class="py-5 text-center bg-body-light rounded">
+        <div class="block-content p-2 h-100">
+        <div class="py-5 px-3 text-center bg-body-light rounded h-100 demand-card">
           <p class="my-2">
           <i class="fa fa-graduation-cap fa-2x text-muted"></i>
           </p>
@@ -162,4 +177,17 @@
     </div>
   </div>
   <!-- END Page Content -->
+  <style>
+    .demands-grid .block {
+      margin-bottom: 0;
+      height: 100%;
+    }
+
+    .demand-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 220px;
+    }
+  </style>
 @endsection

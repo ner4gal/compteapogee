@@ -47,7 +47,7 @@
       <div class="row">
         @if($apogeeUser)
           <div class="col-12">
-            <div class="block block-rounded block-bordered p-3">
+            <div class="block block-rounded block-bordered p-3" id="vos-informations-apogee">
               <h4 class="mb-3 text-center">Vos Informations APOGEE</h4>
               
               <!-- User Information Table -->
@@ -137,13 +137,19 @@
               </table>
               
               <!-- Action Buttons -->
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between gap-2 flex-wrap">
                 <a href="{{ route('apogee-user.pdf') }}" class="btn btn-outline-danger" target="_blank">
                   <i class="fa fa-file-pdf me-1"></i> Télécharger en PDF
                 </a>
+                <a href="{{ route('home') }}#vos-informations-apogee" class="btn btn-outline-secondary">
+                  <i class="fa fa-id-card me-1"></i> Vos Informations APOGEE
+                </a>
+                <a href="{{ route('verrouillage.compte.apogee.form') }}" class="btn btn-outline-warning">
+                  <i class="fa fa-lock me-1"></i> Verrouillage de compte APOGEE
+                </a>
                 <a href="{{ route('apogee.show', $apogeeUser->id) }}" class="btn btn-outline-primary">
-  <i class="fa fa-edit me-1"></i> Modifier mon profil
-</a>
+                  <i class="fa fa-edit me-1"></i> Modifier mon profil
+                </a>
               </div>
             </div>
           </div>
@@ -577,6 +583,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

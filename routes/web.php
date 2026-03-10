@@ -22,6 +22,8 @@ use App\Http\Controllers\SuppressionNoteEtudiantController;
 use App\Models\SuppressionNoteEtudiant;
 use App\Http\Middleware\CheckApogeeUser;
 use App\Models\ApogeeUser;
+use App\Models\VerrouillageCompteApogee;
+use App\Http\Controllers\VerrouillageCompteApogeeController;
 
 // =======================
 // PUBLIC ROUTES
@@ -67,7 +69,8 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
         $demandeInscDoc = DoctoratInscription::where('user_id', auth()->id())->latest()->get();
         $demandeAnluAnne = AnnulationInscription::where('user_id', auth()->id())->latest()->get();
         $demandeSupp = SuppressionNoteEtudiant::where('user_id', auth()->id())->latest()->get();
-        return view('home', compact('apogeeUser', 'demandes', 'demandesResultatEtudiant', 'demandesReultatModul', 'demandescalcul', 'demandeInscDoc', 'demandeAnluAnne', 'demandeSupp'));
+        $demandeVerrouillageCompteApogee = VerrouillageCompteApogee::where('user_id', auth()->id())->latest()->get();
+        return view('home', compact('apogeeUser', 'demandes', 'demandesResultatEtudiant', 'demandesReultatModul', 'demandescalcul', 'demandeInscDoc', 'demandeAnluAnne', 'demandeSupp', 'demandeVerrouillageCompteApogee'));
     })->name('home');
 
     // All other protected routes
@@ -156,6 +159,10 @@ Route::middleware(['auth', CheckApogeeUser::class])->group(function () {
         Route::put('/{id}', [SuppressionNoteEtudiantController::class, 'update'])->name('suppression.note.etudiant.update');
         Route::delete('/{id}', [SuppressionNoteEtudiantController::class, 'destroy'])->name('suppression.note.etudiant.destroy');
     });
+
+    // Verrouillage Compte APOGEE
+    Route::get('/demande-verrouillage-compte-apogee', [VerrouillageCompteApogeeController::class, 'showForm'])->name('verrouillage.compte.apogee.form');
+    Route::post('/demande-verrouillage-compte-apogee', [VerrouillageCompteApogeeController::class, 'store'])->name('verrouillage.compte.apogee.store');
 
     // Admin Dashboard (special case)
     Route::get('/admindashboard', function () {

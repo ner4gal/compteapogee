@@ -14,6 +14,7 @@ use App\Models\ResultatEtudiant;
 use App\Models\AnnulationInscription;
 use App\Models\SuppressionNoteEtudiant;
 use App\Models\ResulataModule;
+use App\Models\VerrouillageCompteApogee;
 
 
 class AdminDashboardController extends Controller
@@ -43,11 +44,13 @@ class AdminDashboardController extends Controller
         $suppressionNoteEtudiantDemands = SuppressionNoteEtudiant::all();
         // Retrieve all InsertionResultatModule demands 
         $insertionResultatModuleDemands = ResulataModule::all();
+        $verrouillageCompteApogeeDemands = VerrouillageCompteApogee::all();
 
         // Pass the data to the admin dashboard view
         return view('admindashboard', compact('users', 'doctoratDemands', 'calculNotesDemands',
             'inscAnneeAnterieureDemands', 'resultatEtudiantDemands', 'annulationInscriptionDemands',
-            'suppressionNoteEtudiantDemands', 'insertionResultatModuleDemands'));
+            'suppressionNoteEtudiantDemands', 'insertionResultatModuleDemands',
+            'verrouillageCompteApogeeDemands'));
     }
     // app/Http/Controllers/AdminDashboardController.php
 public function updateStatus(Request $request, $id)
