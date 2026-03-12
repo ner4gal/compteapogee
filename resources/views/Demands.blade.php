@@ -141,9 +141,9 @@
           <p class="my-2">
           <i class="fa fa-lock fa-2x text-muted"></i>
           </p>
-          <div class="fs-sm fw-semibold text-uppercase">Verrouillage Compte APOGEE</div>
+          <div class="fs-sm fw-semibold text-uppercase">Fermeture Definitive Compte APOGEE</div>
           <p class="mt-3 text-muted fs-sm">
-          Demande de verrouillage d'un compte APOGEE avec les informations du demandeur préremplies.
+          Demande de fermeture definitive d'un compte APOGEE avec les informations du demandeur preremplies.
           </p>
         </div>
         </div>

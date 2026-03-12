@@ -6,6 +6,7 @@ use App\Models\ApogeeUser;
 use App\Models\VerrouillageCompteApogee;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class VerrouillageCompteApogeeController extends Controller
 {
@@ -29,9 +30,9 @@ class VerrouillageCompteApogeeController extends Controller
         ]);
 
         $user = auth()->user();
-        $nomDemande = 'Demande de Verrouillage de compte APOGEE';
+        $nomDemande = 'Demande de fermeture definitive de compte APOGEE';
 
-        VerrouillageCompteApogee::create([
+        $payload = [
             'user_id' => $user->id,
             'user_email' => $user->email,
             'user_name' => $user->name,
@@ -42,9 +43,14 @@ class VerrouillageCompteApogeeController extends Controller
             'nom_prenom' => $validated['nom_prenom'],
             'username_apogee' => $validated['username_apogee'],
             'motif_verrouillage' => $validated['motif_verrouillage'],
-            'resultat_verrouillage' => $validated['motif_verrouillage'],
             'statut' => $request->input('statut', 'En attente'),
-        ]);
+        ];
+
+        if (Schema::hasColumn('verrouillage_compte_apogees', 'resultat_verrouillage')) {
+            $payload['resultat_verrouillage'] = $validated['motif_verrouillage'];
+        }
+
+        VerrouillageCompteApogee::create($payload);
 
         $data = $validated;
         $data['nom_demande'] = $nomDemande;

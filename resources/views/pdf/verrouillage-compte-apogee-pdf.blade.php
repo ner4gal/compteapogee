@@ -100,7 +100,7 @@
     <div class="content">
         <div>&nbsp; &nbsp;</div>
 
-        <div class="title">Demande de Verrouillage de compte APOGEE</div>
+        <div class="title">Demande de fermeture definitive de compte APOGEE</div>
 
         <table class="info-table">
             <tr>
@@ -113,7 +113,7 @@
         <p><strong>Nom & Prénom :</strong> {{ $data['nom_prenom'] }}</p>
         <p><strong>Username APOGEE :</strong> {{ $data['username_apogee'] }}</p>
 
-        <p style="margin-top: 10px;"><strong>Pourquoi vous avez besoin de verrouiller le compte :</strong></p>
+        <p style="margin-top: 10px;"><strong>Pourquoi vous avez besoin de fermer definitivement le compte :</strong></p>
         <div class="reason-box">
             {{ $data['motif_verrouillage'] }}
         </div>

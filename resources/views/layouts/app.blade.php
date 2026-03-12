@@ -164,7 +164,7 @@
                                 <li>
                                     <a class="nav-main-link" href="{{ route('verrouillage.compte.apogee.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Verrouillage compte APOGEE</span>
+                                        <span class="nav-main-link-name ms-3">Fermeture definitive compte APOGEE</span>
                                     </a>
                                 </li>
                             </ul>
@@ -274,7 +274,7 @@
                                 <li>
                                     <a class="nav-main-link" href="{{ route('verrouillage.compte.apogee.form') }}">
                                         <i class="fa fa-file-word fa-2x text-muted"></i>
-                                        <span class="nav-main-link-name ms-3">Verrouillage compte APOGEE</span>
+                                        <span class="nav-main-link-name ms-3">Fermeture definitive compte APOGEE</span>
                                     </a>
                                 </li>
                             </ul>

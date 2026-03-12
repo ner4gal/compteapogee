@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Demande de Verrouillage de compte APOGEE')
+@section('title', 'Demande de fermeture definitive de compte APOGEE')
 
 @section('content')
 <div class="bg-body-extra-light">
@@ -13,7 +13,7 @@
                 <li class="breadcrumb-item">
                     <a href="{{ route('Demands') }}">Demandes</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Verrouillage compte APOGEE</li>
+                <li class="breadcrumb-item active" aria-current="page">Fermeture definitive compte APOGEE</li>
             </ol>
         </nav>
 
@@ -42,7 +42,7 @@
 
         <h2 class="text-center mb-4">
             <i class="fa fa-lock me-2 text-muted"></i>
-            Demande de Verrouillage de compte APOGEE
+            Demande de fermeture definitive de compte APOGEE
         </h2>
 
         <form id="pdfForm" method="POST" action="{{ route('verrouillage.compte.apogee.store') }}">
@@ -104,7 +104,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Pourquoi vous avez besoin de verrouiller le compte</label>
+                <label class="form-label">Pourquoi vous avez besoin de fermer definitivement le compte</label>
                 <textarea
                     name="motif_verrouillage"
                     rows="5"

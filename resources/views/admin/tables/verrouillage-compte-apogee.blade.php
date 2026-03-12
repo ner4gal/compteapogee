@@ -1,6 +1,6 @@
 <div class="block block-rounded mt-4">
     <div class="block-header block-header-default">
-        <h3 class="block-title">Demandes de Verrouillage de compte APOGEE</h3>
+        <h3 class="block-title">Demandes de fermeture definitive de compte APOGEE</h3>
     </div>
     <div class="block-content block-content-full overflow-x-auto">
         <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
