@@ -124,7 +124,7 @@
                     <div class="mb-3">
                         <label class="form-label">Année universitaire concernée</label>
                         <select class="form-select" name="aneINS" required>
-                            @for($year = 2020; $year <= 2024; $year++)
+                            @for($year = 2022; $year <= 2026; $year++)
                                 <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
                             @endfor
                         </select>
