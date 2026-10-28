@@ -124,7 +124,7 @@
                     <div class="mb-3">
                         <label class="form-label">Année universitaire concernée</label>
                         <select class="form-select" name="aneINS" required>
-                            @for($year = 2020; $year <= 2024; $year++)
+                            @for($year = 2022; $year <= 2026; $year++)
                                 <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
                             @endfor
                         </select>
@@ -173,7 +173,7 @@
                         </div>
                         <p class="ms-3">Génération du PDF en cours...</p>
                     </div>
-                    <iframe id="pdfPreviewFrame" style="display: none; width: 100%; height: 600px; border: none;"></iframe>
+                    <iframe id="pdfPreviewFrame" class="d-none" style="width: 100%; height: 600px; border: none;" title="Aperçu du PDF"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -224,7 +224,14 @@
 
             // Show loading state
             document.getElementById('pdfLoading').style.display = 'flex';
-            document.getElementById('pdfPreviewFrame').style.display = 'none';
+            const previewFrame = document.getElementById('pdfPreviewFrame');
+            if (!previewFrame) {
+                console.error('PDF preview iframe #pdfPreviewFrame not found in the page (it may have been stripped by the server).');
+                document.getElementById('pdfLoading').innerHTML =
+                    '<div class="alert alert-danger">Erreur lors de la génération du PDF. Veuillez réessayer.</div>';
+                return;
+            }
+            previewFrame.classList.add('d-none');
 
             // Submit form data via AJAX
             const formData = new FormData(form);
@@ -250,7 +257,7 @@
                 // Hide loading and show PDF
                 document.getElementById('pdfLoading').style.display = 'none';
                 const pdfFrame = document.getElementById('pdfPreviewFrame');
-                pdfFrame.style.display = 'block';
+                pdfFrame.classList.remove('d-none');
                 pdfFrame.src = pdfUrl;
                 
                 // Set download link
