@@ -134,7 +134,7 @@
                     </div>
                     <p class="ms-3">Génération du PDF en cours...</p>
                 </div>
-                <iframe id="pdfPreviewFrame" style="display: none; width: 100%; height: 600px; border: none;"></iframe>
+                <iframe id="pdfPreviewFrame" class="d-none" style="width: 100%; height: 600px; border: none;" title="Aperçu du PDF"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -160,7 +160,14 @@ document.addEventListener("DOMContentLoaded", function () {
         previewModal.show();
 
         document.getElementById('pdfLoading').style.display = 'flex';
-        document.getElementById('pdfPreviewFrame').style.display = 'none';
+        const previewFrame = document.getElementById('pdfPreviewFrame');
+        if (!previewFrame) {
+            console.error('PDF preview iframe #pdfPreviewFrame not found in the page (it may have been stripped by the server).');
+            document.getElementById('pdfLoading').innerHTML =
+                '<div class="alert alert-danger">Erreur lors de la génération du PDF. Veuillez réessayer.</div>';
+            return;
+        }
+        previewFrame.classList.add('d-none');
 
         const formData = new FormData(form);
 
@@ -183,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const pdfFrame = document.getElementById('pdfPreviewFrame');
 
             document.getElementById('pdfLoading').style.display = 'none';
-            pdfFrame.style.display = 'block';
+            pdfFrame.classList.remove('d-none');
             pdfFrame.src = pdfUrl;
             document.getElementById('downloadPdfBtn').href = pdfUrl;
 
